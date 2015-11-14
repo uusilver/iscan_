@@ -12,6 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 public class ExceptionHandler implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
-        return new ModelAndView("404");
+        return new ModelAndView("error-404");
     }
 }
