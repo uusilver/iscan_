@@ -44,4 +44,9 @@ public class LoginController {
         }
         return "login";
     }
+
+    // Get Login user session
+    public static UserTo getLoginUser(HttpServletRequest req) {
+        return (UserTo) req.getSession().getAttribute("userInSession");
+    }
 }

@@ -56,6 +56,17 @@
 		<url-pattern>*.woff</url-pattern>
 	</servlet-mapping>
 
+	<!-- Login Filter -->
+	<filter>
+		<filter-name>login</filter-name>
+		<filter-class>com.tmind.iscan.filter.LoginFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>login</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
