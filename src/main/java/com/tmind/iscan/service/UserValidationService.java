@@ -2,6 +2,7 @@ package com.tmind.iscan.service;
 
 import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.util.HibernateUtil;
+import com.tmind.iscan.util.SecurityUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public class UserValidationService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
         q.setString("username",username);
-        q.setString("password",password);
+        q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
         List<UserEntity> list = q.list();
 
 //        用map来获得查询结果
