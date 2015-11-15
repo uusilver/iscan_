@@ -2,306 +2,306 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page session="false" %>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>用户登录注册-查查看</title>
-		<meta name="keywords" content="用户登录注册-查查看" />
-		<meta name="description" content="用户登录注册-查查看" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+	<meta charset="utf-8" />
+	<title>用户登录注册-查查看</title>
+	<meta name="keywords" content="用户登录注册-查查看" />
+	<meta name="description" content="用户登录注册-查查看" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- basic styles -->
+	<!-- basic styles -->
 
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
 
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
+	<!--[if IE 7]>
+	<link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+	<![endif]-->
 
-		<!-- page specific plugin styles -->
+	<!-- page specific plugin styles -->
 
-		<!-- fonts -->
+	<!-- fonts -->
 
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
-		<!-- ace styles -->
+	<!-- ace styles -->
 
-		<link rel="stylesheet" href="assets/css/ace.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="assets/css/ace.min.css" />
+	<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
 
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+	<!--[if lte IE 8]>
+	<link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+	<![endif]-->
 
-		<!-- inline styles related to this page -->
+	<!-- inline styles related to this page -->
 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
-		<!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		<![endif]-->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 
-	<body class="login-layout">
-		<div class="main-container">
-			<div class="main-content">
-				<div class="row">
-					<div class="col-sm-10 col-sm-offset-1">
-						<div class="login-container">
-							<div class="center">
-								<h1>
-									<i class="icon-qrcode white"></i>
-									<span class="red">查查看</span>
-									<span class="white">315CCK.COM</span>
-								</h1>
-								<h4 class="blue">&copy; 查查看信息技术有限公司</h4>
-							</div>
+<body class="login-layout">
+<div class="main-container">
+	<div class="main-content">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="login-container">
+					<div class="center">
+						<h1>
+							<i class="icon-qrcode white"></i>
+							<span class="red">查查看</span>
+							<span class="white">315CCK.COM</span>
+						</h1>
+						<h4 class="blue">&copy; 查查看信息技术有限公司</h4>
+					</div>
 
-							<div class="space-6"></div>
+					<div class="space-6"></div>
 
-							<div class="position-relative">
-								<div id="login-box" class="login-box visible widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header blue lighter bigger">
-												<i class="icon-coffee green"></i>
-												请输入你的用户名和密码
-											</h4>
+					<div class="position-relative">
+						<div id="login-box" class="login-box visible widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header blue lighter bigger">
+										<i class="icon-coffee green"></i>
+										请输入你的用户名和密码
+									</h4>
 
-											<div class="space-6"></div>
+									<div class="space-6"></div>
 
-											<form method="post" action="/login/real">
-												<fieldset>
-													<label class="block clearfix">
+									<form method="post" action="/login?weblogin">
+										<fieldset>
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="text" class="form-control" name="username" id="username" required="true" placeholder="用户名">
 															<i class="icon-user"></i>
 														</span>
-													</label>
+											</label>
 
-													<label class="block clearfix">
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="password" class="form-control" name="password" required="true" id="password" placeholder="密码">
 															<i class="icon-lock"></i>
 														</span>
-													</label>
+											</label>
 
-													<div class="space"></div>
+											<div class="space"></div>
 
-													<div class="clearfix">
-														<label class="inline">
-															<input type="checkbox" class="ace" />
-															<span class="lbl"> 记住我登录</span>
-														</label>
+											<div class="clearfix">
+												<label class="inline">
+													<input type="checkbox" class="ace" />
+													<span class="lbl"> 记住我登录</span>
+												</label>
 
-														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
-															<i class="icon-key"></i>
-															登陆
-														</button>
-													</div>
-
-													<div class="space-4"></div>
-												</fieldset>
-											</form>
-
-											<div class="social-or-login center">
-												<span class="bigger-110">其他登录方式</span>
+												<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+													<i class="icon-key"></i>
+													登陆
+												</button>
 											</div>
 
-											<div class="social-login center">
-												<a class="btn btn-primary">
-													<i class="icon-facebook"></i>
-												</a>
+											<div class="space-4"></div>
+										</fieldset>
+									</form>
 
-												<a class="btn btn-info">
-													<i class="icon-twitter"></i>
-												</a>
+									<div class="social-or-login center">
+										<span class="bigger-110">其他登录方式</span>
+									</div>
 
-												<a class="btn btn-danger">
-													<i class="icon-google-plus"></i>
-												</a>
-											</div>
-										</div><!-- /widget-main -->
+									<div class="social-login center">
+										<a class="btn btn-primary">
+											<i class="icon-facebook"></i>
+										</a>
 
-										<div class="toolbar clearfix">
-											<div>
-												<a href="#" onClick="show_box('forgot-box'); return false;" class="forgot-password-link">
-													<i class="icon-arrow-left"></i>
-													忘记密码
-												</a>
-											</div>
+										<a class="btn btn-info">
+											<i class="icon-twitter"></i>
+										</a>
 
-											<div>
-												<a href="#" onClick="show_box('signup-box'); return false;" class="user-signup-link">
-													注册用户名
-													<i class="icon-arrow-right"></i>
-												</a>
-											</div>
-										</div>
-									</div><!-- /widget-body -->
-								</div><!-- /login-box -->
+										<a class="btn btn-danger">
+											<i class="icon-google-plus"></i>
+										</a>
+									</div>
+								</div><!-- /widget-main -->
 
-								<div id="forgot-box" class="forgot-box widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header red lighter bigger">
-												<i class="icon-key"></i>
-												在线密码找回
-											</h4>
+								<div class="toolbar clearfix">
+									<div>
+										<a href="#" onClick="show_box('forgot-box'); return false;" class="forgot-password-link">
+											<i class="icon-arrow-left"></i>
+											忘记密码
+										</a>
+									</div>
 
-											<div class="space-6"></div>
-											<p>
-												请输入你的注册邮箱找回密码
-											</p>
+									<div>
+										<a href="#" onClick="show_box('signup-box'); return false;" class="user-signup-link">
+											注册用户名
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+							</div><!-- /widget-body -->
+						</div><!-- /login-box -->
 
-											<form>
-												<fieldset>
-													<label class="block clearfix">
+						<div id="forgot-box" class="forgot-box widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header red lighter bigger">
+										<i class="icon-key"></i>
+										在线密码找回
+									</h4>
+
+									<div class="space-6"></div>
+									<p>
+										请输入你的注册邮箱找回密码
+									</p>
+
+									<form>
+										<fieldset>
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="email" class="form-control" placeholder="Email" />
 															<i class="icon-envelope"></i>
 														</span>
-													</label>
+											</label>
 
-													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-															<i class="icon-lightbulb"></i>
-															发送找回!
-														</button>
-													</div>
-												</fieldset>
-											</form>
-										</div><!-- /widget-main -->
+											<div class="clearfix">
+												<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+													<i class="icon-lightbulb"></i>
+													发送找回!
+												</button>
+											</div>
+										</fieldset>
+									</form>
+								</div><!-- /widget-main -->
 
-										<div class="toolbar center">
-											<a href="#" onClick="show_box('login-box'); return false;" class="back-to-login-link">
-												返回登陆界面
-												<i class="icon-arrow-right"></i>
-											</a>
-										</div>
-									</div><!-- /widget-body -->
-								</div><!-- /forgot-box -->
+								<div class="toolbar center">
+									<a href="#" onClick="show_box('login-box'); return false;" class="back-to-login-link">
+										返回登陆界面
+										<i class="icon-arrow-right"></i>
+									</a>
+								</div>
+							</div><!-- /widget-body -->
+						</div><!-- /forgot-box -->
 
-								<div id="signup-box" class="signup-box widget-box no-border">
-									<div class="widget-body">
-										<div class="widget-main">
-											<h4 class="header green lighter bigger">
-												<i class="icon-group blue"></i>
-												新用户注册
-											</h4>
+						<div id="signup-box" class="signup-box widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header green lighter bigger">
+										<i class="icon-group blue"></i>
+										新用户注册
+									</h4>
 
-											<div class="space-6"></div>
-											<p> 注册开始 </p>
+									<div class="space-6"></div>
+									<p> 注册开始 </p>
 
-											<form>
-												<fieldset>
-													<label class="block clearfix">
+									<form>
+										<fieldset>
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="email" class="form-control" placeholder="邮箱" />
 															<i class="icon-envelope"></i>
 														</span>
-													</label>
+											</label>
 
-													<label class="block clearfix">
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="text" class="form-control" placeholder="用户名" />
 															<i class="icon-user"></i>
 														</span>
-													</label>
+											</label>
 
-													<label class="block clearfix">
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="password" class="form-control" placeholder="密码" />
 															<i class="icon-lock"></i>
 														</span>
-													</label>
+											</label>
 
-													<label class="block clearfix">
+											<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="password" class="form-control" placeholder="再次确认密码" />
 															<i class="icon-retweet"></i>
 														</span>
-													</label>
+											</label>
 
-													<label class="block">
-														<input type="checkbox" class="ace" />
+											<label class="block">
+												<input type="checkbox" class="ace" />
 														<span class="lbl">
 															我认同平台此项
 															<a href="#">服务条款</a>
 														</span>
-													</label>
+											</label>
 
-													<div class="space-24"></div>
+											<div class="space-24"></div>
 
-													<div class="clearfix">
-														<button type="reset" class="width-30 pull-left btn btn-sm">
-															<i class="icon-refresh"></i>
-															重写
-														</button>
+											<div class="clearfix">
+												<button type="reset" class="width-30 pull-left btn btn-sm">
+													<i class="icon-refresh"></i>
+													重写
+												</button>
 
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
-															注册
-															<i class="icon-arrow-right icon-on-right"></i>
-														</button>
-													</div>
-												</fieldset>
-											</form>
-										</div>
+												<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+													注册
+													<i class="icon-arrow-right icon-on-right"></i>
+												</button>
+											</div>
+										</fieldset>
+									</form>
+								</div>
 
-										<div class="toolbar center">
-											<a href="#" onClick="show_box('login-box'); return false;" class="back-to-login-link">
-												<i class="icon-arrow-left"></i>
-												返回登录界面
-											</a>
-										</div>
-									</div><!-- /widget-body -->
-								</div><!-- /signup-box -->
-							</div><!-- /position-relative -->
-						</div>
-					</div><!-- /.col -->
-				</div><!-- /.row -->
-			</div>
-		</div><!-- /.main-container -->
+								<div class="toolbar center">
+									<a href="#" onClick="show_box('login-box'); return false;" class="back-to-login-link">
+										<i class="icon-arrow-left"></i>
+										返回登录界面
+									</a>
+								</div>
+							</div><!-- /widget-body -->
+						</div><!-- /signup-box -->
+					</div><!-- /position-relative -->
+				</div>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div>
+</div><!-- /.main-container -->
 
-		<!-- basic scripts -->
+<!-- basic scripts -->
 
-		<!--[if !IE]> -->
+<!--[if !IE]> -->
 
 
 
-		<!-- <![endif]-->
+<!-- <![endif]-->
 
-		<!--[if IE]>
+<!--[if IE]>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <![endif]-->
 
-		<!--[if !IE]> -->
+<!--[if !IE]> -->
 
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
 <script type="text/javascript">
- window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+	window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+	window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
 
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
+<script type="text/javascript">
+	if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
 
-		<!-- inline scripts related to this page -->
+<!-- inline scripts related to this page -->
 
-		<script type="text/javascript">
-			function show_box(id) {
-			 jQuery('.widget-box.visible').removeClass('visible');
-			 jQuery('#'+id).addClass('visible');
-			}
-		</script>
-	
+<script type="text/javascript">
+	function show_box(id) {
+		jQuery('.widget-box.visible').removeClass('visible');
+		jQuery('#'+id).addClass('visible');
+	}
+</script>
+
 </body>
 </html>

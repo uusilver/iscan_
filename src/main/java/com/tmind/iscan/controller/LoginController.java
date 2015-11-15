@@ -1,11 +1,11 @@
 package com.tmind.iscan.controller;
 
-import com.sun.istack.internal.logging.Logger;
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.model.UserTo;
 import com.tmind.iscan.service.UserValidationService;
 import com.tmind.iscan.util.HibernateUtil;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
@@ -33,7 +33,7 @@ public class LoginController {
     @Resource(name = "userValService")
     private UserValidationService userValidation;
 
-    @RequestMapping("/real")
+    @RequestMapping(params = "weblogin")
     public String login(@ModelAttribute("user") UserTo userTo,
                         HttpServletRequest req, HttpServletResponse response) {
 
