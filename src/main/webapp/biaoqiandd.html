@@ -1,4 +1,5 @@
-﻿<%@ page language="java" pageEncoding="UTF-8"%>
+﻿<!DOCTYPE html>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page session="false" %>
 <html lang="en">
@@ -216,7 +217,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-wrench"></i>
-								<span class="menu-text"> 物料管理 </span>
+								<span class="menu-text" id="openItem"> 物料管理 </span>
 
 								<b class="arrow icon-angle-down"></b>							</a>
 
@@ -525,6 +526,7 @@
 
 		<script type="text/javascript">
 			jQuery(function($) {
+				$("#openItem").trigger('click');
 				$('.easy-pie-chart.percentage').each(function(){
 					var $box = $(this).closest('.infobox');
 					var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
@@ -718,6 +720,7 @@
 			
 			})
 		</script>
+
 </body>
 </html>
 

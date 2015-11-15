@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page session="false" %>
@@ -221,7 +222,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-wrench"></i>
-								<span class="menu-text"> 物料管理 </span>
+								<span class="menu-text" id="openItem"> 物料管理 </span>
 
 								<b class="arrow icon-angle-down"></b>							</a>
 
@@ -510,5 +511,11 @@
 		<script src="assets/js/ace.min.js"></script>
 
 		<!-- inline scripts related to this page -->
+			<script>
+				$(function(){
+					$("#openItem").trigger('click');
+				});
+			</script>
+	</div>
 </body>
 </html>
