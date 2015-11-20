@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>页面流程提示</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+   .STYLE1 {color: #FF0000}
+   </style>
+   <link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+     <script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
+ </head>
+ <body>
+  
+  <div class="container">
+ <p style="margin-top:-5px;">新建模板名称：<input type="text" value=""  name="data_1"  style="text-align: left; width: 150px;"/></p><p>复制其他模板风格：<span leipiplugins="select"><select name="data_2" title="复制模板" leipiplugins="select" size="1" orgwidth="150" style="width: 150px;"><option value="模板一">模板一</option><option value="模板二">模板二</option></select></span></p>
+ <p><span leipiplugins="select">标签参数：（<a href="#">点击新增加一行标签属性</a>）</span></p>
+ <p><span leipiplugins="select">1、</span>标签名称：<input type="text" value="生产时间"  name="data_3"  style="width: 150px;"/><input type="text" value="$time"  name="data_3"  style="width: 150px;"/><input type="text" value="2015-12-13"  name="data_4"  style="white-space: normal; width: 150px;"/></p><p><span leipiplugins="select">2、</span>标签名称：<input type="text" value="生产地址"  name="data_3"  style="width: 150px;"/><input type="text" value="$time"  name="data_5"  style="white-space: normal; width: 150px;"/><input type="text" value="无锡市南长区72号"  name="data_6"  style="white-space: normal; width: 150px;"/></p>
+<p>营销模板编辑：（<a href="#">点击新增加一个模板页</a>）</p>
+<div>防伪溯源营销首页
+<script type="text/plain" id="myEditor" style="width:800px;height:240px;">
+    <p>产品说明...</p>
+</script>
+	</div>
+	<div>新增模板子页1
+<script type="text/plain" id="myEditor2" style="width:800px;height:240px;">
+    <p>产品说明...</p>
+</script>
+	</div>
+	
+	<button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;"><a href = "#"  style="color:#FFFFFF; " >提交</a></button>
+  </div>
+<script type="text/javascript">
+    //实例化编辑器
+    var um = UM.getEditor('myEditor');
+    um.addListener('blur',function(){
+        $('#focush2').html('编辑器失去焦点了')
+    });
+    um.addListener('focus',function(){
+        $('#focush2').html('')
+    });
+    //按钮的操作
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        um.execCommand('insertHtml', value)
+    }
+    function isFocus(){
+        alert(um.isFocus())
+    }
+    function doBlur(){
+        um.blur()
+    }
+    function createEditor() {
+        enableBtn();
+        um = UM.getEditor('myEditor');
+    }
+    function getAllHtml() {
+        alert(UM.getEditor('myEditor').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UM.getEditor('myEditor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UM.getEditor('myEditor').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用umeditor')方法可以设置编辑器的内容");
+        UM.getEditor('myEditor').setContent('欢迎使用umeditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UM.getEditor('myEditor').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UM.getEditor('myEditor').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UM.getEditor('myEditor').selection.getRange();
+        range.select();
+        var txt = UM.getEditor('myEditor').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UM.getEditor('myEditor').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UM.getEditor('myEditor').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UM.getEditor('myEditor').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UM.getEditor('myEditor').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+</script>
+<script type="text/javascript">
+    //实例化编辑器
+    var um = UM.getEditor('myEditor2');
+    um.addListener('blur',function(){
+        $('#focush2').html('编辑器失去焦点了')
+    });
+    um.addListener('focus',function(){
+        $('#focush2').html('')
+    });
+    //按钮的操作
+    function insertHtml() {
+        var value = prompt('插入html代码', '');
+        um.execCommand('insertHtml', value)
+    }
+    function isFocus(){
+        alert(um.isFocus())
+    }
+    function doBlur(){
+        um.blur()
+    }
+    function createEditor() {
+        enableBtn();
+        um = UM.getEditor('myEditor2');
+    }
+    function getAllHtml() {
+        alert(UM.getEditor('myEditor2').getAllHtml())
+    }
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UM.getEditor('myEditor').getContent());
+        alert(arr.join("\n"));
+    }
+    function getPlainTxt() {
+        var arr = [];
+        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
+        arr.push("内容为：");
+        arr.push(UM.getEditor('myEditor2').getPlainTxt());
+        alert(arr.join('\n'))
+    }
+    function setContent(isAppendTo) {
+        var arr = [];
+        arr.push("使用editor.setContent('欢迎使用umeditor')方法可以设置编辑器的内容");
+        UM.getEditor('myEditor2').setContent('欢迎使用umeditor', isAppendTo);
+        alert(arr.join("\n"));
+    }
+    function setDisabled() {
+        UM.getEditor('myEditor2').setDisabled('fullscreen');
+        disableBtn("enable");
+    }
+
+    function setEnabled() {
+        UM.getEditor('myEditor2').setEnabled();
+        enableBtn();
+    }
+
+    function getText() {
+        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
+        var range = UM.getEditor('myEditor2').selection.getRange();
+        range.select();
+        var txt = UM.getEditor('myEditor2').selection.getText();
+        alert(txt)
+    }
+
+    function getContentTxt() {
+        var arr = [];
+        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
+        arr.push("编辑器的纯文本内容为：");
+        arr.push(UM.getEditor('myEditor2').getContentTxt());
+        alert(arr.join("\n"));
+    }
+    function hasContent() {
+        var arr = [];
+        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
+        arr.push("判断结果为：");
+        arr.push(UM.getEditor('myEditor2').hasContents());
+        alert(arr.join("\n"));
+    }
+    function setFocus() {
+        UM.getEditor('myEditor2').focus();
+    }
+    function deleteEditor() {
+        disableBtn();
+        UM.getEditor('myEditor2').destroy();
+    }
+    function disableBtn(str) {
+        var div = document.getElementById('btns');
+        var btns = domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            if (btn.id == str) {
+                domUtils.removeAttributes(btn, ["disabled"]);
+            } else {
+                btn.setAttribute("disabled", "true");
+            }
+        }
+    }
+    function enableBtn() {
+        var div = document.getElementById('btns');
+        var btns = domUtils.getElementsByTagName(div, "button");
+        for (var i = 0, btn; btn = btns[i++];) {
+            domUtils.removeAttributes(btn, ["disabled"]);
+        }
+    }
+</script>
+</body>
+</html>   

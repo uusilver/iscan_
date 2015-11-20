@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>企业信息管理</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+	.left{ float:left;}
+	.control-group{ clear:both;}
+   .STYLE1 {color: #FF0000}
+   </style>
+ </head>
+ <body>
+  
+  <div class="container">
+  
+  <form class="form-horizontal">
+    <fieldset>
+      
+    
+
+    
+
+    
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label  class="label label-success left" for="input01">公司全称
+</label>
+          <div class="controls" >
+            <input name="text" type="text" class="input-xlarge" placeholder="公司名称" style="width:500px">
+<span class="STYLE1">*</span>请填写公司营业执照正本公司名称
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label  class="label label-success left" for="input01">公司地址</label>
+          <div class="controls">
+            <input type="text" placeholder="地址" class="input-xlarge" style="width:500px">
+          <span class="STYLE1">*</span> 请填写公司实际办公地址
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label  class="label label-success left" for="input01">公司主页</label>
+          <div class="controls">
+            <input type="text" placeholder="网址" class="input-xlarge" style="width:500px">
+            <span class="STYLE1">*</span>请填写网站地址
+          </div>
+        </div>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="control-group">
+
+          <!-- Textarea -->
+          <label class="label label-success left">企业简介</label>
+          <div class="controls">
+            <div class="textarea">
+              <textarea name="textarea" class=""  style="margin: 0px; height: 75px; width: 470px;" type=""> </textarea>
+              <p class="help-block">仅限填写250字。</p>
+            </div>
+          </div>
+        </div>
+<div style=" width:auto; display:block; height:80px;clear:both;"></div>
+<p class="help-block"><span class="STYLE1">*</span>请上传对应清晰资质图片，2M以内，建议用JPG\PNG；</p>
+    <div class="control-group">
+          <label class="label label-success left">营业执照副本</label>
+
+          <!-- File Upload -->
+          <div class="controls">
+            <input class="input-file" id="fileInput" type="file">
+          </div>
+        </div>
+
+    
+
+    <div class="control-group">
+          <label class="label label-success left">其他资质文件</label>
+
+          <!-- File Upload -->
+          <div class="controls">
+            <input class="input-file" id="fileInput" type="file">
+          </div>
+		    
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+		  <p class="help-block"><span class="STYLE1">*</span>支持三个关键字，每个不超过8字符，以空格分隔，最好和企业主营范围相关。如：电子商务 服装 春装</p>
+          <label class="label label-danger left" for="input01">公司关键词</label>
+          <div class="controls">
+            <input type="text" placeholder="关键词" class="input-xlarge" style="width:480px">
+            
+          </div>
+    </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="label label-danger left"  for="input01">电子邮件</label>
+          <div class="controls">
+            <input type="text" placeholder="邮箱" class="input-xlarge">
+          </div>
+        </div>
+
+    <div class="control-group">
+
+          <!-- Text input-->
+          <label class="label label-danger left"  for="input01">联系电话</label>
+          <div class="controls">
+            <input type="text" placeholder="手机" class="input-xlarge">
+          </div>
+        </div>
+<p class="help-block"><span class="STYLE1">*</span>您可以上传企业厂房或办公环境等有助于体现企业实力的照片。简介图片将用于企业空间。尺寸：200px*150px；大小：小于300K；格式：jpg、png</p>
+    <div class="control-group">
+          <label class="label label-info left">企业简介图片</label>
+
+          <!-- File Upload -->
+          <div class="controls">
+            <input class="input-file" id="fileInput" type="file">
+          </div>
+		  
+        </div>
+
+    <div class="control-group">
+          <label class="label label-warning">提交资料后，需要经过1-2个工作日审核后，方能生效。再次修改需要联系代理商或管理员。</label>
+
+          <!-- Button -->
+          <div style="clear:both; margin-top:10px;">
+           <button class="button button-primary" type="button">提交审核</button>
+          </div>
+        </div>
+		<br/><br/><br/>
+
+    </fieldset>
+  </form>
+  </div>
+
+</body>
+</html>   

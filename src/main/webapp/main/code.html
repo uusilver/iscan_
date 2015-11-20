@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>查查看-会员欢迎页</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+   </style>
+   <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+ </head>
+<script src='js/ichart.latest.min.js'></script>
+<script type='text/javascript'>
+$(function(){
+      var chart = iChart.create({
+            render:"ichart-render",
+            width:1003,
+            height:400,
+            background_color:"#fefefe",
+            gradient:false,
+            color_factor:0.2,
+            border:{
+                  color:"#e6e6e6",
+                  width:1
+            },
+            align:"center",
+            offsetx:0,
+            offsety:0,
+            sub_option:{
+                  border:{
+                        color:"#BCBCBC",
+                        width:1
+                  },
+                  label:{
+                        fontweight:500,
+                        fontsize:11,
+                        color:"#4572a7",
+                        sign:"square",
+                        sign_size:12,
+                        border:{
+                              color:"#BCBCBC",
+                              width:1
+                        },
+                        background_color:"#fefefe"
+                  }
+            },
+            shadow:true,
+            shadow_color:"#666666",
+            shadow_blur:2,
+            showpercent:false,
+            column_width:"70%",
+            bar_height:"70%",
+            radius:"90%",
+            title:{
+                  text:"全国流量访问前10名地区",
+                  color:"#111111",
+                  fontsize:20,
+                  font:"微软雅黑",
+                  textAlign:"center",
+                  height:30,
+                  offsetx:0,
+                  offsety:0
+            },
+            subtitle:{
+                  text:"",
+                  color:"#111111",
+                  fontsize:16,
+                  font:"微软雅黑",
+                  textAlign:"center",
+                  height:20,
+                  offsetx:0,
+                  offsety:0
+            },
+            footnote:{
+                  text:"查查看信息技术支持",
+                  color:"#111111",
+                  fontsize:12,
+                  font:"微软雅黑",
+                  textAlign:"right",
+                  height:20,
+                  offsetx:0,
+                  offsety:0
+            },
+            legend:{
+                  enable:false,
+                  background_color:"#fefefe",
+                  color:"#333333",
+                  fontsize:12,
+                  border:{
+                        color:"#BCBCBC",
+                        width:1
+                  },
+                  column:1,
+                  align:"right",
+                  valign:"center",
+                  offsetx:0,
+                  offsety:0
+            },
+            coordinate:{
+                  width:"80%",
+                  height:"84%",
+                  background_color:"#ffffff",
+                  axis:{
+                        color:"#a5acb8",
+                        width:[1,"",1,""]
+                  },
+                  grid_color:"#d9d9d9",
+                  label:{
+                        fontweight:500,
+                        color:"#666666",
+                        fontsize:11
+                  }
+            },
+            label:{
+                  fontweight:500,
+                  color:"#666666",
+                  fontsize:11
+            },
+            type:"column2d",
+            data:[
+                  {
+                  name:"北京",
+                  value:20,
+                  color:"#4572a7"
+            },{
+                  name:"上海",
+                  value:30,
+                  color:"#aa4643"
+            },{
+                  name:"广东",
+                  value:40,
+                  color:"#89a54e"
+            },{
+                  name:"江苏",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"湖北",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"河南",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"山东",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"安徽",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"四川",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"山西",
+                  value:10,
+                  color:"#4572a7"
+            }
+            ]
+      });
+      chart.draw();
+});
+</script>
+ <body>
+  
+    
+    <div class="container">
+     
+    
+    <div>
+    <div class="welinfo">
+    <span><img src="images/sun.png" alt="天气" /></span>
+    <b>Admin早上好，查查看品牌营销-防伪溯源系统 (v1.0),这里为你提供更更全面的品牌营销-防伪溯源信息管理.&nbsp;站内短消息：服务器于2015年9月1日安全维护.<a href="#">查看详情</a> </b>
+    </div>
+    
+    <div class="welinfo">
+    <span><img src="images/time.png" alt="时间" /></span>
+    <i>系统统计：当前账户余额：500元。总计生成品牌码数10,0000枚，总计扫码数500次。（异常品牌码数：5个）</i>
+    </div>
+    
+    <div class="xline"></div>
+    
+    
+    
+   
+    
+    <div class="xline"></div>
+    <div class="box"></div>
+    
+    
+    <ul class="iconlist">
+    
+    <li><img src="images/ico01.png" /><p><a href="#">账号管理</a></p></li>
+	    <li><img src="images/d06.png" /><p><a href="#">账号充值</a></p></li> 
+    <li><img src="images/ico02.png" /><p><a href="#">发布产品</a></p></li>
+	    <li><img src="images/ico05.png" /><p><a href="#">批次管理</a></p></li>
+    <li><img src="images/ico03.png" /><p><a href="#">品牌监控</a></p></li>
+
+            
+    </ul>
+    <div class="xline"></div>
+  
+    <div id='ichart-render' style=" float:left; margin-top:10px; clear:both;"></div>
+
+    <div class="uimakerinfo" style="clear:both;"><b>查看会员平台使用指南，您可以了解到以下相关信息</b></div>
+    
+    <ul class="umlist">
+    <li><a href="#">如何发布产品</a></li>
+    <li><a href="#">如何如何充值</a></li>
+    <li><a href="#">如何生成品牌码</a></li>
+    <li><a href="#">如何建立批次</a></li>
+    <li><a href="#">品牌码的作用</a></li>
+    </ul>
+    
+    
+    </div>
+     
+    </div>
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+  <script type="text/javascript" src="../assets/js/config-min.js"></script>
+  <script type="text/javascript">
+    BUI.use('common/page');
+  </script>
+  <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      prettyPrint();
+    });
+  </script>  
+
+</body>
+</html>   
