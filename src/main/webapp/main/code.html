@@ -1,4 +1,7 @@
 <!DOCTYPE HTML>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="false" %>
 <html>
  <head>
   <title>查查看-会员欢迎页</title>
@@ -7,6 +10,7 @@
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
    <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+     <script src="js/jquery.js"></script>
    <style type="text/css">
     code {
       padding: 0px 4px;
@@ -182,7 +186,7 @@ $(function(){
     <div>
     <div class="welinfo">
     <span><img src="images/sun.png" alt="天气" /></span>
-    <b>Admin早上好，查查看品牌营销-防伪溯源系统 (v1.0),这里为你提供更更全面的品牌营销-防伪溯源信息管理.&nbsp;站内短消息：服务器于2015年9月1日安全维护.<a href="#">查看详情</a> </b>
+    <b><span id="systemMsg"></span><a href="#">查看详情</a></b>
     </div>
     
     <div class="welinfo">
@@ -239,6 +243,14 @@ $(function(){
   <script type="text/javascript">
     $(function () {
       prettyPrint();
+        $.ajax({
+            type: "GET",
+            url: "../mainController/getSystemInfo",
+            dataType: "text",
+            success: function(data){
+               $("#systemMsg").append(data);
+            }
+        })
     });
   </script>  
 

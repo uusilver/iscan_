@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <!-- 将来开启二级缓存-->
+
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/iscan</property>
         <property name="hibernate.connection.username">root</property>
@@ -12,7 +12,11 @@
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
+        <!-- 将来开启二级缓存-->
+        <property name="hibernate.cache.use_second_level_cache">false</property>
         <mapping class="com.tmind.iscan.entity.UserEntity" />
+        <mapping class="com.tmind.iscan.entity.System_meta_Info" />
+
 
     </session-factory>
 </hibernate-configuration>

@@ -17,6 +17,7 @@ public class ExceptionHandler implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) {
         log.error(e.getMessage());
+        System.out.println(e.getMessage());
         return new ModelAndView("error-404");
     }
 }
