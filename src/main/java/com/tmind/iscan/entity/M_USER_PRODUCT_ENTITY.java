@@ -20,6 +20,15 @@ public class M_USER_PRODUCT_ENTITY {
     private String product_desc;
     @Column(name="user_id")
     private Integer user_id;
+    @Column(name="product_id")
+    private String product_id;
+    @Column(name="relate_batch")
+    private String relate_batch;
+    @Column(name="qrcode_total_no")
+    private Integer qrcode_total_no;
+    @Column(name="update_time")
+    private String update_time;
+
 
     public Integer getId() {
         return Id;
@@ -59,5 +68,37 @@ public class M_USER_PRODUCT_ENTITY {
 
     public void setUser_id(Integer user_id) {
         this.user_id = user_id;
+    }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
+    public String getRelate_batch() {
+        return relate_batch;
+    }
+
+    public void setRelate_batch(String relate_batch) {
+        this.relate_batch = relate_batch;
+    }
+
+    public Integer getQrcode_total_no() {
+        return qrcode_total_no;
+    }
+
+    public void setQrcode_total_no(Integer qrcode_total_no) {
+        this.qrcode_total_no = qrcode_total_no;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
     }
 }

@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by lijunying on 15/11/20.
  */
+@SuppressWarnings("ALL")
 @Service("loadSysInfo")
 public class LoadSystemInfoService {
 
@@ -22,10 +23,10 @@ public class LoadSystemInfoService {
 
     public String loadSysInfo(){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createSQLQuery("select * from System_meta_table").addEntity(System_meta_Info.class);
+        Query q = session.createQuery("from System_meta_Info");
         List<System_meta_Info> list = q.list();
         log.info("读取系统信息成功");
-
+        session.close();
         return list.get(0).getSystem_message();
     }
 }
