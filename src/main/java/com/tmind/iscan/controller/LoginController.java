@@ -38,7 +38,9 @@ public class LoginController {
                         HttpServletRequest req, HttpServletResponse response) {
 
         log.info("当前登陆:"+userTo.toString());
-        if (userValidation.findUserInDatabase(userTo.getUsername(), userTo.getPassword())) {
+        Integer userId = userValidation.findUserInDatabase(userTo.getUsername(), userTo.getPassword());
+        if (userId>0) {
+                userTo.setUserId(userId);
                 req.getSession().setAttribute("userInSession", userTo);
                 return "index";
         }

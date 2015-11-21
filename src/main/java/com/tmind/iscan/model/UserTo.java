@@ -4,6 +4,8 @@ package com.tmind.iscan.model;
  * Created by lijunying on 15/11/14.
  */
 public class UserTo {
+
+    private Integer userId;
     private String username;
     private String password;
 
@@ -21,6 +23,14 @@ public class UserTo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     @Override

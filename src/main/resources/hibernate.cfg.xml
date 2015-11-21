@@ -6,8 +6,9 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/iscan</property>
-        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.url">
+            <![CDATA[jdbc:mysql://localhost:3306/iscan?useUnicode=true&characterEncoding=utf8]]>
+        </property>        <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">1234</property>
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -16,6 +17,7 @@
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <mapping class="com.tmind.iscan.entity.UserEntity" />
         <mapping class="com.tmind.iscan.entity.System_meta_Info" />
+        <mapping class="com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY" />
 
 
     </session-factory>

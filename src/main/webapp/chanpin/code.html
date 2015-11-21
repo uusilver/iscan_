@@ -91,56 +91,56 @@ BORDER-RIGHT: #eee 1px solid; BORDER-TOP: #eee 1px solid;
 	<div style="width:200px;display:block; margin:0px auto;">
 	<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'" style="font-size:14px; text-decoration:none;">关闭本窗口</a>
 	</div>
+        <form id="createPro" name="createPro" method="post" action="../userOpt/createProduct">
 	<table width="100%" style="border:1px solid #CCCCCC;">
   <tr>
       <!--弹出框代码-->
     <td width="154" style="text-align:center;border:1px solid #CCCCCC; ">产品名称</td>
-    <td width="430"><form id="form1" name="form1" method="post" action="">
+    <td width="430">
       <label>
-      <input type="text" name="textfield"  style="width:790px;"/>
+      <input type="text" name="product_name"  id="product_name" style="width:790px;"/>
         </label>
-    </form>
+
     </td>
   </tr>
   <tr>
     <td style="text-align:center;border:1px solid #CCCCCC; ">产品分类</td>
-    <td><form id="form2" name="form2" method="post" action="" >
+    <td>
       <label>
-        <select name="select" size="1">
+        <select name="product_category" size="1" id="product_category">
           <option>分类1</option>
           <option>分类2</option>
         </select>
         </label>
-    </form>
     </td>
   </tr>
-  <tr>
-    <td style="text-align:center;border:1px solid #CCCCCC; ">产品缩略图</td>
-    <td>
-          <select id="type" name="type" onChange="javascript:changeType(this);">
-            <option value="1" selected="selected">本地</option>
-            <option value="2">远程</option>
-          </select>
 
-          <input type="file" id="imgFile" name="imgFile" style="width:220px;" />
-          <input type="text" id="url" name="url" value="http://" maxlength="255" style="width:220px;display:none;" />
-       </td>
-  </tr>
+        <!-- 产品缩略图，下一阶段再开放 -->
+  <!--<tr>-->
+    <!--<td style="text-align:center;border:1px solid #CCCCCC; ">产品缩略图</td>-->
+    <!--<td>-->
+          <!--<select id="type" name="type" onChange="javascript:changeType(this);">-->
+            <!--<option value="1" selected="selected">本地</option>-->
+            <!--<option value="2">远程</option>-->
+          <!--</select>-->
+
+          <!--<input type="file" id="imgFile" name="imgFile" style="width:220px;" />-->
+          <!--<input type="text" id="url" name="url" value="http://" maxlength="255" style="width:220px;display:none;" />-->
+       <!--</td>-->
+  <!--</tr>-->
   
   <tr>
     <td style="text-align:center;border:1px solid #CCCCCC; ">产品说明</td>
-    <td><script type="text/plain" id="myEditor" style="width:800px;height:240px;">
-    <p>产品说明...</p>
-</script></td>
+    <td><input type="text" name="product_desc"  id="product_desc" style="width:490px;"/>
+    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td> <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">
-	<a href="../chanpin/success1.html" style="color:#FFFFFF;">提交</a></button>
+    <td> <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">提交</button>
 	</td>
   </tr>
 </table>
-	
+        </form>
 	</div> 
         <div id="fade" class="black_overlay"></div>
 		<!--编辑弹出层添加产品 -->

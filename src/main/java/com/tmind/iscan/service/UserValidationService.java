@@ -18,7 +18,7 @@ public class UserValidationService {
 
     Logger log = Logger.getLogger(UserValidationService.class);
 
-    public boolean findUserInDatabase(String username, String password){
+    public Integer findUserInDatabase(String username, String password){
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
@@ -33,9 +33,9 @@ public class UserValidationService {
 //        log.info("------++++"+String.valueOf(map.get("username")));
 
         if (list.size()==1) {
-            return true;
+            return list.get(0).getId();
         }else{
-            return false;
+            return 0;
         }
     }
 }
