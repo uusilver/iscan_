@@ -4,12 +4,23 @@
 <%@ page session="false" %>
 <html>
  <head>
-  <title>产品内容管理</title>
+  <title>编辑页</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
        <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
    <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+  <link href="../main/css/jquery.dataTables.css" type="text/css" rel="stylesheet">
+
+
+     <link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+     <script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
+     <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+     <script type="text/javascript" src="../js/data.table.translation.js"></script>
+
    <style type="text/css">
     code {
       padding: 0px 4px;
@@ -17,7 +28,8 @@
       background-color: #f7f7f9;
       border: 1px solid #e1e1e8;
     }
-	/* CSS 代码 */ 
+   .STYLE1 {color: #FF0000}
+   /* CSS 代码 */ 
 	.black_overlay{ 
             display: none; 
             position: absolute; 
@@ -44,76 +56,13 @@
             z-index:1002; 
             overflow: auto; 
         } 
-DIV.digg { 
-PADDING-RIGHT: 3px;PADDING-BOTTOM: 3px;
-PADDING-TOP: 3px; TEXT-ALIGN: center; margin-top:0px;
- display:block; float:left; 
-} 
-DIV.digg A { 
-BORDER-RIGHT: #aaaadd 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #aaaadd 1px solid;
- PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; MARGIN: 2px; 
-BORDER-LEFT: #aaaadd 1px solid; COLOR: #000099; PADDING-TOP: 2px;
- BORDER-BOTTOM: #aaaadd 1px solid; TEXT-DECORATION: none 
-} 
-DIV.digg A:hover { 
-BORDER-RIGHT: #000099 1px solid; BORDER-TOP: #000099 1px solid;
- BORDER-LEFT: #000099 1px solid; COLOR: #000; BORDER-BOTTOM: #000099 1px solid 
-} 
-DIV.digg A:active { 
-BORDER-RIGHT: #000099 1px solid; BORDER-TOP: #000099 1px solid;
- BORDER-LEFT: #000099 1px solid; COLOR: #000; BORDER-BOTTOM: #000099 1px solid 
-} 
-DIV.digg SPAN.current { 
-BORDER-RIGHT: #000099 1px solid; PADDING-RIGHT: 5px;
- BORDER-TOP: #000099 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold;
- PADDING-BOTTOM: 2px; MARGIN: 2px; BORDER-LEFT: #000099 1px solid;
- COLOR: #fff; PADDING-TOP: 2px; BORDER-BOTTOM: #000099 1px solid; BACKGROUND-COLOR: #000099 
-} 
-DIV.digg SPAN.disabled { 
-BORDER-RIGHT: #eee 1px solid; BORDER-TOP: #eee 1px solid;
- PADDING-LEFT: 0px; PADDING-BOTTOM: 2px;
- BORDER-LEFT: #eee 1px solid; COLOR: #ddd; PADDING-TOP: 2px;
- BORDER-BOTTOM: #eee 1px solid 
-} 
-
    </style>
-     <link href="../main/css/jquery.dataTables.css" type="text/css" rel="stylesheet">
-     <link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-     <script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.min.js"></script>
-    <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
-     <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
-     <script type="text/javascript" src="../js/data.table.translation.js"></script>
-<script type="text/javascript">
-function open_win() 
-{
-window.open("bianji.html")
-}
-</script>
-<script type="text/javascript">
-function open_win2() 
-{
-window.open("bianji2.html")
-}
-</script>
-<script type="text/javascript">
-function open_win3() 
-{
-window.open("bianji3.html")
-}
-</script>
-
  </head>
-
  <body>
   
   <div class="container">
   
-    <div id="light" class="white_content">
-	<div style="width:200px;display:block; margin:0px auto;">
-	<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'" style="font-size:14px; text-decoration:none;">关闭本窗口</a>
-	</div>
+  
         <form id="createPro" name="createPro" method="post" action="../userOpt/createProduct">
 	<table width="100%" style="border:1px solid #CCCCCC;">
   <tr>
@@ -166,34 +115,7 @@ window.open("bianji3.html")
         </form>
 	</div> 
         <div id="fade" class="black_overlay"></div>
-		<!--编辑弹出层添加产品 -->
-		 
-		  <button type="submit" class="button button-primary" style="margin-bottom:10px;"><a href = "javascript:void(0)"  style="color:#FFFFFF;" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">添加产品</a></button>
-  <div class="table-responsive">
-   <table id="tb" class="display">
-      
-      <thead>
-         <tr>
-            <th>编号</th>
-			<th>产品ID</th>
-            <th>产品名称</th>
-            <th>产品所属分类</th>
-			 <th>关联批次库（最新）</th>
-            <th>品牌码生成总数</th>
-            <th>更新时间</th>
-            <th>操作</th>
-         </tr>
-      </thead>
-      <tbody>
-      </tbody>
-   </table>
-</div>
-<button value="Open Window" onclick="open_win()" >产品编辑</button>
 
-<button value="Open Window" onclick="open_win2()" >增加批次编辑</button>
-
-<button value="Open Window" onclick="open_win3()" >生成品牌码编辑</button>
-</div>
 
 <script type="text/javascript">
     //实例化编辑器
@@ -350,4 +272,4 @@ window.open("bianji3.html")
       }
   </script>
 </body>
-</html> 
+</html>   

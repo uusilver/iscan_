@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="false" %>
+<html>
+ <head>
+  <title>编辑页</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+  <link href="../main/css/jquery.dataTables.css" type="text/css" rel="stylesheet">
+
+
+     <link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+     <script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
+     <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+     <script type="text/javascript" src="../js/data.table.translation.js"></script>
+
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+   .STYLE1 {color: #FF0000}
+   /* CSS 代码 */ 
+	.black_overlay{ 
+            display: none; 
+            position: absolute; 
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: black; 
+            z-index:1001; 
+            -moz-opacity: 0.8; 
+            opacity:.80; 
+            filter: alpha(opacity=88); 
+        } 
+        .white_content { 
+            display: none; 
+            position: absolute; 
+            top: 2%; 
+            left: 3%; 
+            width: 90%; 
+            height: 85%; 
+            padding: 20px; 
+            border: 10px solid #999; 
+            background-color: white; 
+            z-index:1002; 
+            overflow: auto; 
+        } 
+   </style>
+ </head>
+ <body>
+  
+   <div class="container">
+  
+    <div class="row">
+      <div class="span10">
+        <div class="tips tips-large tips-success">
+          <span class="x-icon x-icon-success"><i class="icon icon-ok icon-white"></i></span>
+          <div class="tips-content">
+            <h2>成功信息</h2>
+            <p class="auxiliary-text">
+              你可以继续操作以下内容：
+            </p>
+            <p>
+              1、<span class="STYLE1">当前操作：建立产品批次及品牌码数量</span>（备注：此项操作需要账号品牌码余额充足，如用户名下没有余额请先充值操作。）<br/><br/>
+            <table width="451" style="border:1px solid #CCCCCC;">
+  <tr style="border:1px solid #CCCCCC;">
+    <td width="129" style="border:1px solid #CCCCCC; text-align:center;">产品名称</td>
+    <td width="306">洋河蓝色经典-天之蓝老款380ML</td>
+  </tr>
+  <tr style="border:1px solid #CCCCCC;">
+    <td style="border:1px solid #CCCCCC;text-align:center;">产品ID</td>
+    <td>YANGHE1001</td>
+  </tr>
+  <tr style="border:1px solid #CCCCCC;">
+    <td style="border:1px solid #CCCCCC;text-align:center;">产品批次号</td>
+    <td>  <label>
+        <input name="textfield" type="text" value="">
+        </label></td>
+  </tr>
+  <tr style="border:1px solid #CCCCCC;">
+    <td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>
+    <td>
+      <label>
+        <input name="textfield" type="text" value="">
+        </label>
+    
+    </td>
+  </tr>
+  <tr style="border:1px solid #CCCCCC;">
+    <td style="border:1px solid #CCCCCC;text-align:center;">操作</td>
+    <td> <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">
+	<a href="../chanpin/success2.html" style="color:#FFFFFF;">提交</a></button></td>
+  </tr>
+</table>
+
+			  <br/>
+              <a class="page-action" data-type="setTitle" title="账户充值余额/兑换品牌码额度" href="../zhanghao/code.html">2、账户充值余额/兑换品牌码额度</a>（备注：此项操作用户成功充值之后，请进入产品内容管理栏目，进行对应产品“增加批次”操作，继续批次品牌码生成操作。）<br/><br/>
+              <a class="page-action" data-type="setTitle" title="返回产品内容管理页" href="../chanpin/code.html">3、返回产品内容管理页</a><br/><br/>
+            </p>
+          </div>
+        </div>
+      </div> 
+    </div>
+	
+	
+	
+  </div>
+
+</body>
+</html>   

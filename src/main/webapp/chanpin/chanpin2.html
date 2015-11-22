@@ -3,105 +3,103 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page session="false" %>
 <html>
-<head>
-    <title>产品分类管理</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css"/>
-    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css"/>
-    <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
-    <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="../js/jquery.js"></script>
-    <style type="text/css">
-        code {
-            padding: 0px 4px;
-            color: #d14;
-            background-color: #f7f7f9;
-            border: 1px solid #e1e1e8;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
+ <head>
+  <title>产品分类管理</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+   </style>
+ </head>
+ <body>
+  
+  <div class="container">
+    
     <div class="main-content">
+					
 
+					<div class="page-content">
 
-        <div class="page-content">
-
-            <div>
-                <form role="form" method="post" action="../categoryController/createCategory">
-                    <div class="form-group">
-                        <label for="name">栏目名称</label>
-                        <input name="category_name" id="category_name" type="text" class="form-control" placeholder="输入分类名">
-                        <!--<select name="select" class="form-control">-->
-                            <!--<option>添加顶级分类</option>-->
-                            <!--<option>添加下级分类在栏目1</option>-->
-                            <!--<option>添加下级分类在栏目2</option>-->
-                            <!--<option>添加下级分类在栏目3</option>-->
-                            <!--<option>添加下级分类在栏目4</option>-->
-                        <!--</select>-->
-                    </div>
-                    <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">
-                        添加分类
-                    </button>
-                </form>
-                <!-- /.table-responsive -->
-            </div>
-            <!-- /span -->
-
-            <div class="panel-group" id="accordion">
-
-
-
-                <!-- /.row -->
-            </div>
-            <button type="submit" class="button button-primary" id="deleteCategories" style="margin-top:10px;">提交删除</button>
-            <!-- /.page-content -->
-        </div>
-        <!-- /.main-content -->
-
-
+									<div>
+										<form role="form">
+   <div class="form-group">
+    <label for="name">栏目名称</label>
+        <input name="text" type="text" class="form-control" placeholder="文本输入">
+        <select name="select" class="form-control">
+          <option>添加顶级分类</option>
+          <option>添加下级分类在栏目1</option>
+          <option>添加下级分类在栏目2</option>
+          <option>添加下级分类在栏目3</option>
+          <option>添加下级分类在栏目4</option>
+        </select>
+   </div>
+    <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">添加分类</button>
+</form><!-- /.table-responsive -->
+									</div><!-- /span -->
+							
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+	   <label>
+      <input type="checkbox">
+      </label> 
+        <a data-toggle="collapse" data-parent="#accordion" 
+          href="#collapseOne">
+        +顶级栏目1 
+        </a>
+      </h4>
     </div>
-    <!-- /#ace-settings-container -->
-</div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+       <label>
+      <input type="checkbox"> 
+      栏目1子栏目1-1</label>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+	  <label>
+      <input type="checkbox">
+      </label> 
+        <a data-toggle="collapse" data-parent="#accordion" 
+          href="#collapseTwo">
+           +顶级栏目2
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+	  <label>
+      <input type="checkbox">
+      </label> 
+        栏目2子栏目2-1
+      </div>
+    </div>
+  </div>
+  	  <button type="submit" class="button button-primary" style="margin-top:10px;">提交删除</button>
+<!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
 
-</div>
-<script>
-    $(function(){
-        $.get("../categoryController/queryCategory", function (data){
-                var jsonData = JSON.parse(data);
-                var html = '';
-                for(var i=0;i<jsonData.length; i++){
-                html += "<div class='panel panel-default'>";
-                    html +=     "<div class='panel-heading'>"
-                    html +=    "<h4 class='panel-title'>"
-                    html +=    "<label>"
-                    html +=    "<input type='checkbox' id='categoryIds' value="+jsonData[i].Id+">"
-                    html +=    "</label>"
-                    html +=    "<a data-toggle='collapse' data-parent='#accordion' href='#collapseOne'>"+jsonData[i].category_name+"</a></h4></div></div>";
-                }
-                $("#accordion").html(html);
-        });//end of ajax
+				
 
-        $("#deleteCategories").on('click',function(){
-            if(confirm("确认删除吗?")){
-                var ready4DeleteIds = '';
-                $("input[type=checkbox]").each(function(){
-                    if(this.checked){
-                        ready4DeleteIds += $(this).val()+",";
-                    }
-                });
-                $.get("../categoryController/deleteCategory/"+ready4DeleteIds,function(data){
-                    if(data="success"){
-                        window.location.reload();
-                    }
-                })
-            }
-        })
-    });
-</script>
+					
+				</div><!-- /#ace-settings-container -->
+			</div>
+
+  </div>
+  
 
 </body>
 </html>  
