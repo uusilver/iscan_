@@ -18,6 +18,7 @@
         <mapping class="com.tmind.iscan.entity.UserEntity" />
         <mapping class="com.tmind.iscan.entity.System_meta_Info" />
         <mapping class="com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY" />
+        <mapping class="com.tmind.iscan.entity.M_USER_CATEGORY_ENTITY" />
 
 
     </session-factory>

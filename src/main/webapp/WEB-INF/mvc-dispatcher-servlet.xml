@@ -29,7 +29,7 @@
         <property name="suffix" value=".html"/>
     </bean>
 
-    <bean id="exceptionResolver" class="com.tmind.iscan.exception.ExceptionHandler"/>
+    <!--<bean id="exceptionResolver" class="com.tmind.iscan.exception.ExceptionHandler"/>-->
 
 
 

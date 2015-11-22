@@ -34,7 +34,7 @@ public class UserOptController {
         product.setUser_id(user.getUserId());
         product.setProduct_id(strLize(UUID.randomUUID()));
         product.setQrcode_total_no(0);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         product.setUpdate_time(sdf.format(new Date()));
         userOptService.createUserProducet(product);
         System.out.println("新产品创建成功");
@@ -66,15 +66,21 @@ public class UserOptController {
         List<String[]> lst = new ArrayList<String[]>();
         List<M_USER_PRODUCT_ENTITY> productList = userOptService.queryProductInfo(LoginController.getLoginUser(req).getUserId());
         for (int i = 0; i < productList.size(); i++) {
+            String relatedBatch = null;
+            if(productList.get(i).getRelate_batch()==null||("null").equalsIgnoreCase(productList.get(i).getRelate_batch())){
+                relatedBatch = "<button class=\"addBatch\">添加批次号</button>";
+            }else{
+                relatedBatch = strLize(productList.get(i).getRelate_batch());
+            }
             String[] d = {
                            strLize(productList.get(i).getId()),
                            strLize(productList.get(i).getProduct_id()),
                            strLize(productList.get(i).getProduct_name()),
                            strLize(productList.get(i).getProduct_category()),
-                           strLize(productList.get(i).getRelate_batch()),
+                           relatedBatch,
                            strLize(productList.get(i).getQrcode_total_no()),
                            strLize(productList.get(i).getUpdate_time()),
-                           "<button class=\"edit\">编辑</a> <button class=\"qrcode\">生成品牌码</a>  <button class=\"delete\">删除</a>"
+                           "<button class=\"edit\">编辑</button> <button class=\"qrcode\">生成品牌码</button>  <button class=\"delete\">删除</button>"
                          };
 
             lst.add(d);
@@ -94,6 +100,16 @@ public class UserOptController {
             e.printStackTrace();
         }
         return getObj.toString();
+    }
+
+    @RequestMapping(value = "/deleteProduct/{productId}", method = RequestMethod.GET)
+    public @ResponseBody String deleteProduct(@PathVariable String productId,HttpServletRequest req){
+        if(userOptService.deleteProduct(LoginController.getLoginUser(req).getUserId(),productId)){
+            return "success";
+        }else{
+            return "failed";
+        }
+
     }
 
     private String strLize(Object obj){
