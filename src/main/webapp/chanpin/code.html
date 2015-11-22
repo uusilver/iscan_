@@ -188,10 +188,11 @@
             </table>
         </form>
     </div>
+
     <div id="fade" class="black_overlay"></div>
     <!--编辑弹出层添加产品 -->
 
-    <button type="submit" class="button button-primary" style="margin-bottom:10px;"><a href="javascript:void(0)"
+    <button type="button" class="button button-primary" style="margin-bottom:10px;"><a href="javascript:void(0)"
                                                                                        style="color:#FFFFFF;"
                                                                                        onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">添加产品</a>
     </button>
@@ -274,6 +275,8 @@
         $('.addBatch').on('click', function () {
             alert("删除");
         });
+
+
     });
     function retrieveData(sSource111, aoData111, fnCallback111) {
         $.ajax({
