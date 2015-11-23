@@ -69,7 +69,7 @@ public class UserOptController {
         for (int i = 0; i < productList.size(); i++) {
             String relatedBatch = null;
             if(productList.get(i).getRelate_batch()==null||("null").equalsIgnoreCase(productList.get(i).getRelate_batch())){
-                relatedBatch = "<button class=\"addBatch\">添加批次号</button>";
+                relatedBatch = "0<button class=\"addBatch\">添加批次号</button>";
             }else{
                 relatedBatch = strLize(productList.get(i).getRelate_batch());
             }

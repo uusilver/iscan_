@@ -246,6 +246,18 @@
         $("#tb_filter").hide();
 
         //bind click functions
+        $('.addBatch').on('click', function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+            if(batch_no.startsWith("0")){
+                var pWin = window.open('bianji2.html?'+productId+'?new','_self');
+            }else{
+                var pWin = window.open('bianji2.html?'+productId,'_self');
+            }
+
+        });
+
+        //bind click functions
         $('.edit').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
             var pWin = window.open('bianji.html?'+productId,'_self');
@@ -254,7 +266,14 @@
 
         //bind click functions
         $('.qrcode').on('click', function () {
-            alert("二维码");
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+            if(batch_no.startsWith("0")){
+                alert("批次号为空，请创建批次号！");
+            }else{
+                var pWin = window.open('bianji3.html?'+productId,'_self');
+            }
+
         });
 
         //bind click functions
@@ -271,10 +290,7 @@
 
         });
 
-        //bind click functions
-        $('.addBatch').on('click', function () {
-            alert("删除");
-        });
+
     });
     function retrieveData(sSource111, aoData111, fnCallback111) {
         $.ajax({
