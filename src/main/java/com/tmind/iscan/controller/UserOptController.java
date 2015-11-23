@@ -1,5 +1,6 @@
 package com.tmind.iscan.controller;
 
+import com.google.gson.Gson;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.model.UserTo;
 import com.tmind.iscan.service.UserOptService;
@@ -110,6 +111,26 @@ public class UserOptController {
             return "failed";
         }
 
+    }
+
+    @RequestMapping(value = "/queryProductById/{productId}", method = RequestMethod.GET)
+    public @ResponseBody String queryProductById(@PathVariable String productId,HttpServletRequest req){
+        M_USER_PRODUCT_ENTITY m = userOptService.queryProductInfoById(LoginController.getLoginUser(req).getUserId(),productId);
+        return new Gson().toJson(m);
+    }
+
+    @RequestMapping(value="/updateProductById", method = RequestMethod.POST)
+    public  @ResponseBody String updateProductById(M_USER_PRODUCT_ENTITY productEntityFake, HttpServletRequest req){
+        M_USER_PRODUCT_ENTITY realProductEntity = userOptService.queryProductInfoById(LoginController.getLoginUser(req).getUserId(),productEntityFake.getProduct_id());
+        realProductEntity.setProduct_name(productEntityFake.getProduct_name());
+        realProductEntity.setProduct_category(productEntityFake.getProduct_category());
+        realProductEntity.setProduct_desc(productEntityFake.getProduct_desc());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        realProductEntity.setUpdate_time(sdf.format(new Date()));
+        if (userOptService.updateProductById(realProductEntity))
+            return "success";
+        else
+            return "failed";
     }
 
     private String strLize(Object obj){

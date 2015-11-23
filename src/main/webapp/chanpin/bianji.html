@@ -18,8 +18,6 @@
     <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="../umeditor/umeditor.min.js"></script>
     <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
-     <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
-     <script type="text/javascript" src="../js/data.table.translation.js"></script>
 
    <style type="text/css">
     code {
@@ -63,7 +61,7 @@
   <div class="container">
   
   
-        <form id="createPro" name="createPro" method="post" action="../userOpt/createProduct">
+        <form id="createPro" name="createPro" method="post" action="../createProduct">
 	<table width="100%" style="border:1px solid #CCCCCC;">
   <tr>
       <!--弹出框代码-->
@@ -80,27 +78,11 @@
     <td>
       <label>
         <select name="product_category" size="1" id="product_category">
-          <option>分类1</option>
-          <option>分类2</option>
         </select>
         </label>
     </td>
   </tr>
 
-        <!-- 产品缩略图，下一阶段再开放 -->
-  <!--<tr>-->
-    <!--<td style="text-align:center;border:1px solid #CCCCCC; ">产品缩略图</td>-->
-    <!--<td>-->
-          <!--<select id="type" name="type" onChange="javascript:changeType(this);">-->
-            <!--<option value="1" selected="selected">本地</option>-->
-            <!--<option value="2">远程</option>-->
-          <!--</select>-->
-
-          <!--<input type="file" id="imgFile" name="imgFile" style="width:220px;" />-->
-          <!--<input type="text" id="url" name="url" value="http://" maxlength="255" style="width:220px;display:none;" />-->
-       <!--</td>-->
-  <!--</tr>-->
-  
   <tr>
     <td style="text-align:center;border:1px solid #CCCCCC; ">产品说明</td>
     <td><input type="text" name="product_desc"  id="product_desc" style="width:490px;"/>
@@ -108,8 +90,10 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td> <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">提交</button>
+    <td> <button id="updateProduct" type="button" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">提交</button>
+         <button id="backTo" type="button" class="button button-warning" style=" margin-top:10px;margin-bottom:10px;">返回</button>
 	</td>
+
   </tr>
 </table>
         </form>
@@ -117,159 +101,60 @@
         <div id="fade" class="black_overlay"></div>
 
 
-<script type="text/javascript">
-    //实例化编辑器
-    var um = UM.getEditor('myEditor');
-    um.addListener('blur',function(){
-        $('#focush2').html('编辑器失去焦点了')
-    });
-    um.addListener('focus',function(){
-        $('#focush2').html('')
-    });
-    //按钮的操作
-    function insertHtml() {
-        var value = prompt('插入html代码', '');
-        um.execCommand('insertHtml', value)
-    }
-    function isFocus(){
-        alert(um.isFocus())
-    }
-    function doBlur(){
-        um.blur()
-    }
-    function createEditor() {
-        enableBtn();
-        um = UM.getEditor('myEditor');
-    }
-    function getAllHtml() {
-        alert(UM.getEditor('myEditor').getAllHtml())
-    }
-    function getContent() {
-        var arr = [];
-        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
-        arr.push("内容为：");
-        arr.push(UM.getEditor('myEditor').getContent());
-        alert(arr.join("\n"));
-    }
-    function getPlainTxt() {
-        var arr = [];
-        arr.push("使用editor.getPlainTxt()方法可以获得编辑器的带格式的纯文本内容");
-        arr.push("内容为：");
-        arr.push(UM.getEditor('myEditor').getPlainTxt());
-        alert(arr.join('\n'))
-    }
-    function setContent(isAppendTo) {
-        var arr = [];
-        arr.push("使用editor.setContent('欢迎使用umeditor')方法可以设置编辑器的内容");
-        UM.getEditor('myEditor').setContent('欢迎使用umeditor', isAppendTo);
-        alert(arr.join("\n"));
-    }
-    function setDisabled() {
-        UM.getEditor('myEditor').setDisabled('fullscreen');
-        disableBtn("enable");
-    }
-
-    function setEnabled() {
-        UM.getEditor('myEditor').setEnabled();
-        enableBtn();
-    }
-
-    function getText() {
-        //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
-        var range = UM.getEditor('myEditor').selection.getRange();
-        range.select();
-        var txt = UM.getEditor('myEditor').selection.getText();
-        alert(txt)
-    }
-
-    function getContentTxt() {
-        var arr = [];
-        arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
-        arr.push("编辑器的纯文本内容为：");
-        arr.push(UM.getEditor('myEditor').getContentTxt());
-        alert(arr.join("\n"));
-    }
-    function hasContent() {
-        var arr = [];
-        arr.push("使用editor.hasContents()方法判断编辑器里是否有内容");
-        arr.push("判断结果为：");
-        arr.push(UM.getEditor('myEditor').hasContents());
-        alert(arr.join("\n"));
-    }
-    function setFocus() {
-        UM.getEditor('myEditor').focus();
-    }
-    function deleteEditor() {
-        disableBtn();
-        UM.getEditor('myEditor').destroy();
-    }
-    function disableBtn(str) {
-        var div = document.getElementById('btns');
-        var btns = domUtils.getElementsByTagName(div, "button");
-        for (var i = 0, btn; btn = btns[i++];) {
-            if (btn.id == str) {
-                domUtils.removeAttributes(btn, ["disabled"]);
-            } else {
-                btn.setAttribute("disabled", "true");
+<script>
+    $(function(){
+        var id;
+        //加载dropdownlist
+        $.get("../categoryController/queryCategory", function (data){
+            var jsonData = JSON.parse(data);
+            var html = '';
+            for(var i=0;i<jsonData.length; i++){
+                html += "<option>"+jsonData[i].category_name+"</option>";
             }
-        }
-    }
-    function enableBtn() {
-        var div = document.getElementById('btns');
-        var btns = domUtils.getElementsByTagName(div, "button");
-        for (var i = 0, btn; btn = btns[i++];) {
-            domUtils.removeAttributes(btn, ["disabled"]);
-        }
-    }
+            $("#product_category").html(html);
+        });//end of ajax
+        //初始化页面
+        var prodcutId = window.location.href.split("?")[1];
+        $.get("../userOpt/queryProductById/"+prodcutId, function(data) {
+            var jsonData = JSON.parse(data);
+            $("#product_name").val(jsonData.product_name);
+            $("#product_desc").val(jsonData.product_desc);
+            id = jsonData.Id;
+        });
+
+
+        $("#updateProduct").click(function(){
+            //更新操作
+            var productName = $("#product_name").val();
+            var productDesc = $("#product_desc").val();
+            var category = $("#product_category").find("option:selected").text();
+            $.ajax({
+                url:'../userOpt/updateProductById',
+                type:"post",
+                data:{
+                    Id:id,
+                    product_id:prodcutId,
+                    product_name:productName,
+                    product_category:category,
+                    product_desc:productDesc
+                },
+                success:function(data) {
+                    if (data == "success") {
+                        window.history.back();
+                    }
+                    else {
+                        alert("保存失败");
+                    }
+                }
+            })
+
+        })
+
+        $("#backTo").click(function(){
+            window.history.back();
+        })
+    });
 </script>
-  <script>
-      $(function(){
-          $("#tb").dataTable({
-              "bProcessing": false, // 是否显示取数据时的那个等待提示
-              "bServerSide": true,//这个用来指明是通过服务端来取数据
-              "sAjaxSource": "../userOpt/queryProductData",//这个是请求的地址
-              "fnServerData": retrieveData, // 获取数据的处理函数
-              "columnDefs": [
-                  {
-                      "targets": [ 0 ], //隐藏第六列，从第0列开始
-                      "visible": false
-                  }
-              ]
-          });
 
-          $("#tb_length").hide();
-          $("#tb_filter").hide();
-
-          //bind click functions
-          $('.edit').on('click', function () {
-              alert($(this).html())
-          });
-
-          //bind click functions
-          $('.qrcode').on('click', function () {
-              alert("二维码");
-          });
-
-          //bind click functions
-          $('.delete').on('click', function () {
-              alert("删除");
-          });
-
-      });
-      function retrieveData( sSource111,aoData111, fnCallback111) {
-          $.ajax({
-              url : sSource111,//这个就是请求地址对应sAjaxSource
-              data : {"aoData":JSON.stringify(aoData111)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
-              type : 'post',
-              dataType : 'json',
-              async : false,
-              success : function(result) {
-                  fnCallback111(result);//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的
-              },
-              error : function(msg) {
-              }
-          });
-      }
-  </script>
 </body>
 </html>   
