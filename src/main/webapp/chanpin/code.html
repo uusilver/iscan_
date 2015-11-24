@@ -135,7 +135,7 @@
                onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'"
                style="font-size:14px; text-decoration:none;">关闭本窗口</a>
         </div>
-        <form id="createPro" name="createPro" method="post" action="../userOpt/createProduct">
+        <form id="createPro" name="createPro" method="post" action="../chanpin/createProduct">
             <table width="100%" style="border:1px solid #CCCCCC;">
                 <tr>
                     <!--弹出框代码-->
@@ -232,7 +232,7 @@
         $("#tb").dataTable({
             "bProcessing": false, // 是否显示取数据时的那个等待提示
             "bServerSide": true,//这个用来指明是通过服务端来取数据
-            "sAjaxSource": "../userOpt/queryProductData",//这个是请求的地址
+            "sAjaxSource": "../chanpin/queryProductData",//这个是请求的地址
             "fnServerData": retrieveData, // 获取数据的处理函数
             "columnDefs": [
                 {
@@ -249,7 +249,7 @@
         $('.addBatch').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
             var batch_no =  $(this).parent().parent().find("td").eq(3).html();
-            if(batch_no.startsWith("0")){
+            if(batch_no.startsWith("<button")){
                 var pWin = window.open('bianji2.html?'+productId+'?new','_self');
             }else{
                 var pWin = window.open('bianji2.html?'+productId,'_self');
@@ -268,7 +268,7 @@
         $('.qrcode').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
             var batch_no =  $(this).parent().parent().find("td").eq(3).html();
-            if(batch_no.startsWith("0")){
+            if(batch_no.startsWith("<button")){
                 alert("批次号为空，请创建批次号！");
             }else{
                 var pWin = window.open('bianji3.html?'+productId,'_self');
@@ -280,7 +280,7 @@
         $('.delete').on('click', function () {
             if (confirm("确认删除这条信息么？")) {
                 var productId = $(this).parent().parent().find("td:first-child").html();
-                $.get("../userOpt/deleteProduct/" + productId, function (data) {
+                $.get("../chanpin/deleteProduct/" + productId, function (data) {
                     if (data == "success") {
                         alert("删除成功");
                         window.location.reload();

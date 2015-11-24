@@ -21,21 +21,41 @@ public class UserValidationService {
     public Integer findUserInDatabase(String username, String password){
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
-        q.setString("username",username);
-        q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
-        List<UserEntity> list = q.list();
-        log.info("用户登陆成功:"+username);
-//        用map来获得查询结果
-//        Query q = session.createSQLQuery("select username from User where username = :username").setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-//        q.setString("username",user.getUsername());
-//        Map map = (Map)q.list().get(0);
-//        log.info("------++++"+String.valueOf(map.get("username")));
+        List<UserEntity> list = null;
+        try{
+            Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
+            q.setString("username",username);
+            q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
+            list = q.list();
+            log.info("用户登陆成功:"+username);
 
-        if (list.size()==1) {
-            return list.get(0).getId();
-        }else{
-            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session!=null){
+                session.close();
+            }
         }
+        return list.get(0).getId();
+    }
+
+    public String findUserQrTableFromDatabase(String username, String password){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<UserEntity> list = null;
+        try{
+            Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
+            q.setString("username",username);
+            q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
+            list = q.list();
+            log.info("用户登陆成功:"+username);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return list.get(0).getQuery_qrcode_table();
     }
 }

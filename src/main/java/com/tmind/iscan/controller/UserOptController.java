@@ -2,6 +2,7 @@ package com.tmind.iscan.controller;
 
 import com.google.gson.Gson;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.model.UserTo;
 import com.tmind.iscan.service.UserOptService;
 import net.sf.json.JSONArray;
@@ -13,23 +14,20 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by lijunying on 15/11/21.
  */
 @Controller
-@RequestMapping("/userOpt")
+@RequestMapping("/chanpin")
 public class UserOptController {
 
     @Resource(name = "userOptService")
     private UserOptService userOptService;
 
     @RequestMapping("/createProduct")
-    public String login(@ModelAttribute("M_USER_PRODUCT_ENTITY") M_USER_PRODUCT_ENTITY product,
+    public String createProductFromCode(@ModelAttribute("M_USER_PRODUCT_ENTITY") M_USER_PRODUCT_ENTITY product,
                         HttpServletRequest req, HttpServletResponse response){
         UserTo user = LoginController.getLoginUser(req);
         product.setUser_id(user.getUserId());
@@ -40,6 +38,20 @@ public class UserOptController {
         userOptService.createUserProducet(product);
         System.out.println("新产品创建成功");
         return "/chanpin/code";
+    }
+
+    @RequestMapping("/createProduct4Edit")
+    public String createProduct4Edit(M_USER_PRODUCT_ENTITY product,
+                        HttpServletRequest req, HttpServletResponse response){
+        UserTo user = LoginController.getLoginUser(req);
+        product.setUser_id(user.getUserId());
+        product.setProduct_id(strLize(UUID.randomUUID()));
+        product.setQrcode_total_no(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        product.setUpdate_time(sdf.format(new Date()));
+        userOptService.createUserProducet(product);
+        System.out.println("新产品创建成功,绑定了批次码");
+        return "/chanpin/success";
     }
 
     @RequestMapping(value="/queryProductData",method = RequestMethod.POST)
@@ -69,7 +81,7 @@ public class UserOptController {
         for (int i = 0; i < productList.size(); i++) {
             String relatedBatch = null;
             if(productList.get(i).getRelate_batch()==null||("null").equalsIgnoreCase(productList.get(i).getRelate_batch())){
-                relatedBatch = "0<button class=\"addBatch\">添加批次号</button>";
+                relatedBatch = "<button class=\"addBatch\">添加批次号</button>";
             }else{
                 relatedBatch = strLize(productList.get(i).getRelate_batch());
             }
@@ -132,6 +144,56 @@ public class UserOptController {
         else
             return "failed";
     }
+
+    @RequestMapping(value="/updateProductByIdAndCreateQrcode", method = RequestMethod.POST)
+    public  @ResponseBody String updateProductByIdAndCreateQrcode(M_USER_PRODUCT_ENTITY productEntityFake, HttpServletRequest req){
+        M_USER_PRODUCT_ENTITY realProductEntity = userOptService.queryProductInfoById(LoginController.getLoginUser(req).getUserId(),productEntityFake.getProduct_id());
+        realProductEntity.setProduct_name(productEntityFake.getProduct_name());
+        realProductEntity.setProduct_category(productEntityFake.getProduct_category());
+        realProductEntity.setProduct_desc(productEntityFake.getProduct_desc());
+        realProductEntity.setRelate_batch(productEntityFake.getRelate_batch());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        realProductEntity.setUpdate_time(sdf.format(new Date()));
+        if (userOptService.updateProductById(realProductEntity)) {
+            //创建二维码
+            for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
+                M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
+                m_user_qrcode_entity.setUser_id(LoginController.getLoginUser(req).getUserId());
+                m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
+                m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
+                //绑定唯一码
+                String qrcodeQueryString = "http://www.315cck.com/"+productEntityFake.getProduct_id()+"/"+new Random().nextInt();
+                m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
+                //TODO 未来增加判断用户账户余额;
+
+                userOptService.createQrcode(m_user_qrcode_entity);
+            }
+            return "success";
+        }
+        else
+            return "failed";
+    }
+
+
+    @RequestMapping(value="/createQrcode", method = RequestMethod.POST)
+    public  @ResponseBody String createQrcode(M_USER_PRODUCT_ENTITY productEntityFake, HttpServletRequest req){
+
+            //创建二维码
+            for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
+                M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
+                m_user_qrcode_entity.setUser_id(LoginController.getLoginUser(req).getUserId());
+                m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
+                m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
+                //绑定唯一码
+                String qrcodeQueryString = "http://www.315cck.com/"+productEntityFake.getProduct_id()+"/"+new Random().nextInt();
+                m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
+                //TODO 未来增加判断用户账户余额;
+
+                userOptService.createQrcode(m_user_qrcode_entity);
+            }
+            return "success";
+    }
+
 
     private String strLize(Object obj){
         return String.valueOf(obj);

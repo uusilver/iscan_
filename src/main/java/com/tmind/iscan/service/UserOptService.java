@@ -1,6 +1,7 @@
 package com.tmind.iscan.service;
 
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -101,6 +102,20 @@ public class UserOptService {
             e.printStackTrace();
             session.getTransaction().rollback();
         }finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+        return true;
+    }
+
+    public boolean createQrcode(M_USER_QRCODE_ENTITY qrcodeEntity){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try{
+            Transaction tran=session.beginTransaction();
+            session.save(qrcodeEntity);
+            tran.commit();
+        }finally {
             if(session!=null){
                 session.close();
             }

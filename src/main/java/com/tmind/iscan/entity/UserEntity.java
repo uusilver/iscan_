@@ -21,6 +21,9 @@ public class UserEntity {
     private String username;
     @Column(name="password")
     private String password;
+    @Column(name="query_qrcode_table")
+    private String query_qrcode_table;
+
     public Integer getId() {
         return Id;
     }
@@ -38,6 +41,14 @@ public class UserEntity {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getQuery_qrcode_table() {
+        return query_qrcode_table;
+    }
+
+    public void setQuery_qrcode_table(String query_qrcode_table) {
+        this.query_qrcode_table = query_qrcode_table;
     }
 
     @Override

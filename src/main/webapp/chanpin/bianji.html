@@ -115,7 +115,7 @@
         });//end of ajax
         //初始化页面
         var prodcutId = window.location.href.split("?")[1];
-        $.get("../userOpt/queryProductById/"+prodcutId, function(data) {
+        $.get("../chanpin/queryProductById/"+prodcutId, function(data) {
             var jsonData = JSON.parse(data);
             $("#product_name").val(jsonData.product_name);
             $("#product_desc").val(jsonData.product_desc);
@@ -129,7 +129,7 @@
             var productDesc = $("#product_desc").val();
             var category = $("#product_category").find("option:selected").text();
             $.ajax({
-                url:'../userOpt/updateProductById',
+                url:'../chanpin/updateProductById',
                 type:"post",
                 data:{
                     Id:id,
@@ -148,7 +148,7 @@
                 }
             })
 
-        })
+        });
 
         $("#backTo").click(function(){
             window.history.back();

@@ -101,7 +101,7 @@
                             <td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>
                             <td>
                                 <label>
-                                    <input name="textfield" type="text" value="100">
+                                    <input name="textfield" id="qrcode_amount" type="text" value="100">
                                 </label>
 
                             </td>
@@ -109,7 +109,7 @@
                         <tr style="border:1px solid #CCCCCC;">
                             <td style="border:1px solid #CCCCCC;text-align:center;">操作</td>
                             <td>
-                                <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">提交</button>
+                                <button type="button" id="createQrCode" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">提交</button>
                             </td>
                         </tr>
                     </table>
@@ -129,12 +129,40 @@
     $(function(){
         //初始化页面
         var prodcutId = window.location.href.split("?")[1];
-        $.get("../userOpt/queryProductById/"+prodcutId, function(data) {
+        $.get("../chanpin/queryProductById/"+prodcutId, function(data) {
             var jsonData = JSON.parse(data);
             $("#product_name").html(jsonData.product_name);
             $("#product_id").html(jsonData.product_id);
             $("#batch_no").html(jsonData.relate_batch);
         });
+
+        $("#createQrCode").click(function(){
+            var productName = $("#product_name").html();
+            var productId = $("#product_id").html();
+            var productBatch = $("#batch_no").html();
+            var qr_number = $("#qrcode_amount").val();
+            //QRcode
+                $.ajax({
+                    url:'../chanpin/createQrcode',
+                    type:"post",
+                    data:{
+                        product_id:productId,
+                        product_name:productName,
+                        relate_batch:productBatch,
+                        qrcode_total_no:qr_number,
+                    },
+                    success:function(data) {
+                        if (data == "success") {
+                            window.open("../qrcode/index.html");
+                            window.history.back();
+                        }
+                        else {
+                            alert("保存失败");
+                        }
+                    }
+                })
+        });
+
     });
 
 </script>

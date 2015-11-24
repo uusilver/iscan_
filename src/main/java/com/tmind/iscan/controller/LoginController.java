@@ -39,8 +39,10 @@ public class LoginController {
 
         log.info("当前登陆:"+userTo.toString());
         Integer userId = userValidation.findUserInDatabase(userTo.getUsername(), userTo.getPassword());
+        String userQrcodeTable = userValidation.findUserQrTableFromDatabase(userTo.getUsername(), userTo.getPassword());
         if (userId>0) {
                 userTo.setUserId(userId);
+                userTo.setQuery_qrcode_table(userQrcodeTable);
                 req.getSession().setAttribute("userInSession", userTo);
                 return "index";
         }

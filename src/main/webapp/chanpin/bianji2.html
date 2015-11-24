@@ -92,14 +92,14 @@
                         <tr style="border:1px solid #CCCCCC;">
                             <td style="border:1px solid #CCCCCC;text-align:center;">产品批次号</td>
                             <td><label>
-                                <input name="textfield" id="productBatch" type="text" value="">
+                                <input name="textfield" id="productBatch" type="text" required value="">
                             </label></td>
                         </tr>
                         <tr style="border:1px solid #CCCCCC;">
                             <td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>
                             <td>
                                 <label>
-                                    <input name="textfield" id="batch_no" type="text" value="">
+                                    <input name="textfield" id="qrcode_amount" required type="text" value="">
                                 </label>
 
                             </td>
@@ -128,19 +128,58 @@
         //初始化页面
         var prodcutId = window.location.href.split("?")[1];
         var newFlag = window.location.href.split("?")[2];
+        var id;
+        var product_category;
+        var product_desc;
         var createFlag = false;
         if(newFlag){
             createFlag = true;
         }
 
-        $.get("../userOpt/queryProductById/"+prodcutId, function(data) {
+        $.get("../chanpin/queryProductById/"+prodcutId, function(data) {
             var jsonData = JSON.parse(data);
             $("#product_name").html(jsonData.product_name);
             $("#product_id").html(jsonData.product_id);
+            id = jsonData.Id;
+            product_category = jsonData.product_category;
+            product_desc = jsonData.product_desc;
         });
 
         $("#createQrCode").click(function(){
+            var productName = $("#product_name").html();
+            var productId = $("#product_id").html();
+            var productBatch = $("#productBatch").val();
+            var qr_number = $("#qrcode_amount").val();
             //QRcode
+            if(createFlag){
+                //在产品列表中更新纪录，并且创建二维码
+
+                $.ajax({
+                    url:'../chanpin/updateProductByIdAndCreateQrcode',
+                    type:"post",
+                    data:{
+                        Id:id,
+                        product_id:productId,
+                        product_name:productName,
+                        relate_batch:productBatch,
+                        qrcode_total_no:qr_number,
+                        product_category:product_category,
+                        product_desc:product_desc
+                    },
+                    success:function(data) {
+                        if (data == "success") {
+                            window.open("../qrcode/index.html");
+                            window.history.back();
+                        }
+                        else {
+                            alert("保存失败");
+                        }
+                    }
+                })
+
+            }else{
+                aelrt("创建一条");
+            }
         });
     });
 </script>
