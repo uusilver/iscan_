@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.model.UserTo;
+import com.tmind.iscan.service.UserAccountService;
 import com.tmind.iscan.service.UserOptService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -25,6 +26,9 @@ public class UserOptController {
 
     @Resource(name = "userOptService")
     private UserOptService userOptService;
+
+    @Resource(name = "userAccountService")
+    private UserAccountService userAccountService;
 
     @RequestMapping("/createProduct")
     public String createProductFromCode(@ModelAttribute("M_USER_PRODUCT_ENTITY") M_USER_PRODUCT_ENTITY product,
@@ -155,20 +159,24 @@ public class UserOptController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         realProductEntity.setUpdate_time(sdf.format(new Date()));
         if (userOptService.updateProductById(realProductEntity)) {
-            //创建二维码
-            for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
-                M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
-                m_user_qrcode_entity.setUser_id(LoginController.getLoginUser(req).getUserId());
-                m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
-                m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
-                //绑定唯一码
-                String qrcodeQueryString = "http://www.315cck.com/"+productEntityFake.getProduct_id()+"/"+new Random().nextInt();
-                m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
-                //TODO 未来增加判断用户账户余额;
-
-                userOptService.createQrcode(m_user_qrcode_entity);
+            //检测二维码余额是否够打印
+            if(userAccountService.judgeCanPrintQrCodeOrNot(Integer.valueOf(productEntityFake.getQrcode_total_no()), LoginController.getLoginUser(req).getUserId())){
+                //创建二维码
+                for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
+                    M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
+                    m_user_qrcode_entity.setUser_id(LoginController.getLoginUser(req).getUserId());
+                    m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
+                    m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
+                    //绑定唯一码
+                    String qrcodeQueryString = "http://www.315cck.com/"+productEntityFake.getProduct_id()+"/"+new Random().nextInt();
+                    m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
+                    userOptService.createQrcode(m_user_qrcode_entity);
+                }
+                userAccountService.updateUserAccountForConsuming(Integer.valueOf(productEntityFake.getQrcode_total_no()), LoginController.getLoginUser(req).getUserId());
+                return "success";
+            }else{
+                return "charge";
             }
-            return "success";
         }
         else
             return "failed";
@@ -177,7 +185,7 @@ public class UserOptController {
 
     @RequestMapping(value="/createQrcode", method = RequestMethod.POST)
     public  @ResponseBody String createQrcode(M_USER_PRODUCT_ENTITY productEntityFake, HttpServletRequest req){
-
+        if(userAccountService.judgeCanPrintQrCodeOrNot(Integer.valueOf(productEntityFake.getQrcode_total_no()), LoginController.getLoginUser(req).getUserId())) {
             //创建二维码
             for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
                 M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
@@ -187,11 +195,14 @@ public class UserOptController {
                 //绑定唯一码
                 String qrcodeQueryString = "http://www.315cck.com/"+productEntityFake.getProduct_id()+"/"+new Random().nextInt();
                 m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
-                //TODO 未来增加判断用户账户余额;
-
                 userOptService.createQrcode(m_user_qrcode_entity);
             }
+            userAccountService.updateUserAccountForConsuming(Integer.valueOf(productEntityFake.getQrcode_total_no()), LoginController.getLoginUser(req).getUserId());
             return "success";
+        }else{
+            return "charge";
+        }
+
     }
 
 

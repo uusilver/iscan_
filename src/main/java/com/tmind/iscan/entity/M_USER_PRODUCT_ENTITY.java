@@ -14,17 +14,17 @@ public class M_USER_PRODUCT_ENTITY {
     private Integer Id;
     @Column(name="product_name")
     private String product_name;
-    @Column(name="product_category")
+    @Column(name="product_category") //产品类别
     private String product_category;
-    @Column(name="product_desc")
+    @Column(name="product_desc")  //产品描述
     private String product_desc;
     @Column(name="user_id")
     private Integer user_id;
-    @Column(name="product_id")
+    @Column(name="product_id") //产品ID
     private String product_id;
-    @Column(name="relate_batch")
+    @Column(name="relate_batch")  //产品批次
     private String relate_batch;
-    @Column(name="qrcode_total_no")
+    @Column(name="qrcode_total_no")  //二维码数量
     private Integer qrcode_total_no;
     @Column(name="update_time")
     private String update_time;

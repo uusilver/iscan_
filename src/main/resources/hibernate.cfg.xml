@@ -8,7 +8,8 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.url">
             <![CDATA[jdbc:mysql://localhost:3306/iscan?useUnicode=true&characterEncoding=utf8]]>
-        </property>        <property name="hibernate.connection.username">root</property>
+        </property>
+        <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">1234</property>
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -20,6 +21,7 @@
         <mapping class="com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY" />
         <mapping class="com.tmind.iscan.entity.M_USER_CATEGORY_ENTITY" />
         <mapping class="com.tmind.iscan.entity.M_USER_QRCODE_ENTITY" />
+        <mapping class="com.tmind.iscan.entity.M_USER_ACCOUNT" />
 
 
     </session-factory>

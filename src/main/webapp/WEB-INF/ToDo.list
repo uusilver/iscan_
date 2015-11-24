@@ -1,0 +1,2 @@
+1. 新增用户时，记得在m_user_account下的account中增加相应的二维码余额
+2. 在数据库中建立定时任务，将m_user_account下的二维码生产信息同步到m_user_product表中

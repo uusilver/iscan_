@@ -156,8 +156,11 @@
                             window.open("../qrcode/index.html");
                             window.history.back();
                         }
-                        else {
-                            alert("保存失败");
+                        else if(data="charge") {
+                            alert("余额不足，请去充值");
+                            window.location.href = "../zhanghao/code.html"
+                        }else{
+                            alert("操作失败!");
                         }
                     }
                 })

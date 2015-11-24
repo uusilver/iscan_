@@ -3,18 +3,18 @@ package com.tmind.iscan.entity;
 import javax.persistence.*;
 
 /**
- * Created by lijunying on 15/11/22.
+ * Created by lijunying on 15/11/24.
  */
 @Entity
-@Table(name = "m_user_category")
-public class M_USER_CATEGORY_ENTITY {
+@Table(name = "m_user_account")
+public class M_USER_ACCOUNT {
     @javax.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer Id;
-    @Column(name="user_id")
+    @Column(name="user_id")   //登陆用户账户ID
     private Integer user_id;
-    @Column(name="category_name")
-    private String category_name;  //用户定义的产品分类信息
+    @Column(name="account")   //二维码余额
+    private Integer account;
 
     public Integer getId() {
         return Id;
@@ -32,11 +32,11 @@ public class M_USER_CATEGORY_ENTITY {
         this.user_id = user_id;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public Integer getAccount() {
+        return account;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setAccount(Integer account) {
+        this.account = account;
     }
 }
