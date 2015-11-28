@@ -231,6 +231,7 @@
 
         $("#tb").dataTable({
             "bProcessing": false, // 是否显示取数据时的那个等待提示
+            "bSort": false,
             "bServerSide": true,//这个用来指明是通过服务端来取数据
             "sAjaxSource": "../chanpin/queryProductData",//这个是请求的地址
             "fnServerData": retrieveData, // 获取数据的处理函数
@@ -289,6 +290,9 @@
             }
 
         });
+
+        //bind click functions
+        $(".batch")
 
 
     });

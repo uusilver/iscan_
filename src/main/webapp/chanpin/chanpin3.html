@@ -6,10 +6,14 @@
  <head>
   <title>产品批次管理</title>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+     <link href="../main/css/jquery.dataTables.css" type="text/css" rel="stylesheet">
+
+     <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
    <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+
+
      <style type="text/css">
     code {
       padding: 0px 4px;
@@ -109,12 +113,12 @@ window.open("bianji3.html")
               <option>产品ID搜索</option>
               <option>批次号搜索</option>
             </select>
-            <button type="submit" class="button button-primary">搜索</button>
+            <button type="button" id="search" class="button button-primary">搜索</button>
           </form>
 		  <!-- /.table-responsive -->
     <br/>
 		<div class="table-responsive">
-   <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+   <table id="tb" class="display">
       
       <thead>
          <tr>
@@ -128,165 +132,9 @@ window.open("bianji3.html")
             <th>操作（可进行标签关联参数修改）</th>
          </tr>
       </thead>
-	   <div id='example' class='modal' style='display:none; '>
-            <div class='modal-header' style="background-color:#CCCCCC;">
-                <a class='close' data-dismiss='modal'>X</a>
-                <h3>我是拟态框的头部</h3>
-            </div>
-            <div class='modal-body' style="background-color:#CCCCCC;">
-                <h4>我是拟态框的中间部分</h4>
-                <p>我是描述部分</p>
-            </div>
-            <div class='modal-footer'>
-                <a href='#' class='btn btn-success'>成功</a>
-                <a href='#' class='btn' data-dismiss='modal'>关闭</a>            </div>
-      </div>
-		<!--弹出层example -->
-      <tbody>
-         <tr>
-            <td>1</td>
-			<td>YANGHE1001</td>
-            <td>洋河蓝色经典-天之蓝老款380ML</td>
-            <td><select name="" size="1" style="width:90px;">
-              <option>默认模板</option>
-              <option>模板1</option>
-              <option>模板2</option>
-            </select></td>
-            <td>YH-2015-12-13-A01</td>
-            <td>0 <button value="Open Window" onclick="open_win3()" >+生产</button></td>
-            <td>2015-09-22</td>
-            <td><a href = "#">更新</a> <a href="#">删除</a>&nbsp;&nbsp;&nbsp;<a href = "javascript:void(0)"  onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">参数</a>  <a href="#">导出</a>&nbsp;&nbsp;<a href="#">打印</a></td>
-         </tr>
-		 
-         <tr>
-            <td>2</td>
-			<td>YANGHE1002</td>
-            <td>洋河蓝色经典-天之蓝老款480ML</td>
-            <td><select name="" size="1" style="width:90px;">>
-              <option>模板1</option>
-              <option>默认模板</option>
-              <option>模板2</option>
-            </select></td>
-            <td>YH-2015-12-13-A02</td>
-            <td>20,0000</td>
-             <td>2015-09-22</td>
-           <td><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">更新</a> <a href="#">删除</a>&nbsp;&nbsp;&nbsp;<a href="#">参数</a>  <a href="#">导出</a>&nbsp;&nbsp;<a href="#">打印</a></td>
-         </tr>
-         <tr>
-            <td>3</td>
-			<td>YANGHE1003</td>
-            <td>洋河蓝色经典-天之蓝老款880ML</td>
-            <td><select name="" size="1" style="width:90px;">>
-              <option>模板2</option>
-              <option>默认模板</option>
-              <option>模板1</option>
-            </select></td>
-            <td>YH-2015-12-13-A03</td>
-            <td>98,000</td>
-            <td>2015-09-22</td>
-             <td><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">更新</a> <a href="#">删除</a>&nbsp;&nbsp;&nbsp;<a href="#">参数</a>  <a href="#">导出</a>&nbsp;&nbsp;<a href="#">打印</a></td>
-         </tr>
-         <tr>
-            <td>4</td>
-			<td>YANGHE1004</td>
-            <td>洋河蓝色经典-天之蓝老款3280ML</td>
-            <td><select name="" size="1" style="width:90px;">>
-              <option>模板1</option>
-              <option>默认模板</option>
-              <option>模板2</option>
-            </select></td>
-            <td>YH-2015-12-13-A04</td>
-            <td>2034,000</td>
-             <td>2015-09-22</td>
-             <td><a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">更新</a> <a href="#">删除</a>&nbsp;&nbsp;&nbsp;<a href="#">参数</a>  <a href="#">导出</a>&nbsp;&nbsp;<a href="#">打印</a></td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-         <tr>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-           <td>&nbsp;</td>
-         </tr>
-      </tbody>
    </table>
 </div>
-	<div class="digg"> 
-<span class="disabled">&lt; </span>
-<span class="current">1</span>
-<a href="#?page=2">2</a>
-<a href="#?page=3">3</a>
-<a href="#?page=4">4</a>
-<a href="#?page=4">5</a>
-<a href="#?page=6">6</a>
-<a href="#?page=7">7</a>
-...
-<a href="#?page=199">199</a>
-<a href="#?page=200">200</a>
-<a href="#?page=2"> 
-&gt; </a></div>
+
 </div>
   <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
   <script type="text/javascript" src="../assets/js/bui-min.js"></script>
@@ -297,6 +145,10 @@ window.open("bianji3.html")
   </script>
   <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
   <script type="text/javascript" src="../assets/js/prettify.js"></script>
+  <script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+
+  <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="../js/data.table.translation.js"></script>
   <script type="text/javascript">
     $(function () {
       prettyPrint();
@@ -327,6 +179,80 @@ window.open("bianji3.html")
     form1.render();
   });
 </script>
+<script>
+    var globalTemp = '';
+    $(function(){
 
+        //加载表信息
+        $("#tb").dataTable({
+            "bProcessing": false, // 是否显示取数据时的那个等待提示
+            "bSort": false,
+            "bServerSide": true,//这个用来指明是通过服务端来取数据
+            "sAjaxSource": "../chanpin/queryBatchData",//这个是请求的地址
+            "fnServerData": retrieveData, // 获取数据的处理函数
+            "columnDefs": [
+                {
+                    "targets": [0], //隐藏第六列，从第0列开始
+                    "visible": false
+                }
+            ]
+        });
+
+        $("#tb_length").hide();
+        $("#tb_filter").hide();
+
+        //bind click functions
+        $('.update').on('click', function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            if(globalTemp.length>0){
+                alert(globalTemp);
+                globalTemp = '';
+            }else{
+                alert("请选择要改的产品模版");
+            }
+
+
+        });
+
+        //bind click functions
+        $('.export').on('click', function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+            alert(productId);
+
+
+        });
+
+        $(".tempClass").on('change',function () {
+            globalTemp = $(this).val();
+        });
+
+        //bind click functions
+        $('.delete').on('click', function () {
+            if (confirm("确认删除这条信息么？")) {
+                var productId = $(this).parent().parent().find("td:first-child").html();
+                alert(productId);
+
+            }
+
+        });
+
+    });
+    function retrieveData(sSource111, aoData111, fnCallback111) {
+        $.ajax({
+            url: sSource111,//这个就是请求地址对应sAjaxSource
+            data: {"aoData": JSON.stringify(aoData111)},//这个是把datatable的一些基本数据传给后台,比如起始位置,每页显示的行数
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            success: function (result) {
+                fnCallback111(result);//把返回的数据传给这个方法就可以了,datatable会自动绑定数据的
+            },
+            error: function (msg) {
+            }
+        });
+    }
+
+</script>
 </body>
 </html>   

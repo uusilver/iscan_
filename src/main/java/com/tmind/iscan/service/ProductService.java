@@ -14,12 +14,13 @@ import java.util.List;
  * Created by lijunying on 15/11/21.
  */
 @SuppressWarnings("ALL")
-@Service("userOptService")
-public class UserOptService {
+@Service("productService")
+public class ProductService {
 
     //创建产品信息
     public boolean createUserProducet(M_USER_PRODUCT_ENTITY productEntity){
         Session session = HibernateUtil.getSessionFactory().openSession();
+        productEntity.setAdvice_temp("default");
         try{
             Transaction tran=session.beginTransaction();
             session.save(productEntity);
@@ -38,7 +39,7 @@ public class UserOptService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<M_USER_PRODUCT_ENTITY> list = null;
         try {
-            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId";//使用命名参数，推荐使用，易读。
+            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId order by M_USER_PRODUCT_ENTITY.product_name";//使用命名参数，推荐使用，易读。
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
             list = query.list();

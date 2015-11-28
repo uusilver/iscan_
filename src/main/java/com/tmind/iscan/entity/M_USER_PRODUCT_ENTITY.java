@@ -28,6 +28,8 @@ public class M_USER_PRODUCT_ENTITY {
     private Integer qrcode_total_no;
     @Column(name="update_time")
     private String update_time;
+    @Column(name="advice_temp")
+    private String advice_temp;
 
 
     public Integer getId() {
@@ -100,5 +102,13 @@ public class M_USER_PRODUCT_ENTITY {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
+    }
+
+    public String getAdvice_temp() {
+        return advice_temp;
+    }
+
+    public void setAdvice_temp(String advice_temp) {
+        this.advice_temp = advice_temp;
     }
 }

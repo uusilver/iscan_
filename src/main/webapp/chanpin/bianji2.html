@@ -178,10 +178,34 @@
                             alert("操作失败!");
                         }
                     }
-                })
+                })//end of ajax
 
             }else{
-                aelrt("创建一条");
+                $.ajax({
+                    url:'../chanpin/createNewBatchForOldProduct',
+                    type:"post",
+                    data:{
+                        Id:id,
+                        product_id:productId,
+                        product_name:productName,
+                        relate_batch:productBatch,
+                        qrcode_total_no:qr_number,
+                        product_category:product_category,
+                        product_desc:product_desc
+                    },
+                    success:function(data) {
+                        if (data == "success") {
+                            window.open("../qrcode/index.html");
+                            window.history.back();
+                        }
+                        else if(data="charge") {
+                            alert("余额不足，请去充值");
+                            window.location.href = "../zhanghao/code.html"
+                        }else{
+                            alert("操作失败!");
+                        }
+                    }
+                })//end of ajax
             }
         });
     });

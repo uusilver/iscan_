@@ -22,6 +22,7 @@
         <mapping class="com.tmind.iscan.entity.M_USER_CATEGORY_ENTITY" />
         <mapping class="com.tmind.iscan.entity.M_USER_QRCODE_ENTITY" />
         <mapping class="com.tmind.iscan.entity.M_USER_ACCOUNT" />
+        <mapping class="com.tmind.iscan.entity.M_USER_ADVICE_TEMPLATE" />
 
 
     </session-factory>
