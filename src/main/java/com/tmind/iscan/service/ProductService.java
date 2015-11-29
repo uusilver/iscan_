@@ -52,13 +52,15 @@ public class ProductService {
     }
 
     //删除产品信息
-    public boolean deleteProduct(Integer userId, String productId) {
+    public boolean deleteProduct(Integer userId, String productId, String batchNo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            String hql = "delete M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId";
+            String hql = "delete M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId and M_USER_PRODUCT_ENTITY.relate_batch=:batchNo";
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
             query.setString("productId", productId);
+            query.setString("batchNo", batchNo);
+
             query.executeUpdate();
             session.beginTransaction().commit();
         } finally {

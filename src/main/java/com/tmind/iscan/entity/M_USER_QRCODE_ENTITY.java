@@ -24,6 +24,8 @@ public class M_USER_QRCODE_ENTITY {
     private Integer query_times;
     @Column(name="query_date")
     private String query_date;
+    @Column(name="active_flag")
+    private String active_flag;
 
     public Integer getId() {
         return Id;
@@ -79,5 +81,13 @@ public class M_USER_QRCODE_ENTITY {
 
     public void setQuery_times(Integer query_times) {
         this.query_times = query_times;
+    }
+
+    public String getActive_flag() {
+        return active_flag;
+    }
+
+    public void setActive_flag(String active_flag) {
+        this.active_flag = active_flag;
     }
 }

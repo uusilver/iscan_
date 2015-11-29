@@ -35,15 +35,12 @@ public class QRcodeExportController {
 
     @RequestMapping(value="download_qrcode/{productId}/{productBath}", method = RequestMethod.GET)
     public String download(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
-        String fileName="excel文件";
+        String fileName="二维码数据导出";
         //填充projects数据
         List<QrCodeExportModel> qrcodeModel=createData(LoginController.getLoginUser(request).getUserId(),productId, productBath);
-        List<Map<String,Object>> list=createExcelRecord(qrcodeModel);
-        String columnNames[]={"访问","项目名","销售人","负责人","所用技术","备注"};//列名
-        String keys[]    =     {"url"};//map中的key
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         try {
-            ExcelUtil.createWorkBook(list, keys).write(os);
+            ExcelUtil.createWorkBook(qrcodeModel).write(os);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +85,6 @@ public class QRcodeExportController {
     private List<Map<String, Object>> createExcelRecord(List<QrCodeExportModel> projects) {
         List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("sheetName", "sheet1");
         listmap.add(map);
         QrCodeExportModel project=null;
         for (int j = 0; j < projects.size(); j++) {

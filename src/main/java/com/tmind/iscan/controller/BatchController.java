@@ -7,10 +7,7 @@ import com.tmind.iscan.service.ProductService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,17 +21,17 @@ import java.util.List;
 @RequestMapping("/chanpin")
 public class BatchController {
 
-    @Resource(name = "productService")
-    private ProductService productService;
 
     @Resource(name = "batchService")
     private BatchService batchService;
 
     @RequestMapping(value="/queryBatchData",method = RequestMethod.POST)
     @ResponseBody
-    public  String queryBatchData(@RequestParam String aoData, HttpServletRequest req){
-        JSONArray jsonarray = JSONArray.fromObject(aoData);
+    public  String queryBatchData(@RequestParam String aoData, @RequestParam String searchType, @RequestParam String searchContent, HttpServletRequest req){
+        System.out.println(searchType);
+        System.out.println(searchContent);
 
+        JSONArray jsonarray = JSONArray.fromObject(aoData);
         String sEcho = null;
         int iDisplayStart = 0; // 起始索引
         int iDisplayLength = 0; // 每页显示的行数
@@ -54,7 +51,7 @@ public class BatchController {
 
         List<String[]> lst = new ArrayList<String[]>();
         Integer userId = LoginController.getLoginUser(req).getUserId();
-        List<M_USER_PRODUCT_ENTITY> productList = productService.queryProductInfo(userId);
+        List<M_USER_PRODUCT_ENTITY> productList = batchService.queryProductInfo(userId,searchType,searchContent);
         for (int i = 0; i < productList.size(); i++) {
             List<M_USER_ADVICE_TEMPLATE> adviceTemplates = batchService.queryBatch(userId);
             //必须绑定了相关批次，才能在批次功能里面看到
@@ -67,7 +64,7 @@ public class BatchController {
                         strLize(productList.get(i).getRelate_batch()),
                         strLize(productList.get(i).getQrcode_total_no()),
                         strLize(productList.get(i).getUpdate_time()),
-                        "<button class=\"update\">更新</button> <button class=\"export\">导出</button>"
+                        "<button class=\"update\">更新</button> <button class=\"export\">导出</button><button class=\"delete\">删除</button>"
                 };
 
                 lst.add(d);
@@ -89,6 +86,17 @@ public class BatchController {
             e.printStackTrace();
         }
         return getObj.toString();
+    }
+
+
+    @RequestMapping(value = "/deleteQrcode/{productId}/{batchNo}", method = RequestMethod.GET)
+    public @ResponseBody String deleteQrcode(@PathVariable String productId,@PathVariable String batchNo, HttpServletRequest req){
+        if(batchService.deleteQrCodes(LoginController.getLoginUser(req).getUserId(),productId, batchNo)){
+            return "success";
+        }else{
+            return "failed";
+        }
+
     }
 
     private String strLize(Object obj){

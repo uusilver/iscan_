@@ -281,7 +281,8 @@
         $('.delete').on('click', function () {
             if (confirm("确认删除这条信息么？")) {
                 var productId = $(this).parent().parent().find("td:first-child").html();
-                $.get("../chanpin/deleteProduct/" + productId, function (data) {
+                var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+                $.get("../chanpin/deleteProduct/" + productId+"/"+batch_no, function (data) {
                     if (data == "success") {
                         alert("删除成功");
                         window.location.reload();
