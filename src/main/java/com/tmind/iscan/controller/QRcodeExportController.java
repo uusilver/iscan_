@@ -33,8 +33,8 @@ public class QRcodeExportController {
     @Resource(name="qrCodeService")
     private QrCodeService qrCodeService;
 
-    @RequestMapping(value="download_qrcode/{productId}/{productBath}", method = RequestMethod.GET)
-    public String download(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
+    @RequestMapping(value="download_qrcode_export/{productId}/{productBath}", method = RequestMethod.GET)
+    public String download_qrcode_export(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
         String fileName="二维码数据导出";
         //填充projects数据
         List<QrCodeExportModel> qrcodeModel=createData(LoginController.getLoginUser(request).getUserId(),productId, productBath);
@@ -72,6 +72,48 @@ public class QRcodeExportController {
         }
         return null;
     }
+
+    @RequestMapping(value="download_qrcode_re_export/{productId}/{productBath}", method = RequestMethod.GET)
+    public String download_qrcode_re_export(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
+        String fileName="二维码数据导出";
+        //填充projects数据
+        List<QrCodeExportModel> qrcodeModel=createReExportData(LoginController.getLoginUser(request).getUserId(),productId, productBath);
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        try {
+            ExcelUtil.createWorkBook(qrcodeModel).write(os);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] content = os.toByteArray();
+        InputStream is = new ByteArrayInputStream(content);
+        // 设置response参数，可以打开下载页面
+        response.reset();
+        response.setContentType("application/vnd.ms-excel;charset=utf-8");
+        response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+        ServletOutputStream out = response.getOutputStream();
+        BufferedInputStream bis = null;
+        BufferedOutputStream bos = null;
+        try {
+            bis = new BufferedInputStream(is);
+            bos = new BufferedOutputStream(out);
+            byte[] buff = new byte[2048];
+            int bytesRead;
+            // Simple read/write loop.
+            while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+                bos.write(buff, 0, bytesRead);
+            }
+        } catch (final IOException e) {
+            throw e;
+        } finally {
+            if (bis != null)
+                bis.close();
+            if (bos != null)
+                bos.close();
+        }
+        return null;
+    }
+
+
     private List<QrCodeExportModel> createData(Integer userId, String productId, String batchId) {
         //查询具体的二维码
         List<M_USER_QRCODE_ENTITY> list = qrCodeService.queryQrCode(userId,productId,batchId);
@@ -82,6 +124,18 @@ public class QRcodeExportController {
 
         return list4PrintModel;
     }
+
+    private List<QrCodeExportModel> createReExportData(Integer userId, String productId, String batchId) {
+        //查询具体的二维码
+        List<M_USER_QRCODE_ENTITY> list = qrCodeService.queryQrCodeForReExport(userId,productId,batchId);
+        List<QrCodeExportModel> list4PrintModel = new ArrayList<QrCodeExportModel>();
+        for(M_USER_QRCODE_ENTITY entityModel:list){
+            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string()));
+        }
+
+        return list4PrintModel;
+    }
+
     private List<Map<String, Object>> createExcelRecord(List<QrCodeExportModel> projects) {
         List<Map<String, Object>> listmap = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = new HashMap<String, Object>();

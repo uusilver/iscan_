@@ -26,6 +26,8 @@ public class M_USER_QRCODE_ENTITY {
     private String query_date;
     @Column(name="active_flag")
     private String active_flag;
+    @Column(name="create_date")
+    private String create_date;
 
     public Integer getId() {
         return Id;
@@ -67,14 +69,6 @@ public class M_USER_QRCODE_ENTITY {
         this.qr_query_string = qr_query_string;
     }
 
-    public String getQuery_date() {
-        return query_date;
-    }
-
-    public void setQuery_date(String query_date) {
-        this.query_date = query_date;
-    }
-
     public Integer getQuery_times() {
         return query_times;
     }
@@ -83,11 +77,27 @@ public class M_USER_QRCODE_ENTITY {
         this.query_times = query_times;
     }
 
+    public String getQuery_date() {
+        return query_date;
+    }
+
+    public void setQuery_date(String query_date) {
+        this.query_date = query_date;
+    }
+
     public String getActive_flag() {
         return active_flag;
     }
 
     public void setActive_flag(String active_flag) {
         this.active_flag = active_flag;
+    }
+
+    public String getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(String create_date) {
+        this.create_date = create_date;
     }
 }

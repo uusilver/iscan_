@@ -8,6 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -117,6 +119,9 @@ public class ProductService {
         try{
             Transaction tran=session.beginTransaction();
             qrcodeEntity.setQuery_times(0);
+            qrcodeEntity.setActive_flag("Y");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            qrcodeEntity.setCreate_date(sdf.format(new Date()));
             session.save(qrcodeEntity);
             tran.commit();
         }finally {
