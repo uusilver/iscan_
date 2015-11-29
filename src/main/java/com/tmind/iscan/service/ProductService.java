@@ -114,6 +114,7 @@ public class ProductService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try{
             Transaction tran=session.beginTransaction();
+            qrcodeEntity.setQuery_times(0);
             session.save(qrcodeEntity);
             tran.commit();
         }finally {

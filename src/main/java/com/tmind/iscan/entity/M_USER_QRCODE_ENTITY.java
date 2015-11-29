@@ -20,6 +20,10 @@ public class M_USER_QRCODE_ENTITY {
     private String product_batch;
     @Column(name="qr_query_string")
     private String qr_query_string;
+    @Column(name="query_times")
+    private Integer query_times;
+    @Column(name="query_date")
+    private String query_date;
 
     public Integer getId() {
         return Id;
@@ -59,5 +63,21 @@ public class M_USER_QRCODE_ENTITY {
 
     public void setQr_query_string(String qr_query_string) {
         this.qr_query_string = qr_query_string;
+    }
+
+    public String getQuery_date() {
+        return query_date;
+    }
+
+    public void setQuery_date(String query_date) {
+        this.query_date = query_date;
+    }
+
+    public Integer getQuery_times() {
+        return query_times;
+    }
+
+    public void setQuery_times(Integer query_times) {
+        this.query_times = query_times;
     }
 }

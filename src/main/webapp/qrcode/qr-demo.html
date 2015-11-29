@@ -1,22 +1,25 @@
 <!DOCTYPE html>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="false" %>
 <html>
-<head><title>Demo page</title></head>
-<body><p> http://jeromeetienne.github.io/jquery-qrcode/ <br/>
-    原版jquery-qrcode二维码生成，使用jquery-qrcode的好处，不需要在服务器端生成多余的二维码图片，二维码直接通过JavaScript直接在客户端生成，减少带宽。 <br/>
-    该修正版添加了Logo功能，只需要配置src属性即可。生成时Logo图片会占据设置宽高的2.5为比例。例如二维码宽高均为200时，Logo的宽高则为200/2.5=80。 </p>
+<head><title>download</title></head>
+<body><p>
 
 <div id="output"></div>
 <script src="jquery-1.js"></script>
 <script type="text/javascript" src="qrcode.min.js"></script>
 <!--这里不再调用官方的压缩文件，换成从本帖内下载的jquery.qrcode.min.js文件-->
-<script>        jQuery(function () {
-    jQuery('#output').qrcode({
-        text: "http://aoman.tmall.com/",
-        height: 250,
-        width: 250,
-        src: 'dummy.png'
-    });
+<script>
+    jQuery(function () {
+    var params = window.location.href.split("?")[1];
+    var productId = params.split("=")[0];
+    var batchId =  params.split("=")[1];
+        window.location.href="../download_qrcode/"+productId+"/"+batchId;
+
 })
 </script>
+下载完成，请点击关闭页面
+<button onclick="">关闭</button>
 </body>
 </html>

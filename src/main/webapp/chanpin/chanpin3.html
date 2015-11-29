@@ -218,7 +218,8 @@ window.open("bianji3.html")
         $('.export').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
             var batch_no =  $(this).parent().parent().find("td").eq(3).html();
-            alert(productId);
+            //打开下载页面
+            window.open("../qrcode/qr-demo.html?"+productId+"="+batch_no);
 
 
         });

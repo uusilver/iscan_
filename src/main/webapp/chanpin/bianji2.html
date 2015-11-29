@@ -168,7 +168,7 @@
                     },
                     success:function(data) {
                         if (data == "success") {
-                            window.open("../qrcode/index.html");
+                            window.open("../qrcode/qr-demo.html?"+productId+"="+productBatch);
                             window.history.back();
                         }
                         else if(data="charge") {
@@ -195,7 +195,7 @@
                     },
                     success:function(data) {
                         if (data == "success") {
-                            window.open("../qrcode/index.html");
+                            window.open("../qrcode/qr-demo.html?"+productId+"="+productBatch);
                             window.history.back();
                         }
                         else if(data="charge") {
