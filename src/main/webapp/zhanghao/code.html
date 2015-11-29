@@ -29,7 +29,7 @@
 											<li class="text-left">
 											<div class="welinfo">
     <span><img src="../main/images/dp.png" alt="提醒" width="32" height="32" /></span>
-    <b>你目前的身份是：普通用户 拥有金额：0 元， 品牌码：0个。</b>    </div>
+    <b>你目前的身份是：普通用户 拥有金额：<span id="currency"></span>元， 品牌码：<span id="qrAccount"></span>个。</b>    </div>
 											
 											</li>
 
@@ -40,11 +40,12 @@
 												</li>
 												
 												<li class="text-left">
-											   <h3> 兑换品牌码:  &nbsp;&nbsp;&nbsp;  <input  type="text" class="input-elm" value="最低兑换数值100"/>
+											   <h3> 兑换品牌码:  &nbsp;&nbsp;&nbsp;
+												    <input  type="text" id="chargeNo" class="input-elm" value="最低兑换数值100"/>
 											   &nbsp;&nbsp;&nbsp;&nbsp;
-											   <button class="button button-primary">兑换</button>
+											   <button id="charge" class="button button-primary">兑换</button>
 											       
-												<button class="button button-primary">清空</button>	</h3>
+												<button id="reset" class="button button-primary">清空</button>	</h3>
 												</li>
 												<div style="clear:both; height:30px;"></div>
 												<li class="text-left"><h3>
@@ -64,11 +65,45 @@
     </div>
 
   <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
-  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+	<script type="text/javascript" src="../umeditor/third-party/jquery.min.js"></script>
+	<script type="text/javascript" src="../assets/js/prettify.js"></script>
   <script type="text/javascript">
-    //$(function () {
-      prettyPrint();
-    //});
+    $(function () {
+		var current = '';
+		$.get("queryUserAccount",function(data){
+			$("#currency").html(data.split("-")[1]);
+			$("#qrAccount").html(data.split("-")[0]);
+			current = data.split("-")[1];
+		})
+
+		//清空
+		$("#reset").click(function(){
+			$("#chargeNo").val("");
+		});
+
+		//充值
+		$("#charge").click(function(){
+			var amountNo = $("#chargeNo").val();
+			if(amountNo<100){
+				alert("最低充值数量是100");
+			}else{
+				if(current<(amountNo*0.1)){
+					alert("余额不足，请先联系客服充值");
+				}else{
+					$.get("purChaseQrAccount/"+amountNo,function(data){
+						if(data=="success"){
+							alert("操作成功");
+							window.location.reload();
+						}
+					})
+				}
+			}
+
+		});
+
+
+
+    });
   </script>  
 
 </body>
