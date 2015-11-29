@@ -1,6 +1,7 @@
 package com.tmind.iscan.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by lijunying on 15/11/24.
@@ -15,6 +16,8 @@ public class M_USER_ACCOUNT {
     private Integer user_id;
     @Column(name="account")   //二维码余额
     private Integer account;
+    @Column(name="currency")   //二维码余额
+    private BigDecimal currency; //现金余额
 
     public Integer getId() {
         return Id;
@@ -38,5 +41,13 @@ public class M_USER_ACCOUNT {
 
     public void setAccount(Integer account) {
         this.account = account;
+    }
+
+    public BigDecimal getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(BigDecimal currency) {
+        this.currency = currency;
     }
 }

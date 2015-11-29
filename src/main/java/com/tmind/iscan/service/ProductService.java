@@ -126,4 +126,29 @@ public class ProductService {
         }
         return true;
     }
+
+    public boolean updateProductAndBatchQrTotalAccount(Integer userId, String productId, String batchId, Integer qrAccount){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tran=session.beginTransaction();
+        M_USER_PRODUCT_ENTITY m_user_product_entity = null;
+        try {
+            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId and M_USER_PRODUCT_ENTITY.relate_batch=:batchId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setString("productId", productId);
+            query.setString("batchId", batchId);
+            m_user_product_entity = (M_USER_PRODUCT_ENTITY)query.list().get(0);
+            m_user_product_entity.setQrcode_total_no(m_user_product_entity.getQrcode_total_no()+qrAccount);
+            session.update(m_user_product_entity);
+            tran.commit();
+        }catch (Exception e){
+            tran.rollback();
+            return false;
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return true;
+    }
 }
