@@ -5,10 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -33,9 +31,11 @@ public class QRcodeExportController {
     @Resource(name="qrCodeService")
     private QrCodeService qrCodeService;
 
+    //需要区别新生成的二维码和已经导出的二维码，通过数据库中的Flag来控制
     @RequestMapping(value="download_qrcode_export/{productId}/{productBath}", method = RequestMethod.GET)
     public String download_qrcode_export(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
-        String fileName="二维码数据导出";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fileName="二维码数据导出"+sdf.format(new Date());
         //填充projects数据
         List<QrCodeExportModel> qrcodeModel=createData(LoginController.getLoginUser(request).getUserId(),productId, productBath);
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -73,9 +73,11 @@ public class QRcodeExportController {
         return null;
     }
 
+    //重新导出
     @RequestMapping(value="download_qrcode_re_export/{productId}/{productBath}", method = RequestMethod.GET)
     public String download_qrcode_re_export(@PathVariable("productId") String productId,@PathVariable("productBath") String productBath , HttpServletRequest request,HttpServletResponse response) throws IOException{
-        String fileName="二维码数据导出";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fileName="二维码数据导出"+sdf.format(new Date());
         //填充projects数据
         List<QrCodeExportModel> qrcodeModel=createReExportData(LoginController.getLoginUser(request).getUserId(),productId, productBath);
         ByteArrayOutputStream os = new ByteArrayOutputStream();

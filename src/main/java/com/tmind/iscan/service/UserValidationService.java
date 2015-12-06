@@ -22,13 +22,14 @@ public class UserValidationService {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<UserEntity> list = null;
+        Integer id = 0;
         try{
             Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
             q.setString("username",username);
             q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
             list = q.list();
             log.info("用户登陆成功:"+username);
-
+            id = list.get(0).getId();
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -36,7 +37,7 @@ public class UserValidationService {
                 session.close();
             }
         }
-        return list.get(0).getId();
+        return id;
     }
 
     public String findUserQrTableFromDatabase(String username, String password){

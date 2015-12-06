@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>产品分类管理</title>
+    <title>产品类别管理</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css"/>
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css"/>
@@ -34,7 +34,7 @@
                 <form role="form" method="post" action="../categoryController/createCategory">
                     <div class="form-group">
                         <label for="name">栏目名称</label>
-                        <input name="category_name" id="category_name" type="text" class="form-control" placeholder="输入分类名">
+                        <input name="category_name" id="category_name" type="text" class="form-control" placeholder="输入分类名" required="true">
                         <!--<select name="select" class="form-control">-->
                         <!--<option>添加顶级分类</option>-->
                         <!--<option>添加下级分类在栏目1</option>-->
@@ -94,8 +94,10 @@
                     }
                 });
                 $.get("../categoryController/deleteCategory/"+ready4DeleteIds,function(data){
-                    if(data="success"){
+                    if(data=="success"){
                         window.location.reload();
+                    }else if(data == "failed"){
+                        alert("产品类别已被绑定，请删除相关产品后再删除产品类别");
                     }
                 })
             }

@@ -42,8 +42,16 @@ public class LoginFilter implements Filter {
             return;
         }
         UserTo user = LoginController.getLoginUser(request);
+
         if (user == null) {
-            response.sendRedirect("login.html");
+            //打包前一定要改
+//            response.sendRedirect("http://localhost:8080/login.html");
+//            response.sendRedirect("http://demo.315cck.com:8080/login.html");
+            if(path.contains("weblogin")){
+                response.sendRedirect("../login.html");
+            }else{
+                response.sendRedirect("login.html");
+            }
         } else {
             chain.doFilter(request, response);
         }

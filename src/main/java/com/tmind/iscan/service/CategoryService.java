@@ -65,4 +65,31 @@ public class CategoryService {
         }
         return true;
     }
+
+    public boolean checkCategoryUsedOrNot(Integer categoryId, Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        M_USER_CATEGORY_ENTITY categoryEntity = null;
+        try{
+            String hql = "from M_USER_CATEGORY_ENTITY as M_USER_CATEGORY_ENTITY where M_USER_CATEGORY_ENTITY.user_id=:userId and M_USER_CATEGORY_ENTITY.Id=:id";
+            Query query = session.createQuery(hql);
+            query.setInteger("userId",userId);
+            query.setInteger("id",categoryId);
+            categoryEntity = (M_USER_CATEGORY_ENTITY)query.list().get(0);
+            hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_category=:product_category";
+            query = session.createQuery(hql);
+            query.setInteger("userId",userId);
+            query.setString("product_category",categoryEntity.getCategory_name());
+            if(query.list().size()>0)
+                return false;
+            else
+                return true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+    }
 }

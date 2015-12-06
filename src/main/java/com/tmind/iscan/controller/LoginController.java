@@ -46,7 +46,7 @@ public class LoginController {
                 req.getSession().setAttribute("userInSession", userTo);
                 return "index";
         }
-        return "login";
+        return "login?1";
     }
 
     // Get Login user session

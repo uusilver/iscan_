@@ -33,15 +33,22 @@ public class CategoryController {
         return new Gson().toJson(list);
     }
 
+
     @RequestMapping(value = "/deleteCategory/{categoryIds}",method = RequestMethod.GET)
     public @ResponseBody String deleteCategory(@PathVariable String categoryIds, HttpServletRequest req){
         String[] deleteIds = categoryIds.split(",");
         Integer userId = LoginController.getLoginUser(req).getUserId();
         boolean flag = false;
         for(String id:deleteIds){
-            if(categoryService.deleteCategory(Integer.parseInt(id),userId)){
-                flag = true;
+            if(categoryService.checkCategoryUsedOrNot(Integer.parseInt(id),userId)){
+                if(categoryService.deleteCategory(Integer.parseInt(id),userId)){
+                    flag = true;
+                }
+            }else{
+                    flag = false;
+                    break;
             }
+
         }
         if(flag){
             return "success";

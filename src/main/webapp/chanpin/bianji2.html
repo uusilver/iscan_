@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>编辑页</title>
+    <title>创建批次号</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css"/>
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css"/>
@@ -95,15 +95,15 @@
                                 <input name="textfield" id="productBatch" type="text" required value="">
                             </label></td>
                         </tr>
-                        <tr style="border:1px solid #CCCCCC;">
-                            <td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>
-                            <td>
-                                <label>
-                                    <input name="textfield" id="qrcode_amount" required type="text" value="">
-                                </label>
+                        <!--<tr style="border:1px solid #CCCCCC;">-->
+                            <!--<td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>-->
+                            <!--<td>-->
+                                <!--<label>-->
+                                    <!--<input name="textfield" id="qrcode_amount" required type="text" value="">-->
+                                <!--</label>-->
 
-                            </td>
-                        </tr>
+                            <!--</td>-->
+                        <!--</tr>-->
                         <tr style="border:1px solid #CCCCCC;">
                             <td style="border:1px solid #CCCCCC;text-align:center;">操作</td>
                             <td>
@@ -149,7 +149,7 @@
             var productName = $("#product_name").html();
             var productId = $("#product_id").html();
             var productBatch = $("#productBatch").val();
-            var qr_number = $("#qrcode_amount").val();
+//            var qr_number = $("#qrcode_amount").val();
             //QRcode
             if(createFlag){
                 //在产品列表中更新纪录，并且创建二维码
@@ -162,13 +162,13 @@
                         product_id:productId,
                         product_name:productName,
                         relate_batch:productBatch,
-                        qrcode_total_no:qr_number,
+//                        qrcode_total_no:qr_number,
                         product_category:product_category,
                         product_desc:product_desc
                     },
                     success:function(data) {
                         if (data == "success") {
-                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
+//                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
                             window.history.back();
                         }
                         else if(data="charge") {
@@ -189,13 +189,13 @@
                         product_id:productId,
                         product_name:productName,
                         relate_batch:productBatch,
-                        qrcode_total_no:qr_number,
+//                        qrcode_total_no:qr_number,
                         product_category:product_category,
                         product_desc:product_desc
                     },
                     success:function(data) {
                         if (data == "success") {
-                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
+//                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
                             window.history.back();
                         }
                         else if(data="charge") {

@@ -41,7 +41,7 @@ public class ProductService {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<M_USER_PRODUCT_ENTITY> list = null;
         try {
-            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId order by M_USER_PRODUCT_ENTITY.product_name";//使用命名参数，推荐使用，易读。
+            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId order by M_USER_PRODUCT_ENTITY.update_time desc";//使用命名参数，推荐使用，易读。
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
             list = query.list();
