@@ -46,12 +46,12 @@ public class LoginFilter implements Filter {
         if (user == null) {
             //打包前一定要改
 //            response.sendRedirect("http://localhost:8080/login.html");
-//            response.sendRedirect("http://demo.315cck.com:8080/login.html");
-            if(path.contains("weblogin")){
-                response.sendRedirect("../login.html");
-            }else{
-                response.sendRedirect("login.html");
-            }
+            response.sendRedirect("http://demo.315cck.com:8080/login.html");
+//            if(path.contains("weblogin")){
+//                response.sendRedirect("../login.html");
+//            }else{
+//                response.sendRedirect("login.html");
+//            }
         } else {
             chain.doFilter(request, response);
         }

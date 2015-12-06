@@ -120,8 +120,11 @@ public class QRcodeExportController {
         //查询具体的二维码
         List<M_USER_QRCODE_ENTITY> list = qrCodeService.queryQrCode(userId,productId,batchId);
         List<QrCodeExportModel> list4PrintModel = new ArrayList<QrCodeExportModel>();
+        //创建第一行
+        list4PrintModel.add(new QrCodeExportModel("二维码地址","唯一识别码"));
+        //真正的数据
         for(M_USER_QRCODE_ENTITY entityModel:list){
-            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string()));
+            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQr_query_string().split("=")[2]));
         }
 
         return list4PrintModel;
@@ -131,8 +134,11 @@ public class QRcodeExportController {
         //查询具体的二维码
         List<M_USER_QRCODE_ENTITY> list = qrCodeService.queryQrCodeForReExport(userId,productId,batchId);
         List<QrCodeExportModel> list4PrintModel = new ArrayList<QrCodeExportModel>();
+        //创建第一行
+        list4PrintModel.add(new QrCodeExportModel("二维码地址","唯一识别码"));
+        //真正的数据
         for(M_USER_QRCODE_ENTITY entityModel:list){
-            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string()));
+            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQr_query_string().split("=")[2]));
         }
 
         return list4PrintModel;

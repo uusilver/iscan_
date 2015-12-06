@@ -136,6 +136,9 @@ public class ExcelUtil {
             cell1.setCellValue(list.get(i).getVisitUrl());
             cell1.setCellStyle(cs2);
             // 在row行上创建一个方格
+            Cell cell2 = row1.createCell(1);
+            cell2.setCellValue(list.get(i).getUnqueKey());
+            cell2.setCellStyle(cs2);
 
         }
         return wb;

@@ -5,9 +5,11 @@ package com.tmind.iscan.model;
  */
 public class QrCodeExportModel {
     private String visitUrl;
+    private String unqueKey;
 
-    public QrCodeExportModel(String visitUrl) {
+    public QrCodeExportModel(String visitUrl, String unqueKey) {
         this.visitUrl = visitUrl;
+        this.unqueKey = unqueKey;
     }
 
     public String getVisitUrl() {
@@ -16,5 +18,13 @@ public class QrCodeExportModel {
 
     public void setVisitUrl(String visitUrl) {
         this.visitUrl = visitUrl;
+    }
+
+    public String getUnqueKey() {
+        return unqueKey;
+    }
+
+    public void setUnqueKey(String unqueKey) {
+        this.unqueKey = unqueKey;
     }
 }
