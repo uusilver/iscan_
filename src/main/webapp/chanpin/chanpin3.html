@@ -216,6 +216,14 @@ window.open("bianji3.html")
             globalTemp = $(this).val();
         });
 
+
+        $(".param").on('click',function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+            window.open("../wuliao/biaoqian.html?"+productId+"="+batch_no,"_self");
+        });
+
+
         //bind click functions
         $('.delete').on('click', function () {
             if (confirm("确认删除这批次的二维码吗？")) {

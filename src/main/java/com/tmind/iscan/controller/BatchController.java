@@ -64,7 +64,7 @@ public class BatchController {
                         strLize(productList.get(i).getRelate_batch()),
                         strLize(productList.get(i).getQrcode_total_no()),
                         strLize(productList.get(i).getUpdate_time()),
-                        "<button class=\"update\">更新</button> <button class=\"export\">导出</button><button class=\"delete\">删除</button>"
+                        "<button class=\"update\">更新</button> <button class=\"export\">导出</button><button class=\"param\">参数</button><button class=\"delete\">删除</button>"
                 };
 
                 lst.add(d);
