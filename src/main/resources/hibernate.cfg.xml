@@ -14,6 +14,17 @@
         <property name="connection.pool_size">1</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <!--  <property name="hibernate.c3p0.timeout">120</property>-->
+        <property name="automaticTestTable">Test</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">120</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="c3p0.testConnectionOnCheckout">true</property>
+        <property name="c3p0.idleConnectionTestPeriod">18000</property>
+        <property name="c3p0.maxIdleTime">25000</property>
         <!-- 将来开启二级缓存-->
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <mapping class="com.tmind.iscan.entity.UserEntity" />
