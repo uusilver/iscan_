@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -57,21 +58,46 @@ public class ProductService {
     public boolean deleteProduct(Integer userId, String productId, String batchNo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            Transaction trans = session.beginTransaction();
             String hql = "delete M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId and M_USER_PRODUCT_ENTITY.relate_batch=:batchNo";
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
             query.setString("productId", productId);
             query.setString("batchNo", batchNo);
 
-            query.executeUpdate();
-            session.beginTransaction().commit();
-        } finally {
+            int result  = query.executeUpdate();
+            trans.commit();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally{
             if (session != null) {
                 session.close();
             }
         }
         return true;
     }
+
+    //删除产品信息(仅根据产品id)
+    public boolean deleteProduct4ProductId(Integer userId, String productId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            Transaction trans = session.beginTransaction();
+            String hql = "delete M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId";
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setString("productId", productId);
+            int result  = query.executeUpdate();
+            trans.commit();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally{
+            if (session != null) {
+                session.close();
+            }
+        }
+        return true;
+    }
+
 
     //根据产品id查询
     public M_USER_PRODUCT_ENTITY queryProductInfoById(Integer userId, String productId){

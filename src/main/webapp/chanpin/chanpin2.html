@@ -57,7 +57,7 @@
 
                 <!-- /.row -->
             </div>
-            <button type="submit" class="button button-primary" id="deleteCategories" style="margin-top:10px;">提交删除</button>
+            <button type="button" class="button button-primary" id="deleteCategories" style="margin-top:10px;">提交删除</button>
             <!-- /.page-content -->
         </div>
         <!-- /.main-content -->
@@ -95,7 +95,7 @@
                 });
                 $.get("../categoryController/deleteCategory/"+ready4DeleteIds,function(data){
                     if(data=="success"){
-                        window.location.reload();
+                        window.location.href = "../chanpin/chanpin2.html";
                     }else if(data == "failed"){
                         alert("产品类别已被绑定，请删除相关产品后再删除产品类别");
                     }

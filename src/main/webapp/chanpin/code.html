@@ -282,13 +282,25 @@
             if (confirm("确认删除这条信息么？")) {
                 var productId = $(this).parent().parent().find("td:first-child").html();
                 var batch_no =  $(this).parent().parent().find("td").eq(3).html();
-                $.get("../chanpin/deleteProduct/" + productId+"/"+batch_no, function (data) {
+                batch_no = batch_no.split("<")[0];
+            if(batch_no){
+                    $.get("../chanpin/deleteProduct/" + productId+"/"+batch_no, function (data) {
+                        if (data == "success") {
+                            alert("删除成功");
+                            window.location.href = "../chanpin/code.html";
+                        }
+                    })
+
+            }else{
+                $.get("../chanpin/deleteProduct/" + productId, function (data) {
                     if (data == "success") {
                         alert("删除成功");
-                        window.location.reload();
+                        window.location.href = "../chanpin/code.html";
                     }
                 })
-            }
+                }
+
+            }//end of confirm
 
         });
 

@@ -40,14 +40,14 @@ public class UserValidationService {
         return id;
     }
 
-    public String findUserQrTableFromDatabase(String username, String password){
+    public UserEntity findUserEntity(String username, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<UserEntity> list = null;
+        UserEntity entity = null;
         try{
             Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
             q.setString("username",username);
             q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
-            list = q.list();
+            entity = (UserEntity)q.list().get(0);
             log.info("用户登陆成功:"+username);
 
         }catch (Exception e){
@@ -57,6 +57,6 @@ public class UserValidationService {
                 session.close();
             }
         }
-        return list.get(0).getQuery_qrcode_table();
+        return entity;
     }
 }

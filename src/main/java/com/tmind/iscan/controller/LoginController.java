@@ -38,11 +38,15 @@ public class LoginController {
                         HttpServletRequest req, HttpServletResponse response) {
 
         log.info("当前登陆:"+userTo.toString());
-        Integer userId = userValidation.findUserInDatabase(userTo.getUsername(), userTo.getPassword());
-        String userQrcodeTable = userValidation.findUserQrTableFromDatabase(userTo.getUsername(), userTo.getPassword());
-        if (userId>0) {
-                userTo.setUserId(userId);
-                userTo.setQuery_qrcode_table(userQrcodeTable);
+        UserEntity userEntity = userValidation.findUserEntity(userTo.getUsername(), userTo.getPassword());
+        if (userEntity.getId()>0) {
+                userTo.setUserId(userEntity.getId());
+                userTo.setQuery_qrcode_table(userEntity.getQuery_qrcode_table());
+                userTo.setUser_type(userEntity.getUser_type());
+                userTo.setUser_email(userEntity.getUser_email());
+                userTo.setUser_factory_name(userEntity.getUser_factory_name());
+                userTo.setUser_factory_address(userEntity.getUser_factory_address());
+                userTo.setUser_contact_person_name(userEntity.getUser_contact_person_name());
                 req.getSession().setAttribute("userInSession", userTo);
                 return "index";
         }

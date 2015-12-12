@@ -52,12 +52,13 @@ public class CategoryService {
     public boolean deleteCategory(Integer categoryId, Integer userId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            Transaction trans = session.beginTransaction();
             String hql = "delete M_USER_CATEGORY_ENTITY as M_USER_CATEGORY_ENTITY where M_USER_CATEGORY_ENTITY.Id=:Id and M_USER_CATEGORY_ENTITY.user_id=:userId";
             Query query = session.createQuery(hql);
             query.setInteger("Id",categoryId);
             query.setInteger("userId",userId);
             query.executeUpdate();
-            session.beginTransaction().commit();
+            trans.commit();
         }finally {
             if(session!=null){
                 session.close();

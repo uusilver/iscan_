@@ -6,6 +6,7 @@ import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -72,13 +73,14 @@ public class BatchService {
     public boolean deleteQrCodes(Integer userId, String productId, String batchNo){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            Transaction trans = session.beginTransaction();
             String hql = "delete M_USER_QRCODE_ENTITY as M_USER_QRCODE_ENTITY where M_USER_QRCODE_ENTITY.user_id=:userId and M_USER_QRCODE_ENTITY.product_id=:productId and M_USER_QRCODE_ENTITY.product_batch=:batchNo";
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
             query.setString("productId", productId);
             query.setString("batchNo",batchNo);
             query.executeUpdate();
-            session.beginTransaction().commit();
+            trans.commit();
         } finally {
             if (session != null) {
                 session.close();

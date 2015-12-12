@@ -23,6 +23,18 @@ public class UserEntity {
     private String password;
     @Column(name="query_qrcode_table")
     private String query_qrcode_table;
+    @Column(name="user_type")
+    private String user_type;
+    @Column(name="user_email")
+    private String user_email;
+    @Column(name="user_telno")
+    private String user_telno;
+    @Column(name="user_factory_name")
+    private String user_factory_name;
+    @Column(name="user_factory_address")
+    private String user_factory_address;
+    @Column(name="user_contact_person_name")
+    private String user_contact_person_name;
 
     public Integer getId() {
         return Id;
@@ -51,12 +63,67 @@ public class UserEntity {
         this.query_qrcode_table = query_qrcode_table;
     }
 
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
+    }
+
+    public String getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
+    }
+
+    public String getUser_telno() {
+        return user_telno;
+    }
+
+    public void setUser_telno(String user_telno) {
+        this.user_telno = user_telno;
+    }
+
+    public String getUser_factory_name() {
+        return user_factory_name;
+    }
+
+    public void setUser_factory_name(String user_factory_name) {
+        this.user_factory_name = user_factory_name;
+    }
+
+    public String getUser_factory_address() {
+        return user_factory_address;
+    }
+
+    public void setUser_factory_address(String user_factory_address) {
+        this.user_factory_address = user_factory_address;
+    }
+
+    public String getUser_contact_person_name() {
+        return user_contact_person_name;
+    }
+
+    public void setUser_contact_person_name(String user_contact_person_name) {
+        this.user_contact_person_name = user_contact_person_name;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
+        return "UserEntity{" +
                 "Id=" + Id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", query_qrcode_table='" + query_qrcode_table + '\'' +
+                ", user_type='" + user_type + '\'' +
+                ", user_email='" + user_email + '\'' +
+                ", user_telno='" + user_telno + '\'' +
+                ", user_factory_name='" + user_factory_name + '\'' +
+                ", user_factory_address='" + user_factory_address + '\'' +
+                ", user_contact_person_name='" + user_contact_person_name + '\'' +
                 '}';
     }
 }

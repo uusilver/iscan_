@@ -191,7 +191,7 @@ $(function(){
     
     <div class="welinfo">
     <span><img src="images/time.png" alt="时间" /></span>
-    <i>系统统计：当前账户余额：500元。总计生成品牌码数10,0000枚，总计扫码数500次。（异常品牌码数：5个）</i>
+    <i>系统统计：<span id="leftAccount"></span>。总计生成品牌码数10,0000枚，总计扫码数500次。（异常品牌码数：5个）</i>
     </div>
     
     <div class="xline"></div>
@@ -248,7 +248,10 @@ $(function(){
             url: "../mainController/getSystemInfo",
             dataType: "text",
             success: function(data){
-               $("#systemMsg").append(data);
+                var systemMsg = data.split(",");
+               $("#systemMsg").append("系统消息："+systemMsg[0]);
+                $("#leftAccount").html("当前账户剩余二维码："+systemMsg[1]+"个");
+
             }
         })
     });
