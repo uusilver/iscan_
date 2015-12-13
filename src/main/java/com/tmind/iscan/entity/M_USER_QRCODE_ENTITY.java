@@ -28,6 +28,8 @@ public class M_USER_QRCODE_ENTITY {
     private String active_flag;
     @Column(name="create_date")
     private String create_date;
+    @Column(name="query_match")
+    private String query_match;
 
     public Integer getId() {
         return Id;
@@ -99,5 +101,13 @@ public class M_USER_QRCODE_ENTITY {
 
     public void setCreate_date(String create_date) {
         this.create_date = create_date;
+    }
+
+    public String getQuery_match() {
+        return query_match;
+    }
+
+    public void setQuery_match(String query_match) {
+        this.query_match = query_match;
     }
 }
