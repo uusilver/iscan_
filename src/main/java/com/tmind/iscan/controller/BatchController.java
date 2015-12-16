@@ -55,20 +55,20 @@ public class BatchController {
         for (int i = 0; i < productList.size(); i++) {
             List<M_USER_ADVICE_TEMPLATE> adviceTemplates = batchService.queryBatch(userId);
             //必须绑定了相关批次，才能在批次功能里面看到
-            if(productList.get(i).getRelate_batch().length()>0){
+//            if(productList.get(i).getRelate_batch().length()>0){
                 String[] d = {
                         strLize(productList.get(i).getId()),
                         strLize(productList.get(i).getProduct_id()),
-                        strLize(productList.get(i).getProduct_name()),
+                        strLize("123"),
                         generateOptions(productList.get(i).getAdvice_temp(), adviceTemplates),
-                        strLize(productList.get(i).getRelate_batch()),
+//                        strLize(productList.get(i).getRelate_batch()),
                         strLize(productList.get(i).getQrcode_total_no()),
                         strLize(productList.get(i).getUpdate_time()),
                         "<button class=\"update\">更新</button> <button class=\"export\">导出</button><button class=\"param\">参数</button><button class=\"delete\">删除</button>"
                 };
 
                 lst.add(d);
-            }
+//            }
 
         }
 

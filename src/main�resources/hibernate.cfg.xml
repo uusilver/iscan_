@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">
+            <![CDATA[jdbc:mysql://localhost:3306/iscan?useUnicode=true&characterEncoding=utf8]]>
+        </property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">1234</property>
+        <property name="connection.pool_size">1</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <!--  <property name="hibernate.c3p0.timeout">120</property>-->
+        <property name="automaticTestTable">Test</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">120</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="c3p0.testConnectionOnCheckout">true</property>
+        <property name="c3p0.idleConnectionTestPeriod">18000</property>
+        <property name="c3p0.maxIdleTime">25000</property>
+        <!-- 将来开启二级缓存-->
+        <property name="hibernate.cache.use_second_level_cache">false</property>
+        <mapping class="com.tmind.iscan.entity.UserEntity" />
+        <mapping class="com.tmind.iscan.entity.System_meta_Info" />
+        <mapping class="com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY" />
+        <mapping class="com.tmind.iscan.entity.M_USER_PRODUCT_META" />
+        <mapping class="com.tmind.iscan.entity.M_USER_CATEGORY_ENTITY" />
+        <mapping class="com.tmind.iscan.entity.M_USER_QRCODE_ENTITY" />
+        <mapping class="com.tmind.iscan.entity.M_USER_ACCOUNT" />
+        <mapping class="com.tmind.iscan.entity.M_USER_ADVICE_TEMPLATE" />
+        <mapping class="com.tmind.iscan.entity.M_USER_ACCOUNT_OPT" />
+        <mapping class="com.tmind.iscan.entity.M_PRODUCT_SHOW_INFO" />
+
+
+
+    </session-factory>
+</hibernate-configuration>

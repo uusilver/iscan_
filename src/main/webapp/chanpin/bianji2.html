@@ -151,62 +151,54 @@
             var productBatch = $("#productBatch").val();
 //            var qr_number = $("#qrcode_amount").val();
             //QRcode
-            if(createFlag){
+//            if(createFlag){
                 //在产品列表中更新纪录，并且创建二维码
-
                 $.ajax({
-                    url:'../chanpin/updateProductByIdAndCreateQrcode',
+                    url:'../chanpin/createNewProductBatch',
                     type:"post",
                     data:{
-                        Id:id,
-                        product_id:productId,
-                        product_name:productName,
-                        relate_batch:productBatch,
-//                        qrcode_total_no:qr_number,
-                        product_category:product_category,
-                        product_desc:product_desc
+                        productId:productId,
+                        batchNo:productBatch
                     },
                     success:function(data) {
-                        if (data == "success") {
-//                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
-                            window.history.back();
-                        }
-                        else if(data="charge") {
-                            alert("余额不足，请去充值");
-                            window.location.href = "../zhanghao/code.html"
-                        }else{
-                            alert("操作失败!");
+                        if (data) {
+                            if(confirm("批次创建成功，需要去查看么？")){
+                                alert(data);
+
+                            }else{
+                                window.history.back();
+                            }
                         }
                     }
                 })//end of ajax
 
-            }else{
-                $.ajax({
-                    url:'../chanpin/createNewBatchForOldProduct',
-                    type:"post",
-                    data:{
-                        Id:id,
-                        product_id:productId,
-                        product_name:productName,
-                        relate_batch:productBatch,
-//                        qrcode_total_no:qr_number,
-                        product_category:product_category,
-                        product_desc:product_desc
-                    },
-                    success:function(data) {
-                        if (data == "success") {
-//                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
-                            window.history.back();
-                        }
-                        else if(data="charge") {
-                            alert("余额不足，请去充值");
-                            window.location.href = "../zhanghao/code.html"
-                        }else{
-                            alert("操作失败!");
-                        }
-                    }
-                })//end of ajax
-            }
+//            }else{
+//                $.ajax({
+//                    url:'../chanpin/createNewBatchForOldProduct',
+//                    type:"post",
+//                    data:{
+//                        Id:id,
+//                        product_id:productId,
+//                        product_name:productName,
+//                        relate_batch:productBatch,
+////                        qrcode_total_no:qr_number,
+//                        product_category:product_category,
+//                        product_desc:product_desc
+//                    },
+//                    success:function(data) {
+//                        if (data == "success") {
+////                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
+//                            window.history.back();
+//                        }
+//                        else if(data="charge") {
+//                            alert("余额不足，请去充值");
+//                            window.location.href = "../zhanghao/code.html"
+//                        }else{
+//                            alert("操作失败!");
+//                        }
+//                    }
+//                })//end of ajax
+//            }
         });
     });
 </script>

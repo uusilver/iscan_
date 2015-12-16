@@ -12,12 +12,6 @@ public class M_USER_PRODUCT_ENTITY {
     @javax.persistence.Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer Id;
-    @Column(name="product_name")
-    private String product_name;
-    @Column(name="product_category") //产品类别
-    private String product_category;
-    @Column(name="product_desc")  //产品描述
-    private String product_desc;
     @Column(name="user_id")
     private Integer user_id;
     @Column(name="product_id") //产品ID
@@ -38,30 +32,6 @@ public class M_USER_PRODUCT_ENTITY {
 
     public void setId(Integer id) {
         Id = id;
-    }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
-
-    public String getProduct_category() {
-        return product_category;
-    }
-
-    public void setProduct_category(String product_category) {
-        this.product_category = product_category;
-    }
-
-    public String getProduct_desc() {
-        return product_desc;
-    }
-
-    public void setProduct_desc(String product_desc) {
-        this.product_desc = product_desc;
     }
 
     public Integer getUser_id() {
