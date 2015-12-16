@@ -2,6 +2,7 @@ package com.tmind.iscan.controller;
 
 import com.tmind.iscan.entity.M_USER_ADVICE_TEMPLATE;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.model.BatchQueryTo;
 import com.tmind.iscan.service.BatchService;
 import com.tmind.iscan.service.ProductService;
 import net.sf.json.JSONArray;
@@ -51,20 +52,20 @@ public class BatchController {
 
         List<String[]> lst = new ArrayList<String[]>();
         Integer userId = LoginController.getLoginUser(req).getUserId();
-        List<M_USER_PRODUCT_ENTITY> productList = batchService.queryProductInfo(userId,searchType,searchContent);
-        for (int i = 0; i < productList.size(); i++) {
+        List<BatchQueryTo> batchModel = batchService.queryProductInfo(userId,searchType,searchContent);
+        for (int i = 0; i < batchModel.size(); i++) {
             List<M_USER_ADVICE_TEMPLATE> adviceTemplates = batchService.queryBatch(userId);
             //必须绑定了相关批次，才能在批次功能里面看到
 //            if(productList.get(i).getRelate_batch().length()>0){
                 String[] d = {
-                        strLize(productList.get(i).getId()),
-                        strLize(productList.get(i).getProduct_id()),
-                        strLize("123"),
-                        generateOptions(productList.get(i).getAdvice_temp(), adviceTemplates),
-//                        strLize(productList.get(i).getRelate_batch()),
-                        strLize(productList.get(i).getQrcode_total_no()),
-                        strLize(productList.get(i).getUpdate_time()),
-                        "<button class=\"update\">更新</button> <button class=\"export\">导出</button><button class=\"param\">参数</button><button class=\"delete\">删除</button>"
+                        strLize(batchModel.get(i).getId()),
+                        strLize(batchModel.get(i).getProductId()),
+                        strLize(batchModel.get(i).getProductName()),
+                        generateOptions(batchModel.get(i).getAdviceTemplate(), adviceTemplates),
+                        strLize(batchModel.get(i).getBatchNo()),
+                        strLize(batchModel.get(i).getQrTotalNo()),
+                        strLize(batchModel.get(i).getUpdateTime()),
+                        "<button class=\"export\">导出旧品牌码</button><button class=\"qrcode\">创建新品牌码</button><button class=\"delete\">删除</button>"
                 };
 
                 lst.add(d);

@@ -128,12 +128,13 @@
 <script>
     $(function(){
         //初始化页面
-        var prodcutId = window.location.href.split("?")[1];
+        var prodcutId = window.location.href.split("?")[1].split("&")[0];
+        var batchNo = window.location.href.split("?")[1].split("&")[1];
         $.get("../chanpin/queryProductById/"+prodcutId, function(data) {
             var jsonData = JSON.parse(data);
             $("#product_name").html(jsonData.product_name);
             $("#product_id").html(jsonData.product_id);
-            $("#batch_no").html(jsonData.relate_batch);
+            $("#batch_no").html(batchNo);
         });
 
         $("#createQrCode").click(function(){

@@ -265,17 +265,6 @@
 
         });
 
-        //bind click functions
-        $('.qrcode').on('click', function () {
-            var productId = $(this).parent().parent().find("td:first-child").html();
-            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
-            if(batch_no.startsWith("<button")){
-                alert("批次号为空，请创建批次号！");
-            }else{
-                var pWin = window.open('bianji3.html?'+productId,'_self');
-            }
-
-        });
 
         //bind click functions
         $('.delete').on('click', function () {

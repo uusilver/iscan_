@@ -163,7 +163,7 @@
                     success:function(data) {
                         if (data) {
                             if(confirm("批次创建成功，需要去查看么？")){
-                                alert(data);
+                                window.location.href = "chanpin3.html?"+productId;
 
                             }else{
                                 window.history.back();

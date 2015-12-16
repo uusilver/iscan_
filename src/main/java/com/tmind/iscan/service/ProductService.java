@@ -192,6 +192,7 @@ public class ProductService {
         Transaction tran=session.beginTransaction();
         M_USER_PRODUCT_ENTITY m_user_product_entity = null;
         try {
+            //更新二维码生成到批次数
             String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId and M_USER_PRODUCT_ENTITY.relate_batch=:batchId";//使用命名参数，推荐使用，易读。
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
@@ -200,6 +201,15 @@ public class ProductService {
             m_user_product_entity = (M_USER_PRODUCT_ENTITY)query.list().get(0);
             m_user_product_entity.setQrcode_total_no(m_user_product_entity.getQrcode_total_no() + qrAccount);
             session.update(m_user_product_entity);
+            //更新二维码总数
+            hql = "from M_USER_PRODUCT_META as M_USER_PRODUCT_META where M_USER_PRODUCT_META.user_id=:userId and M_USER_PRODUCT_META.product_id=:productId";//使用命名参数，推荐使用，易读。
+            query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setString("productId", productId);
+            M_USER_PRODUCT_META meta = null;
+            meta = (M_USER_PRODUCT_META)query.list().get(0);
+            meta.setQrcode_total_no(meta.getQrcode_total_no() + qrAccount);
+            session.update(meta);
             tran.commit();
         }catch (Exception e){
             tran.rollback();

@@ -182,6 +182,12 @@ window.open("bianji3.html")
 <script>
     var globalTemp = '';
     $(function(){
+        //判断是否加载搜索
+        if(window.location.href.indexOf("?")>=0){
+            var content = window.location.href.split("?")[1];
+            $("#searchContent").val(content);
+            $("#searchButton").trigger("click");
+        }
         //initialTable
         loadTableData();
         $("#searchButton").click(function(){
@@ -190,17 +196,17 @@ window.open("bianji3.html")
         })
 
         //bind click functions
-        $('.update').on('click', function () {
-            var productId = $(this).parent().parent().find("td:first-child").html();
-            if(globalTemp.length>0){
-                alert(globalTemp);
-                globalTemp = '';
-            }else{
-                alert("请选择要改的产品模版");
-            }
-
-
-        });
+//        $('.update').on('click', function () {
+//            var productId = $(this).parent().parent().find("td:first-child").html();
+//            if(globalTemp.length>0){
+//                alert(globalTemp);
+//                globalTemp = '';
+//            }else{
+//                alert("请选择要改的产品模版");
+//            }
+//
+//
+//        });
 
         //bind click functions
         $('.export').on('click', function () {
@@ -216,6 +222,13 @@ window.open("bianji3.html")
             globalTemp = $(this).val();
         });
 
+        //bind click functions
+        $('.qrcode').on('click', function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            var batch_no =  $(this).parent().parent().find("td").eq(3).html();
+            window.location.href = "bianji3.html?"+productId+"&"+batch_no;
+
+        });
 
         $(".param").on('click',function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
