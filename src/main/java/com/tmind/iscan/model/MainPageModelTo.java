@@ -1,29 +1,22 @@
-package com.tmind.iscan.entity;
+package com.tmind.iscan.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.math.BigDecimal;
 
 /**
- * Created by lijunying on 15/11/24.
+ * Created by lijunying on 15/12/17.
  */
-@Entity
-@Table(name = "m_user_account")
-public class M_USER_ACCOUNT {
-    @javax.persistence.Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class MainPageModelTo {
     private Integer Id;
-    @Column(name="user_id")   //登陆用户账户ID
     private Integer user_id;
-    @Column(name="account")   //二维码余额
     private Integer account;
-    @Column(name="currency")   //
     private BigDecimal currency;
-    @Column(name="qr_total_user")   //
     private String qr_total_user;
-    @Column(name="scan_total_user")   //
     private String scan_total_user;
-    @Column(name="warning_qr_code_no")   //二维码余额
     private String warning_qr_code_no;
+    private String message;
 
     public Integer getId() {
         return Id;
@@ -79,5 +72,13 @@ public class M_USER_ACCOUNT {
 
     public void setWarning_qr_code_no(String warning_qr_code_no) {
         this.warning_qr_code_no = warning_qr_code_no;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

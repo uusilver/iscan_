@@ -25,7 +25,9 @@
 <script src='js/ichart.latest.min.js'></script>
 <script type='text/javascript'>
 $(function(){
-      var chart = iChart.create({
+    $.get("../mainController/getStatisticInfo",function(data){
+        data = eval('(' + data + ')');
+        var chart = iChart.create({
             render:"ichart-render",
             width:1003,
             height:400,
@@ -33,29 +35,29 @@ $(function(){
             gradient:false,
             color_factor:0.2,
             border:{
-                  color:"#e6e6e6",
-                  width:1
+                color:"#e6e6e6",
+                width:1
             },
             align:"center",
             offsetx:0,
             offsety:0,
             sub_option:{
-                  border:{
+                border:{
+                    color:"#BCBCBC",
+                    width:1
+                },
+                label:{
+                    fontweight:500,
+                    fontsize:11,
+                    color:"#4572a7",
+                    sign:"square",
+                    sign_size:12,
+                    border:{
                         color:"#BCBCBC",
                         width:1
-                  },
-                  label:{
-                        fontweight:500,
-                        fontsize:11,
-                        color:"#4572a7",
-                        sign:"square",
-                        sign_size:12,
-                        border:{
-                              color:"#BCBCBC",
-                              width:1
-                        },
-                        background_color:"#fefefe"
-                  }
+                    },
+                    background_color:"#fefefe"
+                }
             },
             shadow:true,
             shadow_color:"#666666",
@@ -65,116 +67,76 @@ $(function(){
             bar_height:"70%",
             radius:"90%",
             title:{
-                  text:"全国流量访问前10名地区",
-                  color:"#111111",
-                  fontsize:20,
-                  font:"微软雅黑",
-                  textAlign:"center",
-                  height:30,
-                  offsetx:0,
-                  offsety:0
+                text:"全国流量访问前10名地区",
+                color:"#111111",
+                fontsize:20,
+                font:"微软雅黑",
+                textAlign:"center",
+                height:30,
+                offsetx:0,
+                offsety:0
             },
             subtitle:{
-                  text:"",
-                  color:"#111111",
-                  fontsize:16,
-                  font:"微软雅黑",
-                  textAlign:"center",
-                  height:20,
-                  offsetx:0,
-                  offsety:0
+                text:"",
+                color:"#111111",
+                fontsize:16,
+                font:"微软雅黑",
+                textAlign:"center",
+                height:20,
+                offsetx:0,
+                offsety:0
             },
             footnote:{
-                  text:"查查看信息技术支持",
-                  color:"#111111",
-                  fontsize:12,
-                  font:"微软雅黑",
-                  textAlign:"right",
-                  height:20,
-                  offsetx:0,
-                  offsety:0
+                text:"315ck.com",
+                color:"#111111",
+                fontsize:12,
+                font:"微软雅黑",
+                textAlign:"right",
+                height:20,
+                offsetx:0,
+                offsety:0
             },
             legend:{
-                  enable:false,
-                  background_color:"#fefefe",
-                  color:"#333333",
-                  fontsize:12,
-                  border:{
-                        color:"#BCBCBC",
-                        width:1
-                  },
-                  column:1,
-                  align:"right",
-                  valign:"center",
-                  offsetx:0,
-                  offsety:0
+                enable:false,
+                background_color:"#fefefe",
+                color:"#333333",
+                fontsize:12,
+                border:{
+                    color:"#BCBCBC",
+                    width:1
+                },
+                column:1,
+                align:"right",
+                valign:"center",
+                offsetx:0,
+                offsety:0
             },
             coordinate:{
-                  width:"80%",
-                  height:"84%",
-                  background_color:"#ffffff",
-                  axis:{
-                        color:"#a5acb8",
-                        width:[1,"",1,""]
-                  },
-                  grid_color:"#d9d9d9",
-                  label:{
-                        fontweight:500,
-                        color:"#666666",
-                        fontsize:11
-                  }
+                width:"80%",
+                height:"84%",
+                background_color:"#ffffff",
+                axis:{
+                    color:"#a5acb8",
+                    width:[1,"",1,""]
+                },
+                grid_color:"#d9d9d9",
+                label:{
+                    fontweight:500,
+                    color:"#666666",
+                    fontsize:11
+                }
             },
             label:{
-                  fontweight:500,
-                  color:"#666666",
-                  fontsize:11
+                fontweight:500,
+                color:"#666666",
+                fontsize:11
             },
             type:"column2d",
-            data:[
-                  {
-                  name:"北京",
-                  value:20,
-                  color:"#4572a7"
-            },{
-                  name:"上海",
-                  value:30,
-                  color:"#aa4643"
-            },{
-                  name:"广东",
-                  value:40,
-                  color:"#89a54e"
-            },{
-                  name:"江苏",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"湖北",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"河南",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"山东",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"安徽",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"四川",
-                  value:10,
-                  color:"#4572a7"
-            },{
-                  name:"山西",
-                  value:10,
-                  color:"#4572a7"
-            }
-            ]
-      });
-      chart.draw();
+            data:data
+        });
+        chart.draw();
+    })
+
 });
 </script>
  <body>
@@ -191,7 +153,7 @@ $(function(){
     
     <div class="welinfo">
     <span><img src="images/time.png" alt="时间" /></span>
-    <i>系统统计：<span id="leftAccount"></span>。总计生成品牌码数10,0000枚，总计扫码数500次。（异常品牌码数：5个）</i>
+    <i>系统统计：<b id="leftAccount"></b>。总计生成品牌码数<b id="totalQrCode"></b>枚，总计扫码数<b id="scanNo"></b>次。（异常品牌码数：<b id="warningNo"></b>个）</i>
     </div>
     
     <div class="xline"></div>
@@ -248,9 +210,12 @@ $(function(){
             url: "../mainController/getSystemInfo",
             dataType: "text",
             success: function(data){
-                var systemMsg = data.split(",");
-               $("#systemMsg").append("系统消息："+systemMsg[0]);
-                $("#leftAccount").html("当前账户剩余二维码："+systemMsg[1]+"个");
+                data = eval('(' + data + ')');
+                $("#systemMsg").append("系统消息："+data.message);
+                $("#leftAccount").html("当前账户剩余二维码："+data.account+"个");
+                $("#totalQrCode").html(data.qr_total_user);
+                $("#scanNo").html(data.scan_total_user);
+                $("#warningNo").html(data.warning_qr_code_no);
 
             }
         })
