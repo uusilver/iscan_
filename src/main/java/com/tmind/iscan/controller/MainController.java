@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by lijunying on 15/11/20.
  */
 @Controller
-@RequestMapping("/mainController")
+@RequestMapping("mainController")
 public class MainController {
 
     Logger log = Logger.getLogger(MainController.class);

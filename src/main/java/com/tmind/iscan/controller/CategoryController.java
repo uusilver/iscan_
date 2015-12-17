@@ -14,7 +14,7 @@ import java.util.List;
  * Created by lijunying on 15/11/22.
  */
 @Controller
-@RequestMapping("/categoryController")
+@RequestMapping("categoryController")
 public class CategoryController {
 
     @Resource(name="categoryService")

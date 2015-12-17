@@ -19,7 +19,7 @@ import java.util.List;
  * Created by lijunying on 15/11/28.
  */
 @Controller
-@RequestMapping("/chanpin")
+@RequestMapping("chanpin")
 public class BatchController {
 
 

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("login")
 public class LoginController {
 
     Logger log = Logger.getLogger(LoginController.class);

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by lijunying on 15/12/7.
  */
 @Controller
-@RequestMapping("/wuliao")
+@RequestMapping("wuliao")
 public class ProductInfoController {
 
     @Resource(name="productInfoService")

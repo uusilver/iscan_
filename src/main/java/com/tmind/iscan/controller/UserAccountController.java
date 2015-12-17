@@ -21,7 +21,7 @@ import java.util.List;
  * Created by lijunying on 15/11/29.
  */
 @Controller
-@RequestMapping("/zhanghao")
+@RequestMapping("zhanghao")
 public class UserAccountController {
 
     @Resource(name="userAccountService")

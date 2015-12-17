@@ -265,6 +265,12 @@
 
         });
 
+        //bind click functions
+        $('.qrcode').on('click', function () {
+            var productId = $(this).parent().parent().find("td:first-child").html();
+            window.location.href = "chanpin3.html?"+productId;
+
+        });
 
         //bind click functions
         $('.delete').on('click', function () {
