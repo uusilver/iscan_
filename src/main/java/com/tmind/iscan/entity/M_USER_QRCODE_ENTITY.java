@@ -30,6 +30,12 @@ public class M_USER_QRCODE_ENTITY {
     private String create_date;
     @Column(name="query_match")
     private String query_match;
+    @Column(name="vistor_ip_addr")
+    private String vistor_ip_addr;
+    @Column(name="vistor_phy_addr")
+    private String vistor_phy_addr;
+    @Column(name="ip_check_flag")
+    private String ip_check_flag;
 
     public Integer getId() {
         return Id;
@@ -109,5 +115,29 @@ public class M_USER_QRCODE_ENTITY {
 
     public void setQuery_match(String query_match) {
         this.query_match = query_match;
+    }
+
+    public String getVistor_ip_addr() {
+        return vistor_ip_addr;
+    }
+
+    public void setVistor_ip_addr(String vistor_ip_addr) {
+        this.vistor_ip_addr = vistor_ip_addr;
+    }
+
+    public String getVistor_phy_addr() {
+        return vistor_phy_addr;
+    }
+
+    public void setVistor_phy_addr(String vistor_phy_addr) {
+        this.vistor_phy_addr = vistor_phy_addr;
+    }
+
+    public String getIp_check_flag() {
+        return ip_check_flag;
+    }
+
+    public void setIp_check_flag(String ip_check_flag) {
+        this.ip_check_flag = ip_check_flag;
     }
 }
