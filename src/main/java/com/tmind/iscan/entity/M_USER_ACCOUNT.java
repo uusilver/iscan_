@@ -22,8 +22,13 @@ public class M_USER_ACCOUNT {
     private String qr_total_user;
     @Column(name="scan_total_user")   //
     private String scan_total_user;
-    @Column(name="warning_qr_code_no")   //二维码余额
+    @Column(name="warning_qr_code_no")   //扫描超过2次的二维码
     private String warning_qr_code_no;
+    @Column(name="user_vistor_report")   //用户的访问地区报告
+    private String user_vistor_report;
+
+
+
 
     public Integer getId() {
         return Id;

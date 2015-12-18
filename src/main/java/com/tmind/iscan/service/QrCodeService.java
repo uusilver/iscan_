@@ -3,6 +3,7 @@ package com.tmind.iscan.service;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
+import com.tmind.iscan.util.IPAnalyzer;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -60,4 +61,40 @@ public class QrCodeService {
         return list;
     }
 
+    //查询二维码表中的IP地址，并且更新为相关的物理地址，过滤掉0.0.0.0的选项
+    public void queryQrCode4UpdatePhysicalAddress(){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<M_USER_QRCODE_ENTITY> list = null;
+        Transaction trans = session.beginTransaction();
+        try {
+            String hql = "from M_USER_QRCODE_ENTITY as M_USER_QRCODE_ENTITY where  M_USER_QRCODE_ENTITY.ip_check_flag='N'";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            list = query.list();
+            for(M_USER_QRCODE_ENTITY qModel:list){
+                String ipAddress = qModel.getVistor_ip_addr();
+                //过滤掉本地地址
+                if(!ipAddress.equals("0:0:0:0:0:0:0:1")&&ipAddress!=null&&!ipAddress.equals("")){
+                    System.out.println("处理IP地址");
+                    String physicalAddress = IPAnalyzer.queryAddressByIp(ipAddress);
+                    //获得ip地址
+                    if(physicalAddress!=null){
+                        String updateSql = "update  M_USER_QRCODE_ENTITY m set m.ip_check_flag='Y', m.vistor_phy_addr =:phyAddr where m.Id=:id";
+                        query = session.createQuery(updateSql);
+                        query.setInteger("id", qModel.getId());
+                        query.setString("phyAddr",physicalAddress);
+                        query.executeUpdate();
+                        trans.commit();
+                    }
+                }
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        } finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+
+    }
 }
