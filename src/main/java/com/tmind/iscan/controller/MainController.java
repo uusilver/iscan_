@@ -11,10 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sun.rmi.runtime.Log;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,4 +63,17 @@ public class MainController {
         list.add(m3);
         return new Gson().toJson(list);
     }
+
+    @RequestMapping(value = "/getUserName", method = RequestMethod.GET)
+    public @ResponseBody String getUserName(HttpServletRequest request){
+        return LoginController.getLoginUser(request).getUsername();
+    }
+
+    @RequestMapping(value = "/logout")
+    public @ResponseBody String logout(HttpServletRequest request){
+        log.info(LoginController.getLoginUser(request).getUsername()+"在"+new Date()+"退出系统");
+        request.getSession().removeAttribute("userInSession");
+        return "success";
+    }
+
 }
