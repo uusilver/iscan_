@@ -57,4 +57,13 @@ public class CategoryController {
         }
 
     }
+
+    @RequestMapping(value = "/checkCategoryExist", method = RequestMethod.POST)
+    public @ResponseBody String checkCategoryExist(@RequestParam String categoryName, HttpServletRequest request){
+            if(categoryService.checkCategoryNameExist(LoginController.getLoginUser(request).getUserId(),categoryName)){
+                return "failed";
+            }else {
+                return "success";
+            }
+    }
 }

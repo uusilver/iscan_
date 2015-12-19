@@ -4,6 +4,9 @@ import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.M_USER_PRODUCT_META;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.spi.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -13,6 +16,7 @@ import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by lijunying on 15/11/21.
@@ -21,6 +25,7 @@ import java.util.List;
 @Service("productService")
 public class ProductService {
 
+    Log log = LogFactory.getLog(ProductService.class);
     //创建产品信息
     public boolean createUserProducet(M_USER_PRODUCT_META productMeta){
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -220,5 +225,54 @@ public class ProductService {
             }
         }
         return true;
+    }
+
+    //检查产品名称是否存在
+    public boolean checkProductNameExist(Integer userId, String productName){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        boolean flag = false;
+        try {
+            String hql = "from M_USER_PRODUCT_META as M_USER_PRODUCT_META where M_USER_PRODUCT_META.user_id=:userId and M_USER_PRODUCT_META.product_name=:productName";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setString("productName", productName);
+            if(query.list().size()>0){
+                flag =  true;
+            }else{
+                flag = false;
+            }
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        } finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+        return  flag;
+    }
+
+    //检查产品批次是否存在
+    public boolean checkProductBatchExist(Integer userId, String productId, String batchNo){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        boolean flag = false;
+        try {
+            String hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id=:productId and M_USER_PRODUCT_ENTITY.relate_batch=:batchNo";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setString("productId", productId);
+            query.setString("batchNo", batchNo);
+            if(query.list().size()>0){
+                flag =  true;
+            }else{
+                flag = false;
+            }
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        } finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+        return  flag;
     }
 }

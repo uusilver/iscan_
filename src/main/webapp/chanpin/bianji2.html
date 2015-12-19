@@ -149,58 +149,44 @@
             var productName = $("#product_name").html();
             var productId = $("#product_id").html();
             var productBatch = $("#productBatch").val();
-//            var qr_number = $("#qrcode_amount").val();
-            //QRcode
-//            if(createFlag){
-                //在产品列表中更新纪录，并且创建二维码
-                $.ajax({
-                    url:'../chanpin/createNewProductBatch',
-                    type:"post",
-                    data:{
-                        productId:productId,
-                        batchNo:productBatch
-                    },
-                    success:function(data) {
-                        if (data) {
-                            if(confirm("批次创建成功，需要去查看么？")){
-                                window.location.href = "chanpin3.html?"+productId;
+            //检测批次号是否存在
 
-                            }else{
-                                window.history.back();
-                            }
-                        }
-                    }
-                })//end of ajax
+            $.post("../chanpin/checkProductBatchExist",{productId:productId, batchNo:productBatch},function(data){
+                if(data=="success"){
+                    //真正的创建产品批次号
+                    createBatchNo(productId, productBatch);
+                }else{
+                    alert("产品批次号重复，请检测");
+                    return false;
+                }
+            })
 
-//            }else{
-//                $.ajax({
-//                    url:'../chanpin/createNewBatchForOldProduct',
-//                    type:"post",
-//                    data:{
-//                        Id:id,
-//                        product_id:productId,
-//                        product_name:productName,
-//                        relate_batch:productBatch,
-////                        qrcode_total_no:qr_number,
-//                        product_category:product_category,
-//                        product_desc:product_desc
-//                    },
-//                    success:function(data) {
-//                        if (data == "success") {
-////                            window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
-//                            window.history.back();
-//                        }
-//                        else if(data="charge") {
-//                            alert("余额不足，请去充值");
-//                            window.location.href = "../zhanghao/code.html"
-//                        }else{
-//                            alert("操作失败!");
-//                        }
-//                    }
-//                })//end of ajax
-//            }
+
+
+//
         });
     });
+
+    function createBatchNo(productId, productBatch){
+        $.ajax({
+            url:'../chanpin/createNewProductBatch',
+            type:"post",
+            data:{
+                productId:productId,
+                batchNo:productBatch
+            },
+            success:function(data) {
+                if (data) {
+                    if(confirm("批次创建成功，需要去查看么？")){
+                        window.location.href = "chanpin3.html?"+productId;
+
+                    }else{
+                        window.history.back();
+                    }
+                }
+            }
+        })//end of ajax
+    }
 </script>
 </body>
 </html>   

@@ -104,6 +104,7 @@
 <script>
     $(function(){
         var id;
+        var originProductName;
         //加载dropdownlist
         $.get("../categoryController/queryCategory", function (data){
             var jsonData = JSON.parse(data);
@@ -117,6 +118,8 @@
         var prodcutId = window.location.href.split("?")[1];
         $.get("../chanpin/queryProductById/"+prodcutId, function(data) {
             var jsonData = JSON.parse(data);
+            //初始化产品名
+            originProductName = jsonData.product_name;
             $("#product_name").val(jsonData.product_name);
             $("#product_desc").val(jsonData.product_desc);
             $("#product_category").val(jsonData.product_category);
@@ -129,25 +132,21 @@
             var productName = $("#product_name").val();
             var productDesc = $("#product_desc").val();
             var category = $("#product_category").find("option:selected").text();
-            $.ajax({
-                url:'../chanpin/updateProductById',
-                type:"post",
-                data:{
-                    Id:id,
-                    product_id:prodcutId,
-                    product_name:productName,
-                    product_category:category,
-                    product_desc:productDesc
-                },
-                success:function(data) {
-                    if (data == "success") {
-                        window.history.back();
+            //产品名称未改变，直接提交修改
+            if(originProductName == productName){
+                realUpdateProductFunc(id, prodcutId, productName, category, productDesc);
+            }else{
+                //检测产品名是否重复
+                $.post("../chanpin/checkProductNameExisted",{productName:productName},function(data){
+                    if(data == "success"){
+                        realUpdateProductFunc(id, prodcutId, productName, category, productDesc);
+                    }else{
+                        alert("产品名已经存在，请更换");
+                        return false;
                     }
-                    else {
-                        alert("保存失败");
-                    }
-                }
-            })
+                })
+            }
+
 
         });
 
@@ -155,6 +154,28 @@
             window.history.back();
         })
     });
+
+    function realUpdateProductFunc(id, prodcutId, productName, category, productDesc){
+        $.ajax({
+            url:'../chanpin/updateProductById',
+            type:"post",
+            data:{
+                Id:id,
+                product_id:prodcutId,
+                product_name:productName,
+                product_category:category,
+                product_desc:productDesc
+            },
+            success:function(data) {
+                if (data == "success") {
+                    window.history.back();
+                }
+                else {
+                    alert("保存失败");
+                }
+            }
+        })//end of ajax call
+    }
 </script>
 
 </body>

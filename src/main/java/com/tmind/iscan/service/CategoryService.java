@@ -2,6 +2,8 @@ package com.tmind.iscan.service;
 
 import com.tmind.iscan.entity.M_USER_CATEGORY_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -15,6 +17,8 @@ import java.util.List;
 @SuppressWarnings("ALL")
 @Service("categoryService")
 public class CategoryService {
+
+    Log log = LogFactory.getLog(CategoryService.class);
 
     public boolean createCategory(M_USER_CATEGORY_ENTITY category){
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -92,5 +96,31 @@ public class CategoryService {
                 session.close();
             }
         }
+    }
+
+    //检测分类是否存在
+    public boolean checkCategoryNameExist(Integer userId, String categoryName){
+        boolean flag = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<M_USER_CATEGORY_ENTITY> list = null;
+        try{
+            String hql = "from M_USER_CATEGORY_ENTITY as M_USER_CATEGORY_ENTITY where M_USER_CATEGORY_ENTITY.user_id=:userId and M_USER_CATEGORY_ENTITY.category_name=:categoryName";
+            Query query = session.createQuery(hql);
+            query.setInteger("userId",userId);
+            query.setString("categoryName", categoryName);
+            if(query.list().size()>0){
+                flag = true;
+            }else{
+                flag = flag;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return flag;
+
     }
 }

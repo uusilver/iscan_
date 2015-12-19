@@ -31,7 +31,7 @@
         <div class="page-content">
 
             <div>
-                <form role="form" method="post" action="../categoryController/createCategory">
+                <form role="form" id="createCate" method="post" action="../categoryController/createCategory">
                     <div class="form-group">
                         <label for="name">栏目名称</label>
                         <input name="category_name" id="category_name" type="text" class="form-control" placeholder="输入分类名" required="true">
@@ -43,7 +43,7 @@
                         <!--<option>添加下级分类在栏目4</option>-->
                         <!--</select>-->
                     </div>
-                    <button type="submit" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">
+                    <button type="button" id="createCateBtn" class="button button-primary" style=" margin-top:10px;margin-bottom:10px;">
                         添加分类
                     </button>
                 </form>
@@ -101,6 +101,19 @@
                     }
                 })
             }
+        })
+
+        //提交表单
+        $("#createCateBtn").click(function(){
+            var categoryName = $("#category_name").val();
+            $.post("../categoryController/checkCategoryExist",{categoryName:categoryName},function(data){
+                if(data == "success"){
+                    $("#createCate").submit();
+                }else{
+                    alert("分类已经存在，请重新输入");
+                    return false;
+                }
+            })
         })
     });
 </script>

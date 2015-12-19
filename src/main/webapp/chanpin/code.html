@@ -180,9 +180,10 @@
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <button type="submit" class="button button-primary"
-                                style=" margin-top:10px;margin-bottom:10px;">提交
-                        </button>
+                        <button type="button" id="createProBtn" class="button button-primary">创建产品</button>
+                        <!--<button type="submit" class="button button-primary"-->
+                                <!--style=" margin-top:10px;margin-bottom:10px;">提交-->
+                        <!--</button>-->
                     </td>
                 </tr>
             </table>
@@ -246,7 +247,7 @@
         $("#tb_length").hide();
         $("#tb_filter").hide();
 
-        //bind click functions
+        //bind click functions 添加批次号
         $('.addBatch').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
             var batch_no =  $(this).parent().parent().find("td").eq(3).html();
@@ -287,8 +288,18 @@
 
         });
 
-        //bind click functions
-        $(".batch")
+        //提交创建产品表单
+        $("#createProBtn").click(function(){
+            var productName = $("#product_name").val();
+            $.post("../chanpin/checkProductNameExisted",{productName:productName},function(data){
+                if(data=="success"){
+                    $("#createPro").submit();
+                }else{
+                    alert("产品名已经存在，请更换");
+                    return false;
+                }
+            })
+        })
 
 
     });
