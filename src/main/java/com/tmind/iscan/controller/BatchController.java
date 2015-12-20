@@ -52,7 +52,7 @@ public class BatchController {
 
         List<String[]> lst = new ArrayList<String[]>();
         Integer userId = LoginController.getLoginUser(req).getUserId();
-        List<BatchQueryTo> batchModel = batchService.queryProductInfo(userId,searchType,searchContent);
+        List<BatchQueryTo> batchModel = batchService.queryProductInfo(userId,searchType,searchContent,iDisplayStart,iDisplayLength);
         for (int i = 0; i < batchModel.size(); i++) {
             List<M_USER_ADVICE_TEMPLATE> adviceTemplates = batchService.queryBatch(userId);
             //必须绑定了相关批次，才能在批次功能里面看到
@@ -75,7 +75,7 @@ public class BatchController {
 
         JSONObject getObj = new JSONObject();
         getObj.put("sEcho", sEcho);// 不知道这个值有什么用,有知道的请告知一下
-        getObj.put("iTotalRecords", lst.size());//实际的行数
+        getObj.put("iTotalRecords", batchService.getProductBatchTotalNo(userId,searchType, searchContent));//实际的行数
         getObj.put("iTotalDisplayRecords", lst.size());//显示的行数,这个要和上面写的一样
         try{
             if(!(lst.size()<iDisplayLength)){

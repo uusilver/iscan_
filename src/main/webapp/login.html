@@ -97,7 +97,7 @@
 
 											<div class="clearfix">
 												<label class="inline">
-													<input type="checkbox" class="ace" />
+													<input id="rememberMe" type="checkbox" class="ace" />
 													<span class="lbl"> 记住我登录</span>												</label>
 
 												<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
@@ -118,11 +118,11 @@
 											<i class="icon-arrow-left"></i>
 											忘记密码										</a>									</div>
 
-									<div>
-										<a href="#" onClick="show_box('signup-box'); return false;" class="user-signup-link">
-											注册用户名
-											<i class="icon-arrow-right"></i>										</a>									</div>
-								</div>
+									<!--<div>-->
+										<!--<a href="#" onClick="show_box('signup-box'); return false;" class="user-signup-link">-->
+											<!--注册用户名-->
+											<!--<i class="icon-arrow-right"></i>										</a>									</div>-->
+								<!--</div>-->
 							</div><!-- /widget-body -->
 						</div><!-- /login-box -->
 
@@ -235,9 +235,9 @@
 
 <!-- <![endif]-->
 
-<!--[if IE]>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<![endif]-->
+
+
+	<![endif]-->
 
 <!--[if !IE]> -->
 
@@ -265,5 +265,35 @@
 		jQuery('#'+id).addClass('visible');
 	}
 </script>
+	</div>
 </body>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script>
+
+	$(function(){
+		if($.cookie('absms_crm2_userName')!=undefined){
+			$("#rememberMe").attr("checked", true);
+		}else{
+			$("#rememberMe").attr("checked", false);
+		}
+
+		//读取cookie
+		if($('#rememberMe:checked').length>0){
+			$('#userName').val($.cookie('absms_crm2_userName'));
+			$('#password').val($.cookie('absms_crm2_password'));
+		}
+
+		//监听【记住我】事件
+		$("#rememberMe").click(function(){
+			if($('#rememberMe:checked').length>0){//设置cookie
+				$.cookie('absms_crm2_userName', $('#userName').val());
+				$.cookie('absms_crm2_password', $('#password').val());
+			}else{//清除cookie
+				$.removeCookie('absms_crm2_userName');
+				$.removeCookie('absms_crm2_password');
+			}
+		});
+	})
+</script>
 </html>

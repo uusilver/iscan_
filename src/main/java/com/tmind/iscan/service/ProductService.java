@@ -44,13 +44,15 @@ public class ProductService {
 
     //查询产品信息
 
-    public List<M_USER_PRODUCT_META> queryProductInfo(Integer userId){
+    public List<M_USER_PRODUCT_META> queryProductInfo(Integer userId, Integer firstRecord, Integer maxResult){
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<M_USER_PRODUCT_META> list = null;
         try {
             String hql = "from M_USER_PRODUCT_META as M_USER_PRODUCT_META where M_USER_PRODUCT_META.user_id=:userId order by M_USER_PRODUCT_META.update_time desc";//使用命名参数，推荐使用，易读。
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
+            query.setFirstResult(firstRecord);
+            query.setMaxResults(maxResult);
             list = query.list();
         }finally {
             if(session!=null){
@@ -58,6 +60,24 @@ public class ProductService {
             }
         }
         return list;
+    }
+
+    public Integer getProductMetaTotalNo(Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            String hql = "select count(M_USER_PRODUCT_META.id) from M_USER_PRODUCT_META as M_USER_PRODUCT_META where M_USER_PRODUCT_META.user_id=:userId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            return ((Number) query.iterate().next()).intValue();
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return 0;
     }
 
     //删除产品信息
