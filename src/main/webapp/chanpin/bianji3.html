@@ -142,7 +142,10 @@
             var productId = $("#product_id").html();
             var productBatch = $("#batch_no").html();
             var qr_number = $("#qrcode_amount").val();
-            //QRcode
+            if(parseInt(qr_number)>=65535){
+                alert("请输入少于65536条记录")
+            }else{
+                //QRcode
                 $.ajax({
                     url:'../chanpin/createQrcode',
                     type:"post",
@@ -165,6 +168,8 @@
                         }
                     }
                 })
+            }//end of for
+
         });
 
     });

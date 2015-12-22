@@ -1,9 +1,11 @@
 package com.tmind.iscan.service;
 
+import com.tmind.iscan.controller.LoginController;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.M_USER_PRODUCT_META;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
+import com.tmind.iscan.util.UniqueKeyGenerator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.spi.LoggerFactory;
@@ -194,17 +196,37 @@ public class ProductService {
         return true;
     }
 
-    public boolean createQrcode(M_USER_QRCODE_ENTITY qrcodeEntity){
+    public boolean createQrcode(M_USER_PRODUCT_ENTITY productEntityFake, Integer userId, String userType){
         Session session = HibernateUtil.getSessionFactory().openSession();
         try{
             Transaction tran=session.beginTransaction();
-            qrcodeEntity.setQuery_times(0);
-            qrcodeEntity.setActive_flag("Y");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            qrcodeEntity.setCreate_date(sdf.format(new Date()));
-            session.save(qrcodeEntity);
+            for(int i=0;i<Integer.valueOf(productEntityFake.getQrcode_total_no());i++){
+                M_USER_QRCODE_ENTITY m_user_qrcode_entity = new M_USER_QRCODE_ENTITY();
+                m_user_qrcode_entity.setUser_id(userId);
+                m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
+                m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
+                //绑定唯一码
+                String qrcodeQueryString = generateQRCodeString(userType, productEntityFake.getProduct_id(), userId);
+                m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
+                m_user_qrcode_entity.setQuery_match(qrcodeQueryString.split("\\?")[1]);
+                m_user_qrcode_entity.setIp_check_flag("N");
+                m_user_qrcode_entity.setQuery_times(0);
+                m_user_qrcode_entity.setActive_flag("Y");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                m_user_qrcode_entity.setCreate_date(sdf.format(new Date()));
+                session.save(m_user_qrcode_entity);
+                if( i % 50 == 0 ) { // Same as the JDBC batch size
+                    //flush a batch of inserts and release memory:
+                    session.flush();
+                    session.clear();
+                }
+            }
+
             tran.commit();
-        }finally {
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
             if(session!=null){
                 session.close();
             }
@@ -294,5 +316,13 @@ public class ProductService {
             }
         }
         return  flag;
+    }
+
+    private String generateQRCodeString(String userType, String productId, Integer userId){
+        //http://localhost:8080/iSearch/index.html?queryid=6ebe7af5-437c-4999-9a1c-84181089889b&uniqueCode=2059467068
+        //urlPrefix定义在User表中，用来代表用户的访问路径
+        String urlPrefix = userType.split(":")[1];
+        return "http://"+urlPrefix+".315kc.com:8080/m/r/y/i.htm?q="+productId+"&u="+ UniqueKeyGenerator.generateShortUuid()+userId;
+
     }
 }
