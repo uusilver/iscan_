@@ -157,4 +157,30 @@ public class BatchService {
         }
         return true;
     }
+
+    //根据ID查产品批次
+
+    public boolean queryBatchInfoByProductId(Integer userId, String productId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        boolean flag = false;
+        try {
+            String hql = "";
+            Query query = null;
+                hql = "from M_USER_PRODUCT_ENTITY as M_USER_PRODUCT_ENTITY where M_USER_PRODUCT_ENTITY.user_id=:userId and M_USER_PRODUCT_ENTITY.product_id =:productId";//使用命名参数，推荐使用，易读。
+                query = session.createQuery(hql);
+                query.setInteger("userId", userId);
+                query.setString("productId",productId);
+            if(query.list().size()>0){
+                flag = true;
+            }
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return flag;
+    }
 }

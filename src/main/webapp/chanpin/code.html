@@ -273,7 +273,15 @@
         //bind click functions
         $('.qrcode').on('click', function () {
             var productId = $(this).parent().parent().find("td:first-child").html();
-            window.location.href = "chanpin3.html?"+productId;
+            $.get("batchExistOrNot/"+productId,function(data){
+                if(data == "have"){
+                    window.location.href = "chanpin3.html?"+productId;
+                }else{
+                    alert("产品批次为空，请先创建产品批次");
+                    var pWin = window.open('bianji2.html?'+productId+'?new','_self');
+                }
+            })
+
 
         });
 
