@@ -10,6 +10,7 @@
     <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
    <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+	<script src="../js/jquery.js"></script>
    <style type="text/css">
     code {
       padding: 0px 4px;
@@ -31,21 +32,21 @@
 								<form class="form-horizontal" role="form" >
 									<div class="form-group">
 										    <label class="col-sm-3 " for="form-field-1">用户名:</label>
-											<input type="text" id="form-field-1" placeholder="用户名" class="col-xs-10 col-sm-5"  style="width:400px;"/>
+											<input type="text" id="username" placeholder="用户名" class="col-xs-10 col-sm-5"  style="width:400px;" readonly="true"/>
 									</div>
 
 									<div class="space-4"></div>
 
 									<div class="form-group">
 										<label class="col-sm-3" for="form-field-2">旧密码:</label>
-										<input type="password" id="form-field-2" placeholder="旧密码" class="col-xs-10 col-sm-5" style="width:400px;"/>
+										<input type="password" id="oldPass" placeholder="旧密码" class="col-xs-10 col-sm-5" style="width:400px;"/>
 
 									</div>
 
 									<div class="space-4"></div>
 									<div class="form-group">
 										<label class="col-sm-3" for="form-field-2">新密码:</label>
-											<input type="password" id="form-field-2" placeholder="新密码" class="col-xs-10 col-sm-5" style="width:400px;"/>
+											<input type="password" id="newPass" placeholder="新密码" class="col-xs-10 col-sm-5" style="width:400px;"/>
 
 									</div>
 
@@ -53,7 +54,7 @@
 <div class="form-group">
 										<label class="col-sm-3" for="form-field-2">邮&nbsp;&nbsp;&nbsp;箱:</label>
 
-											<input type="text" id="form-field-2" placeholder="邮箱" class="col-xs-10 col-sm-5" style="width:400px;"/>
+											<input type="text" id="mail" placeholder="邮箱" class="col-xs-10 col-sm-5" style="width:400px;"/>
 
 									</div>
 
@@ -64,22 +65,18 @@
 										<label class="col-sm-3" for="form-field-2">手机号:</label>
 
 
-											<input type="text" id="form-field-2" placeholder="手机号" class="col-xs-10 col-sm-5" style="width:400px;"/>
+											<input type="text" id="telno" placeholder="手机号" class="col-xs-10 col-sm-5" style="width:400px;"/>
 
 									</div>
 
 									<div class="clearfix form-actions" style="margin-top:20px;">
 										<div class="col-md-offset-3 col-md-9">
-											<button class="button button-primary" type="button">
+											<button class="button button-primary" id="update" type="button">
 											
 												提交
 											</button>
 
-											&nbsp; &nbsp; &nbsp;
-											<button class="button button-primary" type="reset">
-											
-												重置
-											</button>
+
 										</div>
 									</div>
 
@@ -98,5 +95,37 @@
 							</div><!-- /.col -->
 						</div>
    </div>
+ <script>
+	 $(function () {
+		 //load user info
+		 $.get("../zhanghao/queryUserInfo",function(data){
+			 var jsonData = JSON.parse(data);
+			  $("#username").val(jsonData.username);
+			  $("#mail").val(jsonData.user_email);
+			  $("#telno").val(jsonData.user_telno);
+
+		 })
+		 //update user info
+		 $("#update").click(function(){
+			 $.post("../zhanghao/updateUserInfo",
+					 {
+						 oldPass:$("#oldPass").val(),
+						 newPass:$("#newPass").val(),
+						 email:$("#mail").val(),
+						 telno:$("#telno").val()
+					 },
+			 function(data){
+					if(data=="wrongpass"){alert("原密码错误")}
+				 	if(data=="success"){
+						alert("更新成功");
+						window.location.reload();
+					}else{
+						alert("更新失败");
+					}
+			 });
+		 })
+
+	 });
+ </script>
 </body>
 </html>   

@@ -1,9 +1,12 @@
 package com.tmind.iscan.controller;
 
+import com.google.gson.Gson;
 import com.tmind.iscan.entity.M_USER_ACCOUNT;
 import com.tmind.iscan.entity.M_USER_ACCOUNT_OPT;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.service.UserAccountService;
+import com.tmind.iscan.util.SecurityUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -119,6 +122,49 @@ public class UserAccountController {
             e.printStackTrace();
         }
         return getObj.toString();
+    }
+
+
+    //获得用户基本信息
+    @RequestMapping(value="/queryUserInfo")
+    public @ResponseBody String queryUserInfo(HttpServletRequest request){
+        UserEntity userEntity = userAccountService.queryUserInfo(LoginController.getLoginUser(request).getUserId());
+        if(userEntity!=null){
+            return new Gson().toJson(userEntity);
+        }else{
+            return "failed";
+        }
+    }
+
+
+    //更新用户基本信息n
+    @RequestMapping(value="/updateUserInfo", method = RequestMethod.POST)
+    public @ResponseBody String updateUserInfo(@RequestParam String oldPass, @RequestParam String newPass, @RequestParam String email, @RequestParam String telno, HttpServletRequest request){
+        UserEntity userEntity = userAccountService.queryUserInfo(LoginController.getLoginUser(request).getUserId());
+        String result = null;
+        if(userEntity!=null){
+            //只是密码的修改
+            if(oldPass.length()!=0 && newPass.length()!=0){
+                if(!SecurityUtil.encodeWithMd5Hash(oldPass).equals(userEntity.getPassword())){
+                    result = "wrongpass";
+                }else{
+                    userEntity.setPassword(SecurityUtil.encodeWithMd5Hash(newPass));
+                    userEntity.setUser_email(email);
+                    userEntity.setUser_telno(telno);
+                    if(userAccountService.updateUserInfo(userEntity))
+                        result = "success";
+                }
+            }
+            else{
+                userEntity.setUser_email(email);
+                userEntity.setUser_telno(telno);
+                if(userAccountService.updateUserInfo(userEntity))
+                    result = "success";
+            }
+        }else{
+            result = "failed";
+        }
+        return result;
     }
 
     private String strLize(Object obj){

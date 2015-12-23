@@ -59,4 +59,23 @@ public class UserValidationService {
         }
         return entity;
     }
+
+    public UserEntity findUserEntityByUsername(String username, String email){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        UserEntity entity = null;
+        try{
+            Query q = session.createSQLQuery("select * from User where username = :username and user_email = :email").addEntity(UserEntity.class);
+            q.setString("username",username);
+            q.setString("email", email);
+            entity = (UserEntity)q.list().get(0);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return entity;
+    }
 }

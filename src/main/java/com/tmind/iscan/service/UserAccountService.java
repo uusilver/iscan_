@@ -3,6 +3,7 @@ package com.tmind.iscan.service;
 import com.tmind.iscan.entity.M_USER_ACCOUNT;
 import com.tmind.iscan.entity.M_USER_ACCOUNT_OPT;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.util.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -132,5 +133,41 @@ public class UserAccountService {
             }
         }
         return list;
+    }
+
+    public UserEntity queryUserInfo(Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        UserEntity user = null;
+        try {
+            String hql = "from UserEntity as UserEntity where UserEntity.Id=:userId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            user = (UserEntity)query.list().get(0);
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return user;
+    }
+
+    //为用户更新
+    public boolean updateUserInfo(UserEntity userEntity){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tran = session.beginTransaction();
+        try{
+            session.update(userEntity);
+            tran.commit();
+            return true;
+        }catch (Exception e ){
+            tran.rollback();
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if(session!=null){
+                session.close();
+
+            }
+        }
     }
 }
