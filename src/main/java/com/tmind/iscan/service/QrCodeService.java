@@ -1,9 +1,14 @@
 package com.tmind.iscan.service;
 
+import com.tmind.iscan.controller.QRcodeExportController;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
+import com.tmind.iscan.entity.M_USER_PRODUCT_META;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
 import com.tmind.iscan.util.HibernateUtil;
 import com.tmind.iscan.util.IPAnalyzer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.spi.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +23,7 @@ import java.util.List;
 @Service("qrCodeService")
 public class QrCodeService {
 
+    Log log = LogFactory.getLog(QrCodeService.class);
     public List<M_USER_QRCODE_ENTITY> queryQrCode(Integer userId, String procutId, String batchId){
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<M_USER_QRCODE_ENTITY> list = null;
@@ -96,5 +102,42 @@ public class QrCodeService {
             }
         }
 
+    }
+    //查询用户下全部的二维码 分页
+    public List<M_USER_QRCODE_ENTITY> queryAllQrcodetInfo(Integer userId, Integer firstRecord, Integer maxResult){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<M_USER_QRCODE_ENTITY> list = null;
+        try {
+            String hql = "from M_USER_QRCODE_ENTITY as M_USER_QRCODE_ENTITY where M_USER_QRCODE_ENTITY.user_id=:userId and M_USER_QRCODE_ENTITY.query_times>0";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            query.setFirstResult(firstRecord);
+            query.setMaxResults(maxResult);
+            list = query.list();
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return list;
+    }
+
+    //统计用户下全部二维码的总条数
+    public Integer getQrcodeTotalNo(Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            String hql = "select count(M_USER_QRCODE_ENTITY .id) from M_USER_QRCODE_ENTITY as M_USER_QRCODE_ENTITY where M_USER_QRCODE_ENTITY.user_id=:userId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            return ((Number) query.iterate().next()).intValue();
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return 0;
     }
 }

@@ -12,6 +12,8 @@
     <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
     <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css"/>
     <link href="../main/css/jquery.dataTables.css" type="text/css" rel="stylesheet">
+    <link href="../css/showLoading.css" type="text/css" rel="stylesheet">
+
 
 
     <link href="../umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
@@ -21,6 +23,7 @@
     <script type="text/javascript" src="../umeditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript" src="../js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="../js/data.table.translation.js"></script>
+    <script type="text/javascript" src="../js/jquery.showLoading.min.js"></script>
 
     <style type="text/css">
         code {
@@ -142,9 +145,8 @@
             var productId = $("#product_id").html();
             var productBatch = $("#batch_no").html();
             var qr_number = $("#qrcode_amount").val();
-            if(parseInt(qr_number)>=65535){
-                alert("请输入少于65536条记录")
-            }else{
+
+                $(".container").showLoading();
                 //QRcode
                 $.ajax({
                     url:'../chanpin/createQrcode',
@@ -156,19 +158,22 @@
                         qrcode_total_no:qr_number,
                     },
                     success:function(data) {
+                        $(".container").hideLoading();
                         if (data == "success") {
                             window.open("../qrcode/qr-export.html?"+productId+"="+productBatch);
                             window.history.back();
                         }
-                        else if(data="charge") {
+                        else if(data=="charge") {
                             alert("余额不足，请去充值");
                             window.location.href = "../zhanghao/code.html"
-                        }else{
-                            alert("操作失败!");
+                        }else if(data=="limit"){
+                            alert("您一次只可以生成10000以内的二维码，如需提升权限请联系管理员");
+                        }else if(data=="vip"){
+                            alert("您的二维码已生成，请联系管理员导出!");
                         }
                     }
                 })
-            }//end of for
+
 
         });
 
