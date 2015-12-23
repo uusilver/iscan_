@@ -48,7 +48,6 @@ public class LoginController {
     public String login(@ModelAttribute("user") UserTo userTo,
                         HttpServletRequest req, HttpServletResponse response) {
 
-        log.info("当前登陆:"+userTo.toString());
         UserEntity userEntity = userValidation.findUserEntity(userTo.getUsername(), userTo.getPassword());
         if (userEntity.getId()>0) {
                 userTo.setUserId(userEntity.getId());
