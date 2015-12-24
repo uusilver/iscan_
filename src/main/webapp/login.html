@@ -80,7 +80,7 @@
 
                                     <div class="space-6"></div>
 
-                                    <form method="post" action="login?weblogin">
+                                    <form id="loginForm" method="post" action="login?weblogin">
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -96,6 +96,17 @@
 															<i class="icon-lock"></i>														</span>
                                             </label>
 
+                                            <!-- 验证码-->
+                                            <!--<label class="block clearfix">-->
+														<!--<span class="block input-icon input-icon-right">-->
+															<!--<input name="j_code" type="text"placeholder="验证码" id="j_code" maxlength="4" class="form-control" />-->
+															<!--<br/>-->
+                                                               <!--<img id="imgObj" alt="验证码" src="login/code" />-->
+                                                               <!--<a href="#" id="changeJcode" onclick="changeImg()">看不清?换一张</a>-->
+                                                               <!--<span id="jcodeMsg"></span>-->
+                                                        <!--</span>-->
+                                            <!--</label>-->
+
                                             <div class="space"></div>
 
                                             <div class="clearfix">
@@ -103,7 +114,7 @@
                                                     <input id="rememberMe" type="checkbox" class="ace"/>
                                                     <span class="lbl"> 记住我登录</span> </label>
 
-                                                <button type="submit"
+                                                <button type="submit" id="loginIn"
                                                         class="width-35 pull-right btn btn-sm btn-primary">
                                                     <i class="icon-key"></i>
                                                     登陆
@@ -307,6 +318,23 @@
 <script>
 
     $(function () {
+        //登陆
+        $("#loginIn").click(function(){
+            $.post("login/validateJCode",{jCode:$("#j_code").val()},function(data){
+                if(data=="success"){
+                    $("#loginForm").submit();
+                }else{
+                    //显示错误信息
+                    $("#jcodeMsg").html("<span color='red'>验证码错误</span>");
+                    //清空
+                    $("#j_code").val();
+                    //重新生成
+                    $("#changeJcode").trigger('click');
+
+                }
+            })
+        });
+
         if ($.cookie('absms_crm2_userName') != undefined) {
             $("#rememberMe").attr("checked", true);
         } else {
@@ -344,6 +372,26 @@
                 }
             )
         });
-    })
+    });
+
+
+        //改变验证码
+        function changeImg() {
+            var imgSrc = $("#imgObj");
+            var src = imgSrc.attr("src");
+            imgSrc.attr("src", chgUrl(src));
+        }
+        //时间戳
+        //为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳
+        function chgUrl(url) {
+            var timestamp = (new Date()).valueOf();
+            url = url.substring(0, 17);
+            if ((url.indexOf("&") >= 0)) {
+                url = url + "×tamp=" + timestamp;
+            } else {
+                url = url + "?timestamp=" + timestamp;
+            }
+            return url;
+        }
 </script>
 </html>
