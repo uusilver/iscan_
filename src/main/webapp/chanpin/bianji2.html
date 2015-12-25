@@ -95,6 +95,16 @@
                                 <input name="textfield" id="productBatch" type="text" required value="">
                             </label></td>
                         </tr>
+                        <tr style="border:1px solid #CCCCCC;">
+                            <td style="border:1px solid #CCCCCC;text-align:center;">批次动态参数</td>
+                            <td><label>
+                                 <ul id="selectedParams">
+
+                                 </ul>
+                                 <br/>
+                                 <select id="params"></select><button id="addParams" class='icon-plus-mini'></button>
+                            </label></td>
+                        </tr>
                         <!--<tr style="border:1px solid #CCCCCC;">-->
                             <!--<td style="border:1px solid #CCCCCC;text-align:center;">品牌码数量</td>-->
                             <!--<td>-->
@@ -125,6 +135,55 @@
 </div>
 <script>
     $(function(){
+        //加载用户选择参数列表
+        var paramsContainer = [];
+        //获得用户的参数列表
+        $.get("../chanpin/loadUserParams",function(data){
+            var data4Loop = JSON.parse(data);
+            var html = ""
+            for(var i=0;i<data4Loop.length;i++){
+                html+="<option value='"+data4Loop[i].param_key+"'>"+data4Loop[i].param_value+"</option>>";
+
+            }
+           $("#params").html(html);
+        });
+        //用户点击添加参数按钮
+        $("#addParams").click(function(){
+            var selectParamText = $("#params option:selected").text();
+            var selectParamVal = $("#params option:selected").val();
+            var flag = true;
+            for(var i=0;i<paramsContainer.length;i++){
+                if(selectParamVal == paramsContainer[i]){
+                    flag = false;
+                    alert("您已经添加过该标签，不可重复添加");
+                    break;
+                }
+            }
+            if(flag){
+                if(selectParamVal=="sl"){
+                    $("#selectedParams").append("<li value='"+selectParamVal+"'>"+selectParamText+"<input type='text' id='sellArthor' placeholder='经销商名称'/><a class='deleParam'>删除</a></li>")
+                    paramsContainer.push(selectParamVal);
+                }else{
+                    $("#selectedParams").append("<li value='"+selectParamVal+"'>"+selectParamText+"<a class='deleParam'>删除</a></li>")
+                    paramsContainer.push(selectParamVal);
+                }
+
+            }
+
+        });
+        //删除参数
+        $("body").on('click','.deleParam',function(){
+            var deleteParam = $(this).parent().attr("value");
+            var tempParamContainer = [];
+            for(var i=0;i<paramsContainer.length;i++){
+                if(deleteParam != paramsContainer[i]){
+                    tempParamContainer.push(paramsContainer[i]);
+                }
+            }
+            //重新建立新的参数容器
+            paramsContainer = tempParamContainer;
+           $(this).parent().remove();
+        });
         //初始化页面
         var prodcutId = window.location.href.split("?")[1];
         var newFlag = window.location.href.split("?")[2];
@@ -149,12 +208,13 @@
             var productName = $("#product_name").html();
             var productId = $("#product_id").html();
             var productBatch = $("#productBatch").val();
+            var sellArthor = $("#sellArthor").val();
             //检测批次号是否存在
 
             $.post("../chanpin/checkProductBatchExist",{productId:productId, batchNo:productBatch},function(data){
                 if(data=="success"){
                     //真正的创建产品批次号
-                    createBatchNo(productId, productBatch);
+                    createBatchNo(productId, productBatch,paramsContainer, sellArthor);
                 }else{
                     alert("产品批次号重复，请检测");
                     return false;
@@ -167,13 +227,15 @@
         });
     });
 
-    function createBatchNo(productId, productBatch){
+    function createBatchNo(productId, productBatch, batchParams, sellArthor){
         $.ajax({
             url:'../chanpin/createNewProductBatch',
             type:"post",
             data:{
                 productId:productId,
-                batchNo:productBatch
+                batchNo:productBatch,
+                batchParams:JSON.stringify(batchParams),
+                sellArthor:sellArthor
             },
             success:function(data) {
                 if (data) {

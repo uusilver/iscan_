@@ -1,6 +1,7 @@
 package com.tmind.iscan.service;
 
 import com.tmind.iscan.controller.LoginController;
+import com.tmind.iscan.entity.M_USER_PARAMS_ENTITY;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.M_USER_PRODUCT_META;
 import com.tmind.iscan.entity.M_USER_QRCODE_ENTITY;
@@ -316,6 +317,27 @@ public class ProductService {
             }
         }
         return  flag;
+    }
+
+    //
+    //获得用户的参数
+    public List<M_USER_PARAMS_ENTITY> loadUserParams(Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<M_USER_PARAMS_ENTITY> list = null;
+        try {
+            String hql = "from M_USER_PARAMS_ENTITY as M_USER_PARAMS_ENTITY where M_USER_PARAMS_ENTITY.user_id=:userId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            list = query.list();
+
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        } finally{
+            if(session!=null){
+                session.close();
+            }
+        }
+        return  list;
     }
 
     private String generateQRCodeString(String userType, String productId, Integer userId){

@@ -92,7 +92,7 @@ public class UserAccountController {
 
         // 生成20条测试数据
         List<String[]> lst = new ArrayList<String[]>();
-        List<M_USER_ACCOUNT_OPT> list = userAccountService.queryUserOpt(LoginController.getLoginUser(req).getUserId());
+        List<M_USER_ACCOUNT_OPT> list = userAccountService.queryUserOpt(LoginController.getLoginUser(req).getUserId(),iDisplayStart,iDisplayLength );
         for (int i = 0; i < list.size(); i++) {
 
             String[] d = {
@@ -111,16 +111,11 @@ public class UserAccountController {
         JSONObject getObj = new JSONObject();
         getObj.put("sEcho", sEcho);// 不知道这个值有什么用,有知道的请告知一下
         getObj.put("iTotalRecords", lst.size());//实际的行数
-        getObj.put("iTotalDisplayRecords", lst.size());//显示的行数,这个要和上面写的一样
-        try{
-            if(!(lst.size()<iDisplayLength)){
-                lst.subList(iDisplayStart,iDisplayStart+iDisplayLength);
-            }
-            getObj.put("aaData", lst);//要以JSON格式返回
+        getObj.put("iTotalDisplayRecords", userAccountService.getUserOptTotalNo(LoginController.getLoginUser(req).getUserId()));//显示的行数,这个要和上面写的一样
 
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        getObj.put("aaData", lst);//要以JSON格式返回
+
+
         return getObj.toString();
     }
 

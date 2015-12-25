@@ -77,15 +77,7 @@ public class BatchController {
         getObj.put("sEcho", sEcho);// 不知道这个值有什么用,有知道的请告知一下
         getObj.put("iTotalRecords", batchService.getProductBatchTotalNo(userId,searchType, searchContent));//实际的行数
         getObj.put("iTotalDisplayRecords", lst.size());//显示的行数,这个要和上面写的一样
-        try{
-            if(!(lst.size()<iDisplayLength)){
-                lst.subList(iDisplayStart,iDisplayStart+iDisplayLength);
-            }
-            getObj.put("aaData", lst);//要以JSON格式返回
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        getObj.put("aaData", lst);//要以JSON格式返回
         return getObj.toString();
     }
 

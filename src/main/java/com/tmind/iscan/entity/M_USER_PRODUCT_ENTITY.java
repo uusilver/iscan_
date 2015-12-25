@@ -24,6 +24,10 @@ public class M_USER_PRODUCT_ENTITY {
     private String update_time;
     @Column(name="advice_temp")
     private String advice_temp;
+    @Column(name="batch_params")
+    private String batch_params;
+    @Column(name="sellArthor")
+    private String sellArthor;
 
 
     public Integer getId() {
@@ -80,5 +84,21 @@ public class M_USER_PRODUCT_ENTITY {
 
     public void setAdvice_temp(String advice_temp) {
         this.advice_temp = advice_temp;
+    }
+
+    public String getBatch_params() {
+        return batch_params;
+    }
+
+    public void setBatch_params(String batch_params) {
+        this.batch_params = batch_params;
+    }
+
+    public String getSellArthor() {
+        return sellArthor;
+    }
+
+    public void setSellArthor(String sellArthor) {
+        this.sellArthor = sellArthor;
     }
 }

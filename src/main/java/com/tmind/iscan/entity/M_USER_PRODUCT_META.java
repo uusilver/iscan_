@@ -30,6 +30,7 @@ public class M_USER_PRODUCT_META {
     private String advice_temp;
 
 
+
     public Integer getId() {
         return Id;
     }
@@ -101,4 +102,5 @@ public class M_USER_PRODUCT_META {
     public void setAdvice_temp(String advice_temp) {
         this.advice_temp = advice_temp;
     }
+
 }

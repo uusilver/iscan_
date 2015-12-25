@@ -5,6 +5,8 @@ import com.tmind.iscan.entity.M_USER_ACCOUNT_OPT;
 import com.tmind.iscan.entity.M_USER_PRODUCT_ENTITY;
 import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.util.HibernateUtil;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,6 +21,7 @@ import java.util.List;
 @Service("userAccountService")
 public class UserAccountService {
 
+    Log log = LogFactory.getLog(UserAccountService.class);
     //查询用户余额是否能够满足打印标签的需求
     //创建产品信息
     public boolean judgeCanPrintQrCodeOrNot(Integer printQrcodeNo, Integer userId){
@@ -119,13 +122,15 @@ public class UserAccountService {
         }
     }
 
-    public List<M_USER_ACCOUNT_OPT> queryUserOpt(Integer userId){
+    public List<M_USER_ACCOUNT_OPT> queryUserOpt(Integer userId, Integer firstRecord, Integer maxResult){
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<M_USER_ACCOUNT_OPT> list = null;
         try {
             String hql = "from M_USER_ACCOUNT_OPT as M_USER_ACCOUNT_OPT where M_USER_ACCOUNT_OPT.user_id=:userId";//使用命名参数，推荐使用，易读。
             Query query = session.createQuery(hql);
             query.setInteger("userId", userId);
+            query.setFirstResult(firstRecord);
+            query.setMaxResults(maxResult);
             list = query.list();
         }finally {
             if(session!=null){
@@ -133,6 +138,25 @@ public class UserAccountService {
             }
         }
         return list;
+    }
+
+    //获得总行数
+    public Integer getUserOptTotalNo(Integer userId){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            String hql = "select count(M_USER_ACCOUNT_OPT.id) from M_USER_ACCOUNT_OPT as M_USER_ACCOUNT_OPT where M_USER_ACCOUNT_OPT.user_id=:userId";//使用命名参数，推荐使用，易读。
+            Query query = session.createQuery(hql);
+            query.setInteger("userId", userId);
+            return ((Number) query.iterate().next()).intValue();
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return 0;
     }
 
     public UserEntity queryUserInfo(Integer userId){

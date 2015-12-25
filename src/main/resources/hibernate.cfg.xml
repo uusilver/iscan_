@@ -37,6 +37,7 @@
         <mapping class="com.tmind.iscan.entity.M_USER_ADVICE_TEMPLATE" />
         <mapping class="com.tmind.iscan.entity.M_USER_ACCOUNT_OPT" />
         <mapping class="com.tmind.iscan.entity.M_PRODUCT_SHOW_INFO" />
+        <mapping class="com.tmind.iscan.entity.M_USER_PARAMS_ENTITY" />
 
 
 
