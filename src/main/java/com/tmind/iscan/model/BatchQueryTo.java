@@ -11,6 +11,8 @@ public class BatchQueryTo {
     private String batchNo;
     private Integer qrTotalNo;
     private String updateTime;
+    private String params;
+    private String sellArthor;
 
     public String getProductId() {
         return productId;
@@ -66,5 +68,21 @@ public class BatchQueryTo {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getParams() {
+        return params;
+    }
+
+    public void setParams(String params) {
+        this.params = params;
+    }
+
+    public String getSellArthor() {
+        return sellArthor;
+    }
+
+    public void setSellArthor(String sellArthor) {
+        this.sellArthor = sellArthor;
     }
 }

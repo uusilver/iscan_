@@ -65,6 +65,7 @@ public class BatchController {
                         strLize(batchModel.get(i).getBatchNo()),
                         strLize(batchModel.get(i).getQrTotalNo()),
                         strLize(batchModel.get(i).getUpdateTime()),
+                        strLize(getBatchParams(batchModel.get(i).getParams(),batchModel.get(i).getSellArthor())),
                         "<button class=\"export\">导出旧品牌码</button><button class=\"qrcode\">创建新品牌码</button><button class=\"delete\">删除</button>"
                 };
 
@@ -108,5 +109,27 @@ public class BatchController {
         }
         sb.append("</select>");
         return sb.toString();
+    }
+
+    private String getBatchParams(String params, String sellArthor){
+        String paramsPool[] = params.split(",");
+        StringBuilder sb = new StringBuilder();
+        for (String s : paramsPool) {
+            //添加更多标签的时候这里需要修改
+            //TODO 改成从数据库动态查询
+            if (s.equals("ud")) {
+                sb.append("参数:产品生产时间,<br/>");
+            }
+            if (s.equals("sl")) {
+                sb.append("参数:产品指定经销商:" + sellArthor + ",<br/>");
+            }
+            if (s.equals("lqd")) {
+                sb.append("参数:上次查询时间"+",<br/>");
+
+            }
+        }
+            String orgStr = sb.toString();
+            String newStr = orgStr.substring(0, orgStr.length()-6);
+            return  newStr;
     }
 }

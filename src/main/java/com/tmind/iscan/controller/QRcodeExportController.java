@@ -124,7 +124,7 @@ public class QRcodeExportController {
         list4PrintModel.add(new QrCodeExportModel("二维码地址","唯一识别码"));
         //真正的数据
         for(M_USER_QRCODE_ENTITY entityModel:list){
-            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQr_query_string().split("=")[2]));
+            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQuery_match()));
         }
 
         return list4PrintModel;
@@ -138,7 +138,7 @@ public class QRcodeExportController {
         list4PrintModel.add(new QrCodeExportModel("二维码地址","唯一识别码"));
         //真正的数据
         for(M_USER_QRCODE_ENTITY entityModel:list){
-            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQr_query_string().split("=")[2]));
+            list4PrintModel.add(new QrCodeExportModel(entityModel.getQr_query_string(),entityModel.getQuery_match()));
         }
 
         return list4PrintModel;

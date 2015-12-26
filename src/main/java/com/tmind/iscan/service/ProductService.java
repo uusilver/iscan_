@@ -207,7 +207,7 @@ public class ProductService {
                 m_user_qrcode_entity.setProduct_id(productEntityFake.getProduct_id());
                 m_user_qrcode_entity.setProduct_batch(productEntityFake.getRelate_batch());
                 //绑定唯一码
-                String qrcodeQueryString = generateQRCodeString(userType, productEntityFake.getProduct_id(), userId);
+                String qrcodeQueryString = generateQRCodeString(userType);
                 m_user_qrcode_entity.setQr_query_string(qrcodeQueryString);
                 m_user_qrcode_entity.setQuery_match(qrcodeQueryString.split("\\?")[1]);
                 m_user_qrcode_entity.setIp_check_flag("N");
@@ -340,11 +340,11 @@ public class ProductService {
         return  list;
     }
 
-    private String generateQRCodeString(String userType, String productId, Integer userId){
+    private String generateQRCodeString(String userType){
         //http://localhost:8080/iSearch/index.html?queryid=6ebe7af5-437c-4999-9a1c-84181089889b&uniqueCode=2059467068
         //urlPrefix定义在User表中，用来代表用户的访问路径
         String urlPrefix = userType.split(":")[1];
-        return "http://"+urlPrefix+".315kc.com:8080/m/r/y/i.htm?q="+productId+"&u="+ UniqueKeyGenerator.generateShortUuid()+userId;
+        return "http://"+urlPrefix+".315kc.com:8080/m/r/y/i.htm?"+System.currentTimeMillis()+ UniqueKeyGenerator.generateShortUuid();
 
     }
 }

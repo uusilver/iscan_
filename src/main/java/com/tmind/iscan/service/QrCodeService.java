@@ -13,6 +13,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import sun.org.mozilla.javascript.internal.EcmaError;
 
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class QrCodeService {
             query.setString("productId",procutId);
             query.executeUpdate();
             trans.commit();
+        }catch (Exception e){
+            log.warn(e.getMessage());
         }finally {
             if(session!=null){
                 session.close();
@@ -59,7 +62,10 @@ public class QrCodeService {
             query.setString("productId",procutId);
             query.setString("batchId",batchId);
             list = query.list();
-        }finally {
+        }catch (Exception e){
+            log.warn(e.getMessage());
+        }
+        finally {
             if(session!=null){
                 session.close();
             }
