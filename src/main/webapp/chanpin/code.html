@@ -303,6 +303,10 @@
         //提交创建产品表单
         $("#createProBtn").click(function(){
             var productName = $("#product_name").val();
+            if(!productName){
+                alert("产品名称不能为空");
+                return false;
+            }
             $.post("../chanpin/checkProductNameExisted",{productName:productName},function(data){
                 if(data=="success"){
                     $("#createPro").submit();

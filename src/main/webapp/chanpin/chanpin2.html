@@ -106,6 +106,10 @@
         //提交表单
         $("#createCateBtn").click(function(){
             var categoryName = $("#category_name").val();
+            if(!categoryName){
+                alert("产品分类不能为空");
+                return false;
+            }
             $.post("../categoryController/checkCategoryExist",{categoryName:categoryName},function(data){
                 if(data == "success"){
                     $("#createCate").submit();

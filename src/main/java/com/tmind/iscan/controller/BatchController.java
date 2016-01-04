@@ -128,8 +128,13 @@ public class BatchController {
 
             }
         }
+            String newStr = null;
             String orgStr = sb.toString();
-            String newStr = orgStr.substring(0, orgStr.length()-6);
+            if(orgStr.length()>6){
+                 newStr = orgStr.substring(0, orgStr.length()-6);
+            }else{
+                newStr = orgStr;
+            }
             return  newStr;
     }
 }

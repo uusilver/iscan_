@@ -210,7 +210,13 @@
             var productBatch = $("#productBatch").val();
             var sellArthor = $("#sellArthor").val();
             //检测批次号是否存在
-
+            if(!productBatch){
+                alert("产品批次号不能为空");
+                return false;
+            }
+            if(!sellArthor){
+                sellArthor = "";
+            }
             $.post("../chanpin/checkProductBatchExist",{productId:productId, batchNo:productBatch},function(data){
                 if(data=="success"){
                     //真正的创建产品批次号
