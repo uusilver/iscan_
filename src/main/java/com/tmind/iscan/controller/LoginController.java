@@ -1,6 +1,7 @@
 package com.tmind.iscan.controller;
 
 import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
+import com.tmind.iscan.entity.AgentUser;
 import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.model.UserTo;
 import com.tmind.iscan.service.UserAccountService;
@@ -27,10 +28,8 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by lijunying on 15/11/13.
@@ -63,11 +62,16 @@ public class LoginController {
     private UserAccountService userAccountService;
 
     @RequestMapping(params = "weblogin")
-    public String login(@ModelAttribute("user") UserTo userTo,
+    public ModelAndView login(@ModelAttribute("user") UserTo userTo,
                         HttpServletRequest req, HttpServletResponse response) {
-
         UserEntity userEntity = userValidation.findUserEntity(userTo.getUsername(), userTo.getPassword());
-        if (userEntity.getId()>0) {
+        Map<String,Object> model = new HashMap<String,Object>();
+        if(userEntity!=null) {
+            if (userEntity.getActive_flag() == 0) {
+                model.put("error", "用户被暂停，请联系您的代理商");
+                return new ModelAndView("fail", model);
+
+            } else {
                 userTo.setUserId(userEntity.getId());
                 userTo.setQuery_qrcode_table(userEntity.getQuery_qrcode_table());
                 userTo.setUser_type(userEntity.getUser_type());
@@ -76,9 +80,22 @@ public class LoginController {
                 userTo.setUser_factory_address(userEntity.getUser_factory_address());
                 userTo.setUser_contact_person_name(userEntity.getUser_contact_person_name());
                 req.getSession().setAttribute("userInSession", userTo);
-                return "index";
+                return new ModelAndView("index", model);
+            }
+        }else {
+            model.put("error", "用户名或密码错误");
+            return new ModelAndView("fail", model);
+
         }
-        return "login?1";
+    }
+
+    @RequestMapping(params = "agencyLogin")
+    public String agencyLogin(@ModelAttribute("user") UserTo userTo,
+                        HttpServletRequest req, HttpServletResponse response) {
+        AgentUser user = userValidation.findAgentUserInDatabase(userTo.getUsername(),userTo.getPassword());
+        userTo.setUserId(user.getId());
+        req.getSession().setAttribute("userInSession", userTo);
+        return "agency/index";
     }
 
     @RequestMapping(value="getNewPass")
