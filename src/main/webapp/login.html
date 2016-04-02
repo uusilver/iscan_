@@ -4,10 +4,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>用户登录注册-查查看</title>
+    <title>用户登录注册-快查</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
-    <meta name="keywords" content="用户登录注册-查查看"/>
-    <meta name="description" content="用户登录注册-查查看"/>
+    <meta name="keywords" content="用户登录注册-3•15快查" />
+    <meta name="description" content="用户登录注册-3•15快查" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!-- basic styles -->
@@ -45,8 +45,13 @@
         $(function () {
             var url = window.location.url;
             var tag = url.split("?")[1];
-            if (tag) {
+            alert("13");
+            if (tag == "1") {
                 alert("用户名，密码错误，请检查");
+            }
+
+            if (tag == "2") {
+                alert("用户被暂停，请联系您的代理商");
             }
         });
     </script>
@@ -63,9 +68,9 @@
                     <div class="center">
                         <h1>
                             <i class="icon-qrcode white"></i>
-                            <span class="red">查查看</span>
-                            <span class="white">315CCK.COM</span></h1>
-                        <h4 class="blue">&copy; 查查看信息技术有限公司</h4>
+                            <span class="red">3•15快查</span>
+                            <span class="white">315KC.COM</span></h1>
+                        <h4 class="blue">&copy; 快查信息大数据处理云平台</h4>
                     </div>
 
                     <div class="space-6"></div>
