@@ -340,11 +340,23 @@ public class ProductService {
         return  list;
     }
 
+    /*
+        @see: user表中的user_type
+     */
     private String generateQRCodeString(String userType){
         //http://localhost:8080/iSearch/index.html?queryid=6ebe7af5-437c-4999-9a1c-84181089889b&uniqueCode=2059467068
         //urlPrefix定义在User表中，用来代表用户的访问路径
         String urlPrefix = userType.split(":")[1];
-        return "http://"+urlPrefix+".315kc.com:8080/m/r/y/i.htm?"+System.currentTimeMillis()+ UniqueKeyGenerator.generateShortUuid();
+        //urlTemplate定义在User表中，用来代表用户的访问的模版路径
+        /*
+                User 表中的user_type 字段
+                A类:a:y
+                第一标示用户级别是，第二个表示生成的URL以字母a开始，如a.315kc.com
+                第三个表示，用户的访问模版:y代表柚子，j代表酒，t代表桃子
+                未来要拓展
+         */
+        String userTemplatePrefix = userType.split(":")[2];
+        return "http://"+urlPrefix+".315kc.com/m/r/"+userTemplatePrefix+"/i.htm?"+System.currentTimeMillis()+ UniqueKeyGenerator.generateShortUuid();
 
     }
 }

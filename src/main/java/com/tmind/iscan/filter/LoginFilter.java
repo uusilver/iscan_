@@ -35,7 +35,7 @@ public class LoginFilter implements Filter {
         response.setHeader("Content-Language", "zh-CN");
         response.setHeader("Content-Type", "text/html;charset=UTF-8");
         String path = request.getRequestURI();
-        if (path.indexOf("/login") > -1 || path.endsWith(".css")
+        if (path.indexOf("/agency-login") > -1  ||path.indexOf("/login") > -1 || path.endsWith(".css")
                 || path.endsWith(".js") || path.endsWith(".woff")
                 || path.endsWith(".png") || path.endsWith(".jpg") || path.indexOf("rest") > -1) {
             chain.doFilter(servletRequest, servletResponse);

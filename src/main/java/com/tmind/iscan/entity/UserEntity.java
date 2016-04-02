@@ -35,6 +35,14 @@ public class UserEntity {
     private String user_factory_address;
     @Column(name="user_contact_person_name")
     private String user_contact_person_name;
+    @Column(name="active_flag")
+    private Integer active_flag;
+    @Column(name="agency_id")
+    private Integer agency_id;
+    @Column(name="create_date")
+    private String create_date;
+    @Column(name="expire_date")
+    private String expire_date;
 
     public Integer getId() {
         return Id;
@@ -111,6 +119,38 @@ public class UserEntity {
         this.user_contact_person_name = user_contact_person_name;
     }
 
+    public Integer getActive_flag() {
+        return active_flag;
+    }
+
+    public void setActive_flag(Integer active_flag) {
+        this.active_flag = active_flag;
+    }
+
+    public Integer getAgency_id() {
+        return agency_id;
+    }
+
+    public void setAgency_id(Integer agency_id) {
+        this.agency_id = agency_id;
+    }
+
+    public String getExpire_date() {
+        return expire_date;
+    }
+
+    public void setExpire_date(String expire_date) {
+        this.expire_date = expire_date;
+    }
+
+    public String getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(String create_date) {
+        this.create_date = create_date;
+    }
+
     @Override
     public String toString() {
         return "UserEntity{" +
@@ -124,6 +164,7 @@ public class UserEntity {
                 ", user_factory_name='" + user_factory_name + '\'' +
                 ", user_factory_address='" + user_factory_address + '\'' +
                 ", user_contact_person_name='" + user_contact_person_name + '\'' +
+                ", active_flag='" + active_flag + '\'' +
                 '}';
     }
 }

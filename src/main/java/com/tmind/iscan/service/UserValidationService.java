@@ -1,5 +1,6 @@
 package com.tmind.iscan.service;
 
+import com.tmind.iscan.entity.AgentUser;
 import com.tmind.iscan.entity.UserEntity;
 import com.tmind.iscan.util.HibernateUtil;
 import com.tmind.iscan.util.SecurityUtil;
@@ -40,6 +41,27 @@ public class UserValidationService {
         return id;
     }
 
+    public AgentUser findAgentUserInDatabase(String username, String password){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<AgentUser> list = null;
+        try{
+            Query q = session.createSQLQuery("select * from agency_user where username = :username and password = :password").addEntity(AgentUser.class);
+            q.setString("username",username);
+            q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
+            list = q.list();
+            log.info("用户登陆成功:"+username);
+            return  ((AgentUser)list.get(0));
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session!=null){
+                session.close();
+            }
+        }
+        return null;
+    }
+
     public UserEntity findUserEntity(String username, String password){
         Session session = HibernateUtil.getSessionFactory().openSession();
         UserEntity entity = null;
@@ -47,9 +69,10 @@ public class UserValidationService {
             Query q = session.createSQLQuery("select * from User where username = :username and password = :password").addEntity(UserEntity.class);
             q.setString("username",username);
             q.setString("password", SecurityUtil.encodeWithMd5Hash(password));
-            entity = (UserEntity)q.list().get(0);
-            log.info("用户登陆成功:"+username);
-
+            if(q.list().size()>0){
+                entity = (UserEntity)q.list().get(0);
+                log.info("用户登陆成功:"+username);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
