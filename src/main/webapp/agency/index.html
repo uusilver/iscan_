@@ -1,0 +1,121 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page session="false" %>
+<html>
+ <head>
+  <title>【315快查】代理商管理平台</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <link href="assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+  <link href="assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+   <link href="assets/css/main-min.css" rel="stylesheet" type="text/css" />
+ </head>
+ <body>
+
+  <div class="header">
+    
+      <div class="dl-title">
+        <a href="index.html" title="315快查代理商管理平台" >
+          <span class="lp-title-port">3•15快查-代理商管理平台</span>
+        </a>
+      </div>
+
+    <div class="dl-log">欢迎您，<span class="dl-log-user">代理商：admin</span><a href="###" title="退出系统" class="dl-log-quit">[退出]</a>
+    </div>
+  </div>
+   <div class="content">
+    <div class="dl-main-nav">
+      <div class="dl-inform"><div class="dl-inform-title">3•15快查贴心小秘书<s class="dl-inform-icon dl-up"></s></div></div>
+      <ul id="J_Nav"  class="nav-list ks-clear">
+        <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-order">会员企业管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-inventory">账户管理</div></li>
+        <li class="nav-item"><div class="nav-item-inner nav-supplier">统计管理</div></li>
+
+      </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-conten">
+
+    </ul>
+   </div>
+  <script type="text/javascript" src="assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="./assets/js/bui.js"></script>
+  <script type="text/javascript" src="./assets/js/config.js"></script>
+
+  <script>
+    BUI.use('common/main',function(){
+      var config = [{
+          id:'menu', 
+          homePage : 'code',
+          menu:[{
+              text:'快捷导航操作',
+              items:[
+                {id:'code',text:'代理欢迎页',href:'main/code.html',closeable : false},
+                {id:'main-menu',text:'会员企业管理',href:'agency/huiyuan/code.html'}
+//                {id:'dyna-menu',text:'财务管理',href:'zhanghao/zhanghao2.html'}
+              ]
+            }
+//              ,{
+//              text:'账号管理',
+//              items:[
+//                {id:'operation',text:'基本信息管理',href:'zhanghao/zhanghao3.html'},
+//                {id:'quick',text:'账号信息管理',href:'zhanghao/zhanghao4.html'}
+//              ]
+//            },{
+//              text:'统计管理',
+//              items:[
+//                {id:'loader',text:'溯源防伪监控',href:'tongji/code.html'}
+//              ]
+//            }
+          ]
+          },{
+            id:'huiyuan',
+			homePage : 'code',
+            menu:[{
+                text:'会员企业管理',
+                items:[
+                  {id:'code',text:'会员企业管理',href:'huiyuan/code.html'},
+                
+                ]
+              }]
+          },{
+            id:'zhanghao',
+			homePage : 'code',
+            menu:[{
+                text:'账户管理',
+                items:[
+                  {id:'code',text:'余额充值/兑换',href:'zhanghao/code.html'},
+                  {id:'example',text:'财务详细管理',href:'zhanghao/zhanghao2.html'},
+                  {id:'example-dialog',text:'企业信息管理',href:'zhanghao/zhanghao3.html'},
+                  {id:'introduce',text:'账号信息管理',href:'zhanghao/zhanghao4.html'}, 
+                  {id:'config',text:'站内短消息管理',href:'zhanghao/zhanghao5.html'}
+                ]
+              }]
+          },{
+            id:'tongji',
+			homePage : 'code',
+            menu:[{
+                text:'统计管理',
+                items:[
+                  {id:'code',text:'品牌防伪监控',href:'tongji/code.html'},
+                  {id:'introduce',text:'在线留言管理',href:'tongji/tongji3.html'}
+                ]
+              }]
+          },{
+            id : 'wuliao',
+			homePage : 'code',
+            menu : [{
+              text : '模板管理',
+              items:[
+                  {id:'code',text:'标签模板管理',href:'wuliao/code.html'},
+                  {id:'line',text:'标签订单管理',href:'wuliao/wuliao2.html'}, 
+              ]
+            }]
+          }];
+      new PageUtil.MainPage({
+        modulesConfig : config
+      });
+    });
+  </script>
+
+</body>
+</html>
