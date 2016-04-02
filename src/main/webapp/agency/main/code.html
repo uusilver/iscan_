@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <title>3•15快查-代理商欢迎页</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+       <link href="../assets/css/dpl-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/bui-min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/page-min.css" rel="stylesheet" type="text/css" />   <!-- 下面的样式，仅是为了显示代码，而不应该在项目中使用-->
+   <link href="../assets/css/prettify.css" rel="stylesheet" type="text/css" />
+   <style type="text/css">
+    code {
+      padding: 0px 4px;
+      color: #d14;
+      background-color: #f7f7f9;
+      border: 1px solid #e1e1e8;
+    }
+   </style>
+   <link href="css/style.css" rel="stylesheet" type="text/css" />
+
+ </head>
+<script src='js/ichart.latest.min.js'></script>
+<script type='text/javascript'>
+$(function(){
+      var chart = iChart.create({
+            render:"ichart-render",
+            width:1003,
+            height:400,
+            background_color:"#fefefe",
+            gradient:false,
+            color_factor:0.2,
+            border:{
+                  color:"#e6e6e6",
+                  width:1
+            },
+            align:"center",
+            offsetx:0,
+            offsety:0,
+            sub_option:{
+                  border:{
+                        color:"#BCBCBC",
+                        width:1
+                  },
+                  label:{
+                        fontweight:500,
+                        fontsize:11,
+                        color:"#4572a7",
+                        sign:"square",
+                        sign_size:12,
+                        border:{
+                              color:"#BCBCBC",
+                              width:1
+                        },
+                        background_color:"#fefefe"
+                  }
+            },
+            shadow:true,
+            shadow_color:"#666666",
+            shadow_blur:2,
+            showpercent:false,
+            column_width:"70%",
+            bar_height:"70%",
+            radius:"90%",
+            title:{
+                  text:"品牌码生产前十企业统计",
+                  color:"#111111",
+                  fontsize:20,
+                  font:"微软雅黑",
+                  textAlign:"center",
+                  height:30,
+                  offsetx:0,
+                  offsety:0
+            },
+            subtitle:{
+                  text:"",
+                  color:"#111111",
+                  fontsize:16,
+                  font:"微软雅黑",
+                  textAlign:"center",
+                  height:20,
+                  offsetx:0,
+                  offsety:0
+            },
+            footnote:{
+                  text:"3•15快查信息技术支持",
+                  color:"#111111",
+                  fontsize:12,
+                  font:"微软雅黑",
+                  textAlign:"right",
+                  height:20,
+                  offsetx:0,
+                  offsety:0
+            },
+            legend:{
+                  enable:false,
+                  background_color:"#fefefe",
+                  color:"#333333",
+                  fontsize:12,
+                  border:{
+                        color:"#BCBCBC",
+                        width:1
+                  },
+                  column:1,
+                  align:"right",
+                  valign:"center",
+                  offsetx:0,
+                  offsety:0
+            },
+            coordinate:{
+                  width:"80%",
+                  height:"84%",
+                  background_color:"#ffffff",
+                  axis:{
+                        color:"#a5acb8",
+                        width:[1,"",1,""]
+                  },
+                  grid_color:"#d9d9d9",
+                  label:{
+                        fontweight:500,
+                        color:"#666666",
+                        fontsize:11
+                  }
+            },
+            label:{
+                  fontweight:500,
+                  color:"#666666",
+                  fontsize:11
+            },
+            type:"column2d",
+            data:[
+                  {
+                  name:"北京",
+                  value:20,
+                  color:"#4572a7"
+            },{
+                  name:"上海",
+                  value:30,
+                  color:"#aa4643"
+            },{
+                  name:"广东",
+                  value:40,
+                  color:"#89a54e"
+            },{
+                  name:"江苏",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"湖北",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"河南",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"山东",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"安徽",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"四川",
+                  value:10,
+                  color:"#4572a7"
+            },{
+                  name:"山西",
+                  value:10,
+                  color:"#4572a7"
+            }
+            ]
+      });
+      chart.draw();
+});
+</script>
+ <body>
+  
+    
+    <div class="container">
+     
+    
+    <div>
+    <div class="welinfo">
+    <span><img src="images/sun.png" alt="天气" /></span>
+    <b>尊敬的代理商：daili001早上好，3•15快查品牌营销-防伪溯源系统 (v1.0).&nbsp;站内短消息：服务器于2015年9月1日安全维护.<a href="#">查看详情</a> </b>
+    </div>
+    
+    <div class="welinfo">
+    <span><img src="images/time.png" alt="时间" /></span>
+    <i>系统统计：当前代理账户品牌码授权余额：5000枚。总计名下会员数：300名，总计名下会员产品数：300个，总计管理品牌码数10,0000枚。</i>
+    </div>
+    
+    <div class="xline"></div>
+    
+    
+    
+   
+    
+    <div class="xline"></div>
+    <div class="box"></div>
+    
+    
+    
+    <div class="xline"></div>
+  
+    <div id='ichart-render' style=" float:left; margin-top:10px; clear:both;"></div>
+
+   
+    
+    </div>
+     
+    </div>
+  <script type="text/javascript" src="../assets/js/jquery-1.8.1.min.js"></script>
+  <script type="text/javascript" src="../assets/js/bui-min.js"></script>
+  <script type="text/javascript" src="../assets/js/config-min.js"></script>
+  <script type="text/javascript">
+    BUI.use('common/page');
+  </script>
+  <!-- 仅仅为了显示代码使用，不要在项目中引入使用-->
+  <script type="text/javascript" src="../assets/js/prettify.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      prettyPrint();
+    });
+  </script>  
+
+</body>
+</html>   
